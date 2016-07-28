@@ -1,0 +1,20 @@
+LISTE INCOMPLETE! A COMPLETER AU FUR ET A MESURE.
+
+Créer procédures:
+ - fin de partie() : verifier si position pion entre 0 et 7 ou entre 54 et 63. SI Oui, MsgBox "Joueur nom_joueur a gagné!!"
+ - vérif_deplacement() : rajouter un label pour stocker la couleur active (celle de la dernière case jouée). Si deplacement OK, appeler depose_tour, sinon msgbox "Vous devez jouer la tour de couleur => label.color
+
+Gérer Drag and Drop:(gestion classique : comme le picasso ou le lapin_cretin (pour la gestion des picturebox))
+ - clic_souris
+ - survol
+ - depose_tour
+
+Méthodes : 
+Pour le joueur :
+ - affectation du nom
+ - gestion du nombre de points
+ - gestion du timer? Avec un int (exp : 600 pour 10 min. A l'afichage, on gère une division : min = total/60 : sec = total%60. A chaque tick du timer, on faitg total--)
+
+Pour le pion :
+ - modification de la position
+

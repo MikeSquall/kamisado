@@ -47,5 +47,10 @@ namespace kamisado
             game.ShowDialog();
             this.Visible = true;
         }
+
+        private void btn_quitGame_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

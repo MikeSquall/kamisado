@@ -77,6 +77,7 @@
             this.btn_quitGame.Size = new System.Drawing.Size(150, 50);
             this.btn_quitGame.TabIndex = 0;
             this.btn_quitGame.TabStop = false;
+            this.btn_quitGame.Click += new System.EventHandler(this.btn_quitGame_Click);
             // 
             // btn_simpleGame
             // 
