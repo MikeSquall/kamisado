@@ -37,11 +37,15 @@ namespace kamisado
 
         private void btn_newGame_Click(object sender, EventArgs e)
         {
-            btn_newGame.Visible = false;
-            btn_loadGame.Visible = false;
-            btn_quitGame.Visible = false;
-            btn_simpleGame.Visible = true;
-            btn_complexGame.Visible = true;
+            //btn_newGame.Visible = false;
+            //btn_loadGame.Visible = false;
+            //btn_quitGame.Visible = false;
+            //btn_simpleGame.Visible = true;
+            //btn_complexGame.Visible = true;
+            this.Visible = false;
+            Partie game = new Partie();
+            game.ShowDialog();
+            this.Visible = true;
         }
     }
 }

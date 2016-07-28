@@ -18,3 +18,5 @@ D:\kamisado\obj\Debug\kamisado.Accueil.resources
 D:\kamisado\obj\Debug\kamisado.Partie.resources
 D:\kamisado\obj\Debug\kamisado.Properties.Resources.resources
 D:\kamisado\obj\Debug\kamisado.csproj.GenerateResource.Cache
+D:\kamisado\obj\Debug\kamisado.ChoixTypePartie.resources
+D:\kamisado\obj\Debug\kamisado.nomJoueurs.resources
