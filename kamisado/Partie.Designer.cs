@@ -55,8 +55,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(946, 581);
+            this.BackgroundImage = global::kamisado.Properties.Resources.fond;
+            this.ClientSize = new System.Drawing.Size(1020, 681);
             this.Controls.Add(this.fond_board);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Partie";
             this.Text = "Kamisado";
             this.Load += new System.EventHandler(this.Form1_Load);

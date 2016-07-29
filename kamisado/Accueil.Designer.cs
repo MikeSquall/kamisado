@@ -48,10 +48,10 @@
             this.boutonsList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("boutonsList.ImageStream")));
             this.boutonsList.TransparentColor = System.Drawing.Color.Transparent;
             this.boutonsList.Images.SetKeyName(0, "btn-newGame.png");
-            this.boutonsList.Images.SetKeyName(1, "btn-loadGame.jpg");
-            this.boutonsList.Images.SetKeyName(2, "btn-quitGame.jpg");
-            this.boutonsList.Images.SetKeyName(3, "btn-simpleGame.jpg");
-            this.boutonsList.Images.SetKeyName(4, "btn-complexGame.jpg");
+            this.boutonsList.Images.SetKeyName(1, "btn-loadGame.png");
+            this.boutonsList.Images.SetKeyName(2, "btn-quitGame.png");
+            this.boutonsList.Images.SetKeyName(3, "btn-simpleGame.png");
+            this.boutonsList.Images.SetKeyName(4, "btn-complexGame.png");
             // 
             // btn_newGame
             // 
@@ -99,12 +99,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::kamisado.Properties.Resources.fond;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(660, 392);
             this.Controls.Add(this.btn_complexGame);
             this.Controls.Add(this.btn_quitGame);
             this.Controls.Add(this.btn_simpleGame);
             this.Controls.Add(this.btn_loadGame);
             this.Controls.Add(this.btn_newGame);
+            this.DoubleBuffered = true;
             this.Name = "Accueil";
             this.Text = "Accueil";
             this.Load += new System.EventHandler(this.Accueil_Load);
