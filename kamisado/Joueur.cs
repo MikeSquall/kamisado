@@ -13,9 +13,26 @@ namespace kamisado
         private int compteurPoints;
         // ajouter timer ==> voir comment faire
 
-        public Joueur()
+        public Joueur(String s, int n)
         {
+            this.nom = s;
+            this.couleurPions = n;
+            this.compteurPoints = 0;
+        }
 
+        public String getNom()
+        {
+            return this.nom;
+        }
+
+        public int getPoints()
+        {
+            return this.compteurPoints;
+        }
+
+        public void setPoints()
+        {
+            this.compteurPoints++;
         }
     }
 }

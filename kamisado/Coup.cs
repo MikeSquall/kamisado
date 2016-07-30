@@ -13,9 +13,17 @@ namespace kamisado
         private Case arrivee;
         private Joueur joueurActif;
 
-        public Coup()
+        public Coup(Joueur j, Pion p, Case d, Case a)
         {
+            this.joueurActif = j;
+            this.pionDeplace = p;
+            this.depart = d;
+            this.arrivee = a;
+        }
 
+        public String afficheCoup()
+        {
+            return joueurActif.getNom() + " a joué sa tour " + pionDeplace.getCouleurPion() + " sur une case " + arrivee.toString();
         }
     }
 }

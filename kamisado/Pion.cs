@@ -35,10 +35,39 @@ namespace kamisado
             return this.equipe;
         }
 
-        public int getCouleurPion()
+        public String getCouleurPion()
         {
-            return this.couleurPion;
+            String color = "";
+            switch (this.couleurPion)
+            {
+                case 0:
+                    color = "Orange";
+                    break;
+                case 1:
+                    color = "Bleue";
+                    break;
+                case 2:
+                    color = "Violette";
+                    break;
+                case 3:
+                    color = "Rose";
+                    break;
+                case 4:
+                    color = "Jaune";
+                    break;
+                case 5:
+                    color = "Rouge";
+                    break;
+                case 6:
+                    color = "Vert";
+                    break;
+                case 7:
+                    color = "Marron";
+                    break;
+            }
+            return color;
         }
+    
 
         public Case getPosition()
         {
