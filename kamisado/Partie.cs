@@ -28,7 +28,9 @@ namespace kamisado
         private void Form1_Load(object sender, EventArgs e)
         {
             int ligne = 0,
-                colonne = 0;
+                colonne = 0,
+                index_list = 0;
+                
             board.BringToFront();
             for (int n = 0; n < 64; n++)
             {
@@ -44,7 +46,21 @@ namespace kamisado
                 tmp.Location = new Point(colonne, ligne);
                 //tmp.BorderStyle = BorderStyle.FixedSingle;
                 //tmp.Text = Convert.ToString(n); // sert aux tests de génération du plateau
-                
+
+                if (n<8 || n>55)
+                {
+                    PictureBox pic = new PictureBox();
+                    pic.Visible = true;
+                    pic.Size = new Size(45, 45);
+                    board.Controls.Add(pic);
+                    pic.Location = new Point(colonne + 2, ligne + 2);
+                    pic.BringToFront();
+                    pic.BackColor = Color.Transparent;
+                    pic.Image = imageList1.Images[index_list];
+                    index_list++;
+                }
+
+
                 if (casesOrange.Contains(n))
                 {
                     tmp.BackColor = Color.Orange;
