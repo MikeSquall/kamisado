@@ -29,5 +29,35 @@ namespace kamisado
             String message = "";
             return message;
         }
+
+        public int getEquipe()
+        {
+            return this.equipe;
+        }
+
+        public int getCouleurPion()
+        {
+            return this.couleurPion;
+        }
+
+        public Case getPosition()
+        {
+            return this.position;
+        }
+
+        public void setPosition(Case c)
+        {
+            this.position = c;
+        }
+
+        public int getPouvoir()
+        {
+            return this.pouvoir;
+        }
+
+        public void setPouvoir(int n)
+        {
+            this.pouvoir = n;
+        }
     }   
 }
