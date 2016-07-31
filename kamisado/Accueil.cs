@@ -45,12 +45,13 @@ namespace kamisado
             //btn_simpleGame.Visible = true;
             //btn_complexGame.Visible = true;
             //this.Visible = false;
-            //Partie game = new Partie();
-            //game.ShowDialog();
+            
             ChoixTypePartie choix = new ChoixTypePartie();
             choix.ShowDialog();
             this.Visible = true;
-            MessageBox.Show("j1 = " + nomJ1 + " // j2 = " + nomJ2, "test");
+            //MessageBox.Show("j1 = " + nomJ1 + " // j2 = " + nomJ2, "test");
+            Partie game = new Partie();
+            game.ShowDialog();
         }
 
         private void btn_quitGame_Click(object sender, EventArgs e)

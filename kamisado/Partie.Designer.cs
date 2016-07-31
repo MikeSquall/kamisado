@@ -36,7 +36,21 @@
             this.infoboxJ1 = new System.Windows.Forms.Panel();
             this.infoboxJ2 = new System.Windows.Forms.Panel();
             this.listeCoups = new System.Windows.Forms.TextBox();
+            this.nomJoueur1 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.scoreJ1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tempsJ1 = new System.Windows.Forms.Label();
+            this.tempsJ2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.scoreJ2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nomJoueur2 = new System.Windows.Forms.Label();
             this.fond_board.SuspendLayout();
+            this.infoboxJ1.SuspendLayout();
+            this.infoboxJ2.SuspendLayout();
             this.SuspendLayout();
             // 
             // board
@@ -81,6 +95,12 @@
             // infoboxJ1
             // 
             this.infoboxJ1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.infoboxJ1.Controls.Add(this.tempsJ1);
+            this.infoboxJ1.Controls.Add(this.label2);
+            this.infoboxJ1.Controls.Add(this.label3);
+            this.infoboxJ1.Controls.Add(this.scoreJ1);
+            this.infoboxJ1.Controls.Add(this.label1);
+            this.infoboxJ1.Controls.Add(this.nomJoueur1);
             this.infoboxJ1.Location = new System.Drawing.Point(652, 63);
             this.infoboxJ1.Name = "infoboxJ1";
             this.infoboxJ1.Size = new System.Drawing.Size(295, 58);
@@ -89,6 +109,12 @@
             // infoboxJ2
             // 
             this.infoboxJ2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.infoboxJ2.Controls.Add(this.tempsJ2);
+            this.infoboxJ2.Controls.Add(this.label5);
+            this.infoboxJ2.Controls.Add(this.label6);
+            this.infoboxJ2.Controls.Add(this.scoreJ2);
+            this.infoboxJ2.Controls.Add(this.label8);
+            this.infoboxJ2.Controls.Add(this.nomJoueur2);
             this.infoboxJ2.Location = new System.Drawing.Point(652, 139);
             this.infoboxJ2.Name = "infoboxJ2";
             this.infoboxJ2.Size = new System.Drawing.Size(295, 58);
@@ -102,6 +128,114 @@
             this.listeCoups.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.listeCoups.Size = new System.Drawing.Size(295, 300);
             this.listeCoups.TabIndex = 3;
+            // 
+            // nomJoueur1
+            // 
+            this.nomJoueur1.AutoSize = true;
+            this.nomJoueur1.Location = new System.Drawing.Point(17, 7);
+            this.nomJoueur1.Name = "nomJoueur1";
+            this.nomJoueur1.Size = new System.Drawing.Size(38, 13);
+            this.nomJoueur1.TabIndex = 0;
+            this.nomJoueur1.Text = "nomJ1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(130, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(19, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "-->";
+            // 
+            // scoreJ1
+            // 
+            this.scoreJ1.AutoSize = true;
+            this.scoreJ1.Location = new System.Drawing.Point(204, 7);
+            this.scoreJ1.Name = "scoreJ1";
+            this.scoreJ1.Size = new System.Drawing.Size(44, 13);
+            this.scoreJ1.TabIndex = 2;
+            this.scoreJ1.Text = "scoreJ1";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(130, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(19, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "-->";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Temps restant";
+            // 
+            // tempsJ1
+            // 
+            this.tempsJ1.AutoSize = true;
+            this.tempsJ1.Location = new System.Drawing.Point(204, 31);
+            this.tempsJ1.Name = "tempsJ1";
+            this.tempsJ1.Size = new System.Drawing.Size(40, 13);
+            this.tempsJ1.TabIndex = 5;
+            this.tempsJ1.Text = "timeleft";
+            // 
+            // tempsJ2
+            // 
+            this.tempsJ2.AutoSize = true;
+            this.tempsJ2.Location = new System.Drawing.Point(204, 33);
+            this.tempsJ2.Name = "tempsJ2";
+            this.tempsJ2.Size = new System.Drawing.Size(40, 13);
+            this.tempsJ2.TabIndex = 11;
+            this.tempsJ2.Text = "timeleft";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(130, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(19, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "-->";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 33);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Temps restant";
+            // 
+            // scoreJ2
+            // 
+            this.scoreJ2.AutoSize = true;
+            this.scoreJ2.Location = new System.Drawing.Point(204, 9);
+            this.scoreJ2.Name = "scoreJ2";
+            this.scoreJ2.Size = new System.Drawing.Size(44, 13);
+            this.scoreJ2.TabIndex = 8;
+            this.scoreJ2.Text = "scoreJ2";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(130, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(19, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "-->";
+            // 
+            // nomJoueur2
+            // 
+            this.nomJoueur2.AutoSize = true;
+            this.nomJoueur2.Location = new System.Drawing.Point(17, 9);
+            this.nomJoueur2.Name = "nomJoueur2";
+            this.nomJoueur2.Size = new System.Drawing.Size(38, 13);
+            this.nomJoueur2.TabIndex = 6;
+            this.nomJoueur2.Text = "nomJ2";
             // 
             // Partie
             // 
@@ -118,6 +252,10 @@
             this.Text = "Kamisado";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.fond_board.ResumeLayout(false);
+            this.infoboxJ1.ResumeLayout(false);
+            this.infoboxJ1.PerformLayout();
+            this.infoboxJ2.ResumeLayout(false);
+            this.infoboxJ2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +269,18 @@
         private System.Windows.Forms.Panel infoboxJ1;
         private System.Windows.Forms.Panel infoboxJ2;
         private System.Windows.Forms.TextBox listeCoups;
+        private System.Windows.Forms.Label tempsJ1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label scoreJ1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label nomJoueur1;
+        private System.Windows.Forms.Label tempsJ2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label scoreJ2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label nomJoueur2;
     }
 }
 

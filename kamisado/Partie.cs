@@ -23,6 +23,10 @@ namespace kamisado
         public Partie()
         {
             InitializeComponent();
+            this.nomJoueur1.Text = Accueil.nomJ1;
+            this.nomJoueur2.Text = Accueil.nomJ2;
+            this.scoreJ1.Text = "0 Point";
+            this.scoreJ2.Text = "0 Point";
         }
         
         private void Form1_Load(object sender, EventArgs e)
