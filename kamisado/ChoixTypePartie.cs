@@ -16,5 +16,13 @@ namespace kamisado
         {
             InitializeComponent();
         }
+        
+        private void btnJ1J2_Click(object sender, EventArgs e)
+        {
+            nomsJoueurs joueur1 = new nomsJoueurs();
+            nomsJoueurs joueur2 = new nomsJoueurs();
+            joueur1.ShowDialog();
+            this.Hide();
+        }
     }
 }

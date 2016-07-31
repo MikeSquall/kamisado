@@ -33,6 +33,9 @@
             this.board = new System.Windows.Forms.Panel();
             this.fond_board = new System.Windows.Forms.Panel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.infoboxJ1 = new System.Windows.Forms.Panel();
+            this.infoboxJ2 = new System.Windows.Forms.Panel();
+            this.listeCoups = new System.Windows.Forms.TextBox();
             this.fond_board.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,12 +78,40 @@
             this.imageList1.Images.SetKeyName(14, "62.png");
             this.imageList1.Images.SetKeyName(15, "63.png");
             // 
+            // infoboxJ1
+            // 
+            this.infoboxJ1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.infoboxJ1.Location = new System.Drawing.Point(652, 63);
+            this.infoboxJ1.Name = "infoboxJ1";
+            this.infoboxJ1.Size = new System.Drawing.Size(295, 58);
+            this.infoboxJ1.TabIndex = 1;
+            // 
+            // infoboxJ2
+            // 
+            this.infoboxJ2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.infoboxJ2.Location = new System.Drawing.Point(652, 139);
+            this.infoboxJ2.Name = "infoboxJ2";
+            this.infoboxJ2.Size = new System.Drawing.Size(295, 58);
+            this.infoboxJ2.TabIndex = 2;
+            // 
+            // listeCoups
+            // 
+            this.listeCoups.Location = new System.Drawing.Point(652, 219);
+            this.listeCoups.Multiline = true;
+            this.listeCoups.Name = "listeCoups";
+            this.listeCoups.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.listeCoups.Size = new System.Drawing.Size(295, 300);
+            this.listeCoups.TabIndex = 3;
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.ClientSize = new System.Drawing.Size(1020, 681);
+            this.Controls.Add(this.listeCoups);
+            this.Controls.Add(this.infoboxJ2);
+            this.Controls.Add(this.infoboxJ1);
             this.Controls.Add(this.fond_board);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Partie";
@@ -88,6 +119,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.fond_board.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -96,6 +128,9 @@
         private System.Windows.Forms.Panel board;
         private System.Windows.Forms.Panel fond_board;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Panel infoboxJ1;
+        private System.Windows.Forms.Panel infoboxJ2;
+        private System.Windows.Forms.TextBox listeCoups;
     }
 }
 

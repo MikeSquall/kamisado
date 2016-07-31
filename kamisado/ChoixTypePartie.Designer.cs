@@ -40,6 +40,7 @@
             this.btnJ1J2.TabIndex = 0;
             this.btnJ1J2.Text = "J1 vs J2";
             this.btnJ1J2.UseVisualStyleBackColor = true;
+            this.btnJ1J2.Click += new System.EventHandler(this.btnJ1J2_Click);
             // 
             // btnJ1CPU
             // 

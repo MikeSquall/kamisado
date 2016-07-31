@@ -12,6 +12,8 @@ namespace kamisado
 {
     public partial class Accueil : Form
     {
+        internal static string nomJ1, nomJ2;
+
         public Accueil()
         {
             InitializeComponent();
@@ -42,10 +44,13 @@ namespace kamisado
             //btn_quitGame.Visible = false;
             //btn_simpleGame.Visible = true;
             //btn_complexGame.Visible = true;
-            this.Visible = false;
-            Partie game = new Partie();
-            game.ShowDialog();
+            //this.Visible = false;
+            //Partie game = new Partie();
+            //game.ShowDialog();
+            ChoixTypePartie choix = new ChoixTypePartie();
+            choix.ShowDialog();
             this.Visible = true;
+            MessageBox.Show("j1 = " + nomJ1 + " // j2 = " + nomJ2, "test");
         }
 
         private void btn_quitGame_Click(object sender, EventArgs e)
