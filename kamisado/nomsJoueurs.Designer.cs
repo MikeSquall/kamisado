@@ -56,7 +56,7 @@
             this.valideNomJoueur.Location = new System.Drawing.Point(120, 126);
             this.valideNomJoueur.Name = "valideNomJoueur";
             this.valideNomJoueur.Size = new System.Drawing.Size(165, 23);
-            this.valideNomJoueur.TabIndex = 2;
+            this.valideNomJoueur.TabIndex = 3;
             this.valideNomJoueur.Text = "Valider";
             this.valideNomJoueur.UseVisualStyleBackColor = true;
             this.valideNomJoueur.Click += new System.EventHandler(this.valideNomJoueur_Click);
@@ -66,7 +66,7 @@
             this.nomJoueur2.Location = new System.Drawing.Point(147, 73);
             this.nomJoueur2.Name = "nomJoueur2";
             this.nomJoueur2.Size = new System.Drawing.Size(187, 20);
-            this.nomJoueur2.TabIndex = 4;
+            this.nomJoueur2.TabIndex = 2;
             // 
             // label2
             // 

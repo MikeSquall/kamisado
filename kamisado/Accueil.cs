@@ -48,10 +48,12 @@ namespace kamisado
             
             ChoixTypePartie choix = new ChoixTypePartie();
             choix.ShowDialog();
+            choix.StartPosition = FormStartPosition.CenterScreen;
             this.Visible = true;
             //MessageBox.Show("j1 = " + nomJ1 + " // j2 = " + nomJ2, "test");
             Partie game = new Partie();
             game.ShowDialog();
+            game.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void btn_quitGame_Click(object sender, EventArgs e)

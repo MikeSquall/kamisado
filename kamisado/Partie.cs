@@ -27,6 +27,10 @@ namespace kamisado
             this.nomJoueur2.Text = Accueil.nomJ2;
             this.scoreJ1.Text = "0 Point";
             this.scoreJ2.Text = "0 Point";
+            this.chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+            this.chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+            //timerJ1.Enabled = true;
+            //timerJ2.Enabled = true;
         }
         
         private void Form1_Load(object sender, EventArgs e)
@@ -101,8 +105,23 @@ namespace kamisado
                 }
 
                 colonne += 52;
-                
             }
         }
+
+        //gestion de l'évènement tick du timer du Joueur 1
+        private void timerJ1_Tick(object sender, EventArgs e)
+        {
+            progressbarJ1.Value--;
+            chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+        }
+
+        //gestion de l'évènement tick du timer du Joueur 2
+        private void timerJ2_Tick(object sender, EventArgs e)
+        {
+            progressbarJ2.Value--;
+            chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+        }
+
+
     }
 }

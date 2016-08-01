@@ -65,6 +65,7 @@
             this.nomJ2.Name = "nomJ2";
             this.nomJ2.Size = new System.Drawing.Size(212, 20);
             this.nomJ2.TabIndex = 1;
+            this.nomJ2.TextChanged += new System.EventHandler(this.nomJ2_TextChanged);
             // 
             // nomJoueurs
             // 

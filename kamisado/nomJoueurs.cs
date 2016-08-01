@@ -16,5 +16,10 @@ namespace kamisado
         {
             InitializeComponent();
         }
+
+        private void nomJ2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
