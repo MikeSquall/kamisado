@@ -9,6 +9,7 @@ namespace kamisado
     public class Plateau
     {
         private Case[] board;
+        private Pion[] tours;
 
         public Plateau()
         {

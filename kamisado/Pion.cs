@@ -13,9 +13,27 @@ namespace kamisado
         private Case position;
         private int pouvoir;
 
-        public Pion()
+        public Pion(int team, int color, Case mate)
         {
+            this.equipe = team;
+            this.couleurPion = color;
+            this.position = mate;
+            this.pouvoir = 0;
+        }
 
+        public String toString()
+        {
+            String desc_pion = "";
+
+            if (this.equipe == 0)
+            {
+                desc_pion += "Couleur : noir, Couleur : ";
+            }
+            else desc_pion += "Couleur : blanc, Couleur : ";
+
+            desc_pion += this.position.num_case();
+
+            return desc_pion;
         }
 
         public int deplacePion()

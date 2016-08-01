@@ -37,11 +37,20 @@ namespace kamisado
         {
             int ligne = 0,
                 colonne = 0,
-                index_list = 0;
-                
+                index_list = 0, //pour la gestion des images de l'ImageList qui contient les png des tours
+                couleur = 0; //pour déterminer la couleur des tours
+            bool occupee;
+
+            //Création du tableau qui contiendra les cases du plateau
+            Case[] plateau = new Case[64];
+            //Création du tableau qui contiendra les 16 tours du jeu -> sert à des fins de test pour le moment
+            Pion[] tours = new Pion[16];
             board.BringToFront();
+
+            //Création du plateau au sens visuel du terme
             for (int n = 0; n < 64; n++)
             {
+                occupee = false;
                 if (n % 8 == 0 && n != 0)
                 {
                     ligne += 52;
@@ -58,35 +67,43 @@ namespace kamisado
                 if (casesOrange.Contains(n))
                 {
                     tmp.BackColor = Color.Orange;
-                    tmp.Tag = "orange";
+                    //tmp.Tag = "orange";
+                    couleur = 1;
                 } else if (casesBlue.Contains(n))
                 {
                     tmp.BackColor = Color.CornflowerBlue;
-                    tmp.Tag = "blue";
+                    //tmp.Tag = "blue";
+                    couleur = 2;
                 } else if (casesViolet.Contains(n))
                 {
                     tmp.BackColor = Color.DarkOrchid;
-                    tmp.Tag = "violet";
+                    //tmp.Tag = "violet";
+                    couleur = 3;
                 } else if (casesPink.Contains(n))
                 {
                     tmp.BackColor = Color.HotPink;
-                    tmp.Tag = "pink";
+                    //tmp.Tag = "pink";
+                    couleur = 4;
                 } else if (casesYellow.Contains(n))
                 {
                     tmp.BackColor = Color.Yellow;
-                    tmp.Tag = "yellow";
+                    //tmp.Tag = "yellow";
+                    couleur = 5;
                 } else if (casesRed.Contains(n))
                 {
                     tmp.BackColor = Color.Crimson;
-                    tmp.Tag = "red";
+                    //tmp.Tag = "red";
+                    couleur = 6;
                 } else if (casesGreen.Contains(n))
                 {
                     tmp.BackColor = Color.Green;
-                    tmp.Tag = "green";
+                    //tmp.Tag = "green";
+                    couleur = 7;
                 } else if (casesBrown.Contains(n))
                 {
                     tmp.BackColor = Color.SaddleBrown;
-                    tmp.Tag = "brown";
+                    //tmp.Tag = "brown";
+                    couleur = 8;
                 }
                 
                 if (n < 8 || n > 55)
@@ -102,10 +119,34 @@ namespace kamisado
                     //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
                     pic.Image = imageList1.Images[index_list];
                     index_list++;
+                    occupee = true;
                 }
-
                 colonne += 52;
+
+                //Création de la nouvelle case et ajout au tableau du plateau
+                Case neuve = new Case(couleur, n, occupee);
+                plateau[n] = neuve;
+
+                                if (n < 8)
+                {
+                    Pion tour = new Pion(1, couleur, neuve);
+                    tours[index_list - 1] = tour;
+                }
+                else if (n > 55)
+                {
+                    Pion tour = new Pion(0, couleur, neuve);
+                    tours[index_list - 1] = tour;
+                }  
             }
+
+            //for (int i = 0; i<64; i++)
+            //{
+            //    MessageBox.Show(plateau[i].toString());
+            //    if (i < 16)
+            //    {
+            //        MessageBox.Show(tours[i].toString());
+            //    }
+            //}
         }
 
         //gestion de l'évènement tick du timer du Joueur 1
