@@ -12,7 +12,7 @@ namespace kamisado
 {
     public partial class Accueil : Form
     {
-        internal static string nomJ1, nomJ2;
+        internal static Joueur J1, J2;
 
         public Accueil()
         {
@@ -48,12 +48,10 @@ namespace kamisado
             
             ChoixTypePartie choix = new ChoixTypePartie();
             choix.ShowDialog();
-            choix.StartPosition = FormStartPosition.CenterScreen;
             this.Visible = true;
             //MessageBox.Show("j1 = " + nomJ1 + " // j2 = " + nomJ2, "test");
             Partie game = new Partie();
             game.ShowDialog();
-            game.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void btn_quitGame_Click(object sender, EventArgs e)

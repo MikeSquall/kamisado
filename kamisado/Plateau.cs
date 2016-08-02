@@ -11,9 +11,10 @@ namespace kamisado
         private Case[] board;
         private Pion[] tours;
 
-        public Plateau()
+        public Plateau(Case[] b, Pion[] t)
         {
-
+            this.board = b;
+            this.tours = t;
         }
     }
 }

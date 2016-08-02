@@ -9,14 +9,14 @@ namespace kamisado
     public class Joueur
     {
         private String nom;
-        private int couleurPions;
+        private int couleurPions; // 1 pour noir, 2 pour blanc
         private int compteurPoints;
         // ajouter timer ==> voir comment faire
 
         public Joueur(String s, int n)
         {
             this.nom = s;
-            this.couleurPions = n;
+            this.couleurPions = n; 
             this.compteurPoints = 0;
         }
 

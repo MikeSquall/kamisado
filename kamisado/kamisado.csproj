@@ -59,12 +59,6 @@
     </Compile>
     <Compile Include="Coup.cs" />
     <Compile Include="Joueur.cs" />
-    <Compile Include="nomJoueurs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="nomJoueurs.Designer.cs">
-      <DependentUpon>nomJoueurs.cs</DependentUpon>
-    </Compile>
     <Compile Include="nomsJoueurs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,9 +80,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChoixTypePartie.resx">
       <DependentUpon>ChoixTypePartie.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="nomJoueurs.resx">
-      <DependentUpon>nomJoueurs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="nomsJoueurs.resx">
       <DependentUpon>nomsJoueurs.cs</DependentUpon>

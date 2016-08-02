@@ -28,8 +28,8 @@ namespace kamisado
             }
             else
             {
-                Accueil.nomJ1 = nomJoueur1.Text;
-                Accueil.nomJ2 = nomJoueur2.Text;
+                Accueil.J1 = new Joueur(nomJoueur1.Text, 1);
+                Accueil.J2 = new Joueur(nomJoueur2.Text, 2);
                 this.Hide();
             }
         }

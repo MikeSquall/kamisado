@@ -24,28 +24,28 @@ namespace kamisado
             String color = "";
             switch (this.couleur)
             {
-                case 1:
+                case 0:
                     color = "Orange";
                     break;
-                case 2:
+                case 1:
                     color = "Bleue";
                     break;
-                case 3:
+                case 2:
                     color = "Violette";
                     break;
-                case 4:
+                case 3:
                     color = "Rose";
                     break;
-                case 5:
+                case 4:
                     color = "Jaune";
                     break;
-                case 6:
+                case 5:
                     color = "Rouge";
                     break;
-                case 7:
+                case 6:
                     color = "Vert";
                     break;
-                case 8:
+                case 7:
                     color = "Marron";
                     break;
             }
