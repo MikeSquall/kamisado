@@ -39,7 +39,6 @@ C:\Users\LyesKes\Desktop\kamisado\kamisado\bin\Debug\kamisado.pdb
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.csprojResolveAssemblyReference.cache
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.Accueil.resources
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.ChoixTypePartie.resources
-C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.nomJoueurs.resources
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.Partie.resources
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.Properties.Resources.resources
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.csproj.GenerateResource.Cache
