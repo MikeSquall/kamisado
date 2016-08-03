@@ -27,22 +27,22 @@ namespace kamisado
 
             if (this.equipe == 0)
             {
-                desc_pion += "Couleur : noir, Couleur : ";
+                desc_pion += "Equipe : Noir, Couleur : ";
             }
-            else desc_pion += "Couleur : blanc, Couleur : ";
+            else desc_pion += "Equipe : Blanc, Couleur : ";
 
-            desc_pion += this.position.num_case();
+            desc_pion += this.getCouleurPion();
 
             return desc_pion;
         }
 
-        public int deplacePion()
+        public int deplacePion() // à virer ?
         {
             int etat=0;
             return etat;
         }
 
-        public String aide()
+        public String aide() // à compléter
         {
             String message = "";
             return message;

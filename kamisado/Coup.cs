@@ -23,7 +23,7 @@ namespace kamisado
 
         public String afficheCoup()
         {
-            return joueurActif.getNom() + " a joué sa tour " + pionDeplace.getCouleurPion() + " sur une case " + arrivee.toString();
+            return joueurActif.getNom() + " a joué sa tour " + pionDeplace.getCouleurPion() + " sur une case " + arrivee.getCouleur();
         }
     }
 }

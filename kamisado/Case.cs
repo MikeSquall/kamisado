@@ -19,7 +19,7 @@ namespace kamisado
             this.occupee = statut;
         }
 
-        public String toString()
+        public String getCouleur()
         {
             String color = "";
             switch (this.couleur)
@@ -65,9 +65,14 @@ namespace kamisado
             return color;
         }
 
-        public String num_case()
+        public int getNumCase()
         {
-            return this.numero.ToString();
+            return this.numero;
+        }
+
+        public bool getOccupe()
+        {
+            return this.occupee;
         }
     }
 }
