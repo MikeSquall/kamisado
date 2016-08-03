@@ -116,12 +116,84 @@ namespace kamisado
                     pic.BackColor = tmp.BackColor;
                     //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
                     pic.Image = imageList1.Images[index_list];
+
+                    int teamPion = -1, couleurPion = -1;
+                    switch (index_list)
+                    {
+                        case 0:
+                            teamPion = 1;
+                            couleurPion = 0;
+                            break;
+                        case 1:
+                            teamPion = 1;
+                            couleurPion = 1;
+                            break;
+                        case 2:
+                            teamPion = 1;
+                            couleurPion = 2;
+                            break;
+                        case 3:
+                            teamPion = 1;
+                            couleurPion = 3;
+                            break;
+                        case 4:
+                            teamPion = 1;
+                            couleurPion = 4;
+                            break;
+                        case 5:
+                            teamPion = 1;
+                            couleurPion = 5;
+                            break;
+                        case 6:
+                            teamPion = 1;
+                            couleurPion = 6;
+                            break;
+                        case 7:
+                            teamPion = 1;
+                            couleurPion = 7;
+                            break;
+                        case 8:
+                            teamPion = 0;
+                            couleurPion = 0;
+                            break;
+                        case 9:
+                            teamPion = 0;
+                            couleurPion = 1;
+                            break;
+                        case 10:
+                            teamPion = 0;
+                            couleurPion = 2;
+                            break;
+                        case 11:
+                            teamPion = 0;
+                            couleurPion = 3;
+                            break;
+                        case 12:
+                            teamPion = 0;
+                            couleurPion = 4;
+                            break;
+                        case 13:
+                            teamPion = 0;
+                            couleurPion = 5;
+                            break;
+                        case 14:
+                            teamPion = 0;
+                            couleurPion = 6;
+                            break;
+                        case 15:
+                            teamPion = 0;
+                            couleurPion = 7;
+                            break;
+                    }
+                    Pion p = new Pion(teamPion,couleurPion,c);
+                    tabPions[index_list] = p;
                     index_list++;
                 }
 
                 colonne += 52;
                 
             }
+            Plateau plateau = new Plateau(tabCases, tabPions);
         }
 
         private void timerJ1_Tick(object sender, EventArgs e)
