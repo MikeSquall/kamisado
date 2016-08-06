@@ -18,3 +18,11 @@ Pour le joueur :
 Pour le pion :
  - modification de la position
 
+Général :
+- ajouter menu bar en haut des fenêtres Accueil et Partie avec : 
+	- règles 
+		- déplacements
+		- type de partie (règles additionnelles)
+		- comptage des points
+	- crédits
+

@@ -36,11 +36,15 @@
             this.btn_quitGame = new System.Windows.Forms.PictureBox();
             this.btn_simpleGame = new System.Windows.Forms.PictureBox();
             this.btn_complexGame = new System.Windows.Forms.PictureBox();
+            this.titreJeu = new System.Windows.Forms.PictureBox();
+            this.toursDecoAccueil = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.btn_newGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_loadGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_quitGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_simpleGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_complexGame)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.titreJeu)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toursDecoAccueil)).BeginInit();
             this.SuspendLayout();
             // 
             // boutonsList
@@ -81,7 +85,7 @@
             // 
             // btn_simpleGame
             // 
-            this.btn_simpleGame.Location = new System.Drawing.Point(242, 118);
+            this.btn_simpleGame.Location = new System.Drawing.Point(406, 134);
             this.btn_simpleGame.Name = "btn_simpleGame";
             this.btn_simpleGame.Size = new System.Drawing.Size(150, 50);
             this.btn_simpleGame.TabIndex = 0;
@@ -89,11 +93,32 @@
             // 
             // btn_complexGame
             // 
-            this.btn_complexGame.Location = new System.Drawing.Point(242, 186);
+            this.btn_complexGame.Location = new System.Drawing.Point(406, 202);
             this.btn_complexGame.Name = "btn_complexGame";
             this.btn_complexGame.Size = new System.Drawing.Size(150, 50);
             this.btn_complexGame.TabIndex = 0;
             this.btn_complexGame.TabStop = false;
+            // 
+            // titreJeu
+            // 
+            this.titreJeu.BackColor = System.Drawing.Color.Transparent;
+            this.titreJeu.BackgroundImage = global::kamisado.Properties.Resources.kamisado_titre1;
+            this.titreJeu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.titreJeu.Location = new System.Drawing.Point(50, 56);
+            this.titreJeu.Name = "titreJeu";
+            this.titreJeu.Size = new System.Drawing.Size(350, 100);
+            this.titreJeu.TabIndex = 1;
+            this.titreJeu.TabStop = false;
+            // 
+            // toursDecoAccueil
+            // 
+            this.toursDecoAccueil.BackColor = System.Drawing.Color.Transparent;
+            this.toursDecoAccueil.BackgroundImage = global::kamisado.Properties.Resources.tour;
+            this.toursDecoAccueil.Location = new System.Drawing.Point(122, 202);
+            this.toursDecoAccueil.Name = "toursDecoAccueil";
+            this.toursDecoAccueil.Size = new System.Drawing.Size(200, 200);
+            this.toursDecoAccueil.TabIndex = 2;
+            this.toursDecoAccueil.TabStop = false;
             // 
             // Accueil
             // 
@@ -102,6 +127,8 @@
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(660, 392);
+            this.Controls.Add(this.toursDecoAccueil);
+            this.Controls.Add(this.titreJeu);
             this.Controls.Add(this.btn_complexGame);
             this.Controls.Add(this.btn_quitGame);
             this.Controls.Add(this.btn_simpleGame);
@@ -116,6 +143,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btn_quitGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_simpleGame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_complexGame)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.titreJeu)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toursDecoAccueil)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -128,5 +157,7 @@
         private System.Windows.Forms.PictureBox btn_quitGame;
         private System.Windows.Forms.PictureBox btn_simpleGame;
         private System.Windows.Forms.PictureBox btn_complexGame;
+        private System.Windows.Forms.PictureBox titreJeu;
+        private System.Windows.Forms.PictureBox toursDecoAccueil;
     }
 }
