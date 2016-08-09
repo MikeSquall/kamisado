@@ -33,5 +33,13 @@ namespace kamisado
                 this.Hide();
             }
         }
+
+        private void valideNomJoueur_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                valideNomJoueur.PerformClick();
+            }
+        }
     }
 }

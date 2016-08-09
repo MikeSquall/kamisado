@@ -50,6 +50,7 @@
             this.nomJoueur1.Name = "nomJoueur1";
             this.nomJoueur1.Size = new System.Drawing.Size(187, 20);
             this.nomJoueur1.TabIndex = 1;
+            this.nomJoueur1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.valideNomJoueur_KeyDown);
             // 
             // valideNomJoueur
             // 
@@ -60,6 +61,7 @@
             this.valideNomJoueur.Text = "Valider";
             this.valideNomJoueur.UseVisualStyleBackColor = true;
             this.valideNomJoueur.Click += new System.EventHandler(this.valideNomJoueur_Click);
+            this.valideNomJoueur.KeyDown += new System.Windows.Forms.KeyEventHandler(this.valideNomJoueur_KeyDown);
             // 
             // nomJoueur2
             // 
@@ -67,6 +69,7 @@
             this.nomJoueur2.Name = "nomJoueur2";
             this.nomJoueur2.Size = new System.Drawing.Size(187, 20);
             this.nomJoueur2.TabIndex = 2;
+            this.nomJoueur2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.valideNomJoueur_KeyDown);
             // 
             // label2
             // 
