@@ -45,7 +45,7 @@ namespace kamisado
             //btn_simpleGame.Visible = true;
             //btn_complexGame.Visible = true;
             //this.Visible = false;
-            
+
             ChoixTypePartie choix = new ChoixTypePartie();
             choix.ShowDialog();
             this.Visible = true;

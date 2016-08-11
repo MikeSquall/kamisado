@@ -44,3 +44,4 @@ C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.Properties.Resourc
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.csproj.GenerateResource.Cache
 D:\kamisado\obj\Debug\kamisado.nomsJoueurs.resources
 C:\Users\LyesKes\Desktop\kamisado\kamisado\obj\Debug\kamisado.nomsJoueurs.resources
+D:\kamisado\obj\Debug\kamisado.infos.resources

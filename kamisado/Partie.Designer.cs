@@ -34,27 +34,40 @@
             this.fond_board = new System.Windows.Forms.Panel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.infoboxJ1 = new System.Windows.Forms.Panel();
+            this.chronoJ1 = new System.Windows.Forms.Label();
+            this.progressbarJ1 = new System.Windows.Forms.ProgressBar();
             this.picJ1 = new System.Windows.Forms.PictureBox();
             this.scoreJ1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.nomJoueur1 = new System.Windows.Forms.Label();
             this.infoboxJ2 = new System.Windows.Forms.Panel();
+            this.chronoJ2 = new System.Windows.Forms.Label();
+            this.progressbarJ2 = new System.Windows.Forms.ProgressBar();
             this.picJ2 = new System.Windows.Forms.PictureBox();
             this.scoreJ2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.nomJoueur2 = new System.Windows.Forms.Label();
             this.listeCoups = new System.Windows.Forms.TextBox();
-            this.progressbarJ2 = new System.Windows.Forms.ProgressBar();
-            this.progressbarJ1 = new System.Windows.Forms.ProgressBar();
-            this.chronoJ1 = new System.Windows.Forms.Label();
-            this.chronoJ2 = new System.Windows.Forms.Label();
             this.timerJ1 = new System.Windows.Forms.Timer(this.components);
             this.timerJ2 = new System.Windows.Forms.Timer(this.components);
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.jeuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sauvegarderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nouvellePartieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partieSimpleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.partieComplexeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.chargerPartieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.butJeu = new System.Windows.Forms.ToolStripMenuItem();
+            this.reglesJeu = new System.Windows.Forms.ToolStripMenuItem();
+            this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
             this.infoboxJ2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // board
@@ -110,6 +123,24 @@
             this.infoboxJ1.Size = new System.Drawing.Size(295, 58);
             this.infoboxJ1.TabIndex = 1;
             // 
+            // chronoJ1
+            // 
+            this.chronoJ1.AutoSize = true;
+            this.chronoJ1.Location = new System.Drawing.Point(126, 33);
+            this.chronoJ1.Name = "chronoJ1";
+            this.chronoJ1.Size = new System.Drawing.Size(35, 13);
+            this.chronoJ1.TabIndex = 10;
+            this.chronoJ1.Text = "label2";
+            // 
+            // progressbarJ1
+            // 
+            this.progressbarJ1.Location = new System.Drawing.Point(5, 28);
+            this.progressbarJ1.Maximum = 600;
+            this.progressbarJ1.Name = "progressbarJ1";
+            this.progressbarJ1.Size = new System.Drawing.Size(262, 23);
+            this.progressbarJ1.TabIndex = 9;
+            this.progressbarJ1.Value = 600;
+            // 
             // picJ1
             // 
             this.picJ1.BackColor = System.Drawing.Color.Transparent;
@@ -160,6 +191,24 @@
             this.infoboxJ2.Size = new System.Drawing.Size(295, 58);
             this.infoboxJ2.TabIndex = 2;
             // 
+            // chronoJ2
+            // 
+            this.chronoJ2.AutoSize = true;
+            this.chronoJ2.Location = new System.Drawing.Point(126, 35);
+            this.chronoJ2.Name = "chronoJ2";
+            this.chronoJ2.Size = new System.Drawing.Size(35, 13);
+            this.chronoJ2.TabIndex = 11;
+            this.chronoJ2.Text = "label3";
+            // 
+            // progressbarJ2
+            // 
+            this.progressbarJ2.Location = new System.Drawing.Point(5, 30);
+            this.progressbarJ2.Maximum = 600;
+            this.progressbarJ2.Name = "progressbarJ2";
+            this.progressbarJ2.Size = new System.Drawing.Size(262, 23);
+            this.progressbarJ2.TabIndex = 1;
+            this.progressbarJ2.Value = 600;
+            // 
             // picJ2
             // 
             this.picJ2.BackColor = System.Drawing.Color.Transparent;
@@ -207,42 +256,6 @@
             this.listeCoups.Size = new System.Drawing.Size(295, 300);
             this.listeCoups.TabIndex = 3;
             // 
-            // progressbarJ2
-            // 
-            this.progressbarJ2.Location = new System.Drawing.Point(5, 30);
-            this.progressbarJ2.Maximum = 600;
-            this.progressbarJ2.Name = "progressbarJ2";
-            this.progressbarJ2.Size = new System.Drawing.Size(262, 23);
-            this.progressbarJ2.TabIndex = 1;
-            this.progressbarJ2.Value = 600;
-            // 
-            // progressbarJ1
-            // 
-            this.progressbarJ1.Location = new System.Drawing.Point(5, 28);
-            this.progressbarJ1.Maximum = 600;
-            this.progressbarJ1.Name = "progressbarJ1";
-            this.progressbarJ1.Size = new System.Drawing.Size(262, 23);
-            this.progressbarJ1.TabIndex = 9;
-            this.progressbarJ1.Value = 600;
-            // 
-            // chronoJ1
-            // 
-            this.chronoJ1.AutoSize = true;
-            this.chronoJ1.Location = new System.Drawing.Point(126, 33);
-            this.chronoJ1.Name = "chronoJ1";
-            this.chronoJ1.Size = new System.Drawing.Size(35, 13);
-            this.chronoJ1.TabIndex = 10;
-            this.chronoJ1.Text = "label2";
-            // 
-            // chronoJ2
-            // 
-            this.chronoJ2.AutoSize = true;
-            this.chronoJ2.Location = new System.Drawing.Point(126, 35);
-            this.chronoJ2.Name = "chronoJ2";
-            this.chronoJ2.Size = new System.Drawing.Size(35, 13);
-            this.chronoJ2.TabIndex = 11;
-            this.chronoJ2.Text = "label3";
-            // 
             // timerJ1
             // 
             this.timerJ1.Interval = 1000;
@@ -253,12 +266,103 @@
             this.timerJ2.Interval = 1000;
             this.timerJ2.Tick += new System.EventHandler(this.timerJ2_Tick);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.jeuToolStripMenuItem,
+            this.aideToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1020, 24);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // jeuToolStripMenuItem
+            // 
+            this.jeuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sauvegarderToolStripMenuItem,
+            this.nouvellePartieToolStripMenuItem,
+            this.chargerPartieToolStripMenuItem,
+            this.quitterToolStripMenuItem});
+            this.jeuToolStripMenuItem.Name = "jeuToolStripMenuItem";
+            this.jeuToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
+            this.jeuToolStripMenuItem.Text = "Jeu";
+            // 
+            // sauvegarderToolStripMenuItem
+            // 
+            this.sauvegarderToolStripMenuItem.Name = "sauvegarderToolStripMenuItem";
+            this.sauvegarderToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.sauvegarderToolStripMenuItem.Text = "Sauvegarder ";
+            // 
+            // nouvellePartieToolStripMenuItem
+            // 
+            this.nouvellePartieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.partieSimpleToolStripMenuItem1,
+            this.partieComplexeToolStripMenuItem1});
+            this.nouvellePartieToolStripMenuItem.Name = "nouvellePartieToolStripMenuItem";
+            this.nouvellePartieToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.nouvellePartieToolStripMenuItem.Text = "Nouvelle partie";
+            // 
+            // partieSimpleToolStripMenuItem1
+            // 
+            this.partieSimpleToolStripMenuItem1.Name = "partieSimpleToolStripMenuItem1";
+            this.partieSimpleToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.partieSimpleToolStripMenuItem1.Text = "Partie simple";
+            // 
+            // partieComplexeToolStripMenuItem1
+            // 
+            this.partieComplexeToolStripMenuItem1.Name = "partieComplexeToolStripMenuItem1";
+            this.partieComplexeToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
+            this.partieComplexeToolStripMenuItem1.Text = "Partie complexe";
+            // 
+            // chargerPartieToolStripMenuItem
+            // 
+            this.chargerPartieToolStripMenuItem.Name = "chargerPartieToolStripMenuItem";
+            this.chargerPartieToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.chargerPartieToolStripMenuItem.Text = "Charger partie";
+            // 
+            // quitterToolStripMenuItem
+            // 
+            this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
+            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.quitterToolStripMenuItem.Text = "Quitter";
+            // 
+            // aideToolStripMenuItem
+            // 
+            this.aideToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.butJeu,
+            this.reglesJeu,
+            this.queFaire});
+            this.aideToolStripMenuItem.Name = "aideToolStripMenuItem";
+            this.aideToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.aideToolStripMenuItem.Text = "Aide";
+            // 
+            // butJeu
+            // 
+            this.butJeu.Name = "butJeu";
+            this.butJeu.Size = new System.Drawing.Size(152, 22);
+            this.butJeu.Text = "But du jeu";
+            this.butJeu.Click += new System.EventHandler(this.butJeu_Click);
+            // 
+            // reglesJeu
+            // 
+            this.reglesJeu.Name = "reglesJeu";
+            this.reglesJeu.Size = new System.Drawing.Size(152, 22);
+            this.reglesJeu.Text = "Règles";
+            // 
+            // queFaire
+            // 
+            this.queFaire.Name = "queFaire";
+            this.queFaire.Size = new System.Drawing.Size(152, 22);
+            this.queFaire.Text = "Que faire ?";
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.ClientSize = new System.Drawing.Size(1020, 681);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listeCoups);
             this.Controls.Add(this.infoboxJ2);
             this.Controls.Add(this.infoboxJ1);
@@ -274,6 +378,8 @@
             this.infoboxJ2.ResumeLayout(false);
             this.infoboxJ2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,6 +407,18 @@
         private System.Windows.Forms.ProgressBar progressbarJ2;
         private System.Windows.Forms.Timer timerJ1;
         private System.Windows.Forms.Timer timerJ2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem jeuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sauvegarderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nouvellePartieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partieSimpleToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem partieComplexeToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem chargerPartieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem butJeu;
+        private System.Windows.Forms.ToolStripMenuItem reglesJeu;
+        private System.Windows.Forms.ToolStripMenuItem queFaire;
     }
 }
 

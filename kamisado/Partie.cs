@@ -207,5 +207,11 @@ namespace kamisado
             progressbarJ2.Value--;
             chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
         }
+
+        private void butJeu_Click(object sender, EventArgs e)
+        {
+            infos but = new infos();
+            but.ShowDialog();
+        }
     }
 }
