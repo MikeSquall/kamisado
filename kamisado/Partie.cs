@@ -117,6 +117,12 @@ namespace kamisado
                     //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
                     pic.Image = imageList1.Images[index_list];
 
+                    /*branchement de l'évènement clic_souris uniquement sur les pions noirs dans un premier temps*/
+                    if (n > 55)
+                    {
+                        pic.MouseDown += new MouseEventHandler(clic_souris);
+                    }
+
                     int teamPion = -1, couleurPion = -1;
                     switch (index_list)
                     {
@@ -190,6 +196,13 @@ namespace kamisado
                     index_list++;
                 }
 
+                if (n > 7 || n < 56)
+                {
+                    tmp.AllowDrop = true;
+                    tmp.DragEnter += new DragEventHandler(survol_cases);
+                    tmp.DragDrop += new DragEventHandler(depose_case);
+                }
+
                 colonne += 52;
                 
             }
@@ -206,6 +219,33 @@ namespace kamisado
         {
             progressbarJ2.Value--;
             chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+        }
+
+
+        /*au clic de la souris, on récupère la picturebox sender*/
+        private void clic_souris(object sender, MouseEventArgs e)
+        {
+            pic_temp = (PictureBox)sender;
+            pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
+        }
+
+        /*gestion du survol*/
+        private void survol_cases(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        /*gestion du dépôt de la picturebox*/
+        private void depose_case(object sender, DragEventArgs e)
+        {
+            Label lab = (Label)sender;
+            PictureBox nvelle_tour = new PictureBox();
+            nvelle_tour = pic_temp;
+            nvelle_tour.Location = new Point(lab.Location.X + 2, lab.Location.Y + 2);
+            nvelle_tour.BackColor = lab.BackColor;
+            board.Controls.Add(nvelle_tour);
+            nvelle_tour.Visible = true;
+            nvelle_tour.BringToFront();
         }
     }
 }

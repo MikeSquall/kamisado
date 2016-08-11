@@ -34,27 +34,29 @@
             this.fond_board = new System.Windows.Forms.Panel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.infoboxJ1 = new System.Windows.Forms.Panel();
+            this.chronoJ1 = new System.Windows.Forms.Label();
+            this.progressbarJ1 = new System.Windows.Forms.ProgressBar();
             this.picJ1 = new System.Windows.Forms.PictureBox();
             this.scoreJ1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.nomJoueur1 = new System.Windows.Forms.Label();
             this.infoboxJ2 = new System.Windows.Forms.Panel();
+            this.chronoJ2 = new System.Windows.Forms.Label();
+            this.progressbarJ2 = new System.Windows.Forms.ProgressBar();
             this.picJ2 = new System.Windows.Forms.PictureBox();
             this.scoreJ2 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.nomJoueur2 = new System.Windows.Forms.Label();
             this.listeCoups = new System.Windows.Forms.TextBox();
-            this.progressbarJ2 = new System.Windows.Forms.ProgressBar();
-            this.progressbarJ1 = new System.Windows.Forms.ProgressBar();
-            this.chronoJ1 = new System.Windows.Forms.Label();
-            this.chronoJ2 = new System.Windows.Forms.Label();
             this.timerJ1 = new System.Windows.Forms.Timer(this.components);
             this.timerJ2 = new System.Windows.Forms.Timer(this.components);
+            this.pic_temp = new System.Windows.Forms.PictureBox();
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
             this.infoboxJ2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_temp)).BeginInit();
             this.SuspendLayout();
             // 
             // board
@@ -110,6 +112,24 @@
             this.infoboxJ1.Size = new System.Drawing.Size(295, 58);
             this.infoboxJ1.TabIndex = 1;
             // 
+            // chronoJ1
+            // 
+            this.chronoJ1.AutoSize = true;
+            this.chronoJ1.Location = new System.Drawing.Point(126, 33);
+            this.chronoJ1.Name = "chronoJ1";
+            this.chronoJ1.Size = new System.Drawing.Size(35, 13);
+            this.chronoJ1.TabIndex = 10;
+            this.chronoJ1.Text = "label2";
+            // 
+            // progressbarJ1
+            // 
+            this.progressbarJ1.Location = new System.Drawing.Point(5, 28);
+            this.progressbarJ1.Maximum = 600;
+            this.progressbarJ1.Name = "progressbarJ1";
+            this.progressbarJ1.Size = new System.Drawing.Size(262, 23);
+            this.progressbarJ1.TabIndex = 9;
+            this.progressbarJ1.Value = 600;
+            // 
             // picJ1
             // 
             this.picJ1.BackColor = System.Drawing.Color.Transparent;
@@ -160,6 +180,24 @@
             this.infoboxJ2.Size = new System.Drawing.Size(295, 58);
             this.infoboxJ2.TabIndex = 2;
             // 
+            // chronoJ2
+            // 
+            this.chronoJ2.AutoSize = true;
+            this.chronoJ2.Location = new System.Drawing.Point(126, 35);
+            this.chronoJ2.Name = "chronoJ2";
+            this.chronoJ2.Size = new System.Drawing.Size(35, 13);
+            this.chronoJ2.TabIndex = 11;
+            this.chronoJ2.Text = "label3";
+            // 
+            // progressbarJ2
+            // 
+            this.progressbarJ2.Location = new System.Drawing.Point(5, 30);
+            this.progressbarJ2.Maximum = 600;
+            this.progressbarJ2.Name = "progressbarJ2";
+            this.progressbarJ2.Size = new System.Drawing.Size(262, 23);
+            this.progressbarJ2.TabIndex = 1;
+            this.progressbarJ2.Value = 600;
+            // 
             // picJ2
             // 
             this.picJ2.BackColor = System.Drawing.Color.Transparent;
@@ -207,42 +245,6 @@
             this.listeCoups.Size = new System.Drawing.Size(295, 300);
             this.listeCoups.TabIndex = 3;
             // 
-            // progressbarJ2
-            // 
-            this.progressbarJ2.Location = new System.Drawing.Point(5, 30);
-            this.progressbarJ2.Maximum = 600;
-            this.progressbarJ2.Name = "progressbarJ2";
-            this.progressbarJ2.Size = new System.Drawing.Size(262, 23);
-            this.progressbarJ2.TabIndex = 1;
-            this.progressbarJ2.Value = 600;
-            // 
-            // progressbarJ1
-            // 
-            this.progressbarJ1.Location = new System.Drawing.Point(5, 28);
-            this.progressbarJ1.Maximum = 600;
-            this.progressbarJ1.Name = "progressbarJ1";
-            this.progressbarJ1.Size = new System.Drawing.Size(262, 23);
-            this.progressbarJ1.TabIndex = 9;
-            this.progressbarJ1.Value = 600;
-            // 
-            // chronoJ1
-            // 
-            this.chronoJ1.AutoSize = true;
-            this.chronoJ1.Location = new System.Drawing.Point(126, 33);
-            this.chronoJ1.Name = "chronoJ1";
-            this.chronoJ1.Size = new System.Drawing.Size(35, 13);
-            this.chronoJ1.TabIndex = 10;
-            this.chronoJ1.Text = "label2";
-            // 
-            // chronoJ2
-            // 
-            this.chronoJ2.AutoSize = true;
-            this.chronoJ2.Location = new System.Drawing.Point(126, 35);
-            this.chronoJ2.Name = "chronoJ2";
-            this.chronoJ2.Size = new System.Drawing.Size(35, 13);
-            this.chronoJ2.TabIndex = 11;
-            this.chronoJ2.Text = "label3";
-            // 
             // timerJ1
             // 
             this.timerJ1.Interval = 1000;
@@ -253,12 +255,22 @@
             this.timerJ2.Interval = 1000;
             this.timerJ2.Tick += new System.EventHandler(this.timerJ2_Tick);
             // 
+            // pic_temp
+            // 
+            this.pic_temp.Location = new System.Drawing.Point(13, 619);
+            this.pic_temp.Name = "pic_temp";
+            this.pic_temp.Size = new System.Drawing.Size(100, 50);
+            this.pic_temp.TabIndex = 4;
+            this.pic_temp.TabStop = false;
+            this.pic_temp.Visible = false;
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.ClientSize = new System.Drawing.Size(1020, 681);
+            this.Controls.Add(this.pic_temp);
             this.Controls.Add(this.listeCoups);
             this.Controls.Add(this.infoboxJ2);
             this.Controls.Add(this.infoboxJ1);
@@ -274,6 +286,7 @@
             this.infoboxJ2.ResumeLayout(false);
             this.infoboxJ2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_temp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,6 +314,7 @@
         private System.Windows.Forms.ProgressBar progressbarJ2;
         private System.Windows.Forms.Timer timerJ1;
         private System.Windows.Forms.Timer timerJ2;
+        private System.Windows.Forms.PictureBox pic_temp;
     }
 }
 
