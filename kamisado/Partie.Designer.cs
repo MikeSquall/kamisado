@@ -50,7 +50,6 @@
             this.listeCoups = new System.Windows.Forms.TextBox();
             this.timerJ1 = new System.Windows.Forms.Timer(this.components);
             this.timerJ2 = new System.Windows.Forms.Timer(this.components);
-<<<<<<< HEAD
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.jeuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sauvegarderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,19 +62,14 @@
             this.butJeu = new System.Windows.Forms.ToolStripMenuItem();
             this.reglesJeu = new System.Windows.Forms.ToolStripMenuItem();
             this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
-=======
             this.pic_temp = new System.Windows.Forms.PictureBox();
->>>>>>> 3ffa0dd39f67fdeb58c634410d95df2201709e5c
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
             this.infoboxJ2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).BeginInit();
-<<<<<<< HEAD
             this.menuStrip1.SuspendLayout();
-=======
             ((System.ComponentModel.ISupportInitialize)(this.pic_temp)).BeginInit();
->>>>>>> 3ffa0dd39f67fdeb58c634410d95df2201709e5c
             this.SuspendLayout();
             // 
             // board
@@ -265,7 +259,6 @@
             this.listeCoups.TabIndex = 3;
             // 
             // timerJ1
-<<<<<<< HEAD
             // 
             this.timerJ1.Interval = 1000;
             this.timerJ1.Tick += new System.EventHandler(this.timerJ1_Tick);
@@ -298,8 +291,6 @@
             this.jeuToolStripMenuItem.Text = "Jeu";
             // 
             // sauvegarderToolStripMenuItem
-=======
->>>>>>> 3ffa0dd39f67fdeb58c634410d95df2201709e5c
             // 
             this.sauvegarderToolStripMenuItem.Name = "sauvegarderToolStripMenuItem";
             this.sauvegarderToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
@@ -382,11 +373,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.ClientSize = new System.Drawing.Size(1020, 681);
-<<<<<<< HEAD
             this.Controls.Add(this.menuStrip1);
-=======
             this.Controls.Add(this.pic_temp);
->>>>>>> 3ffa0dd39f67fdeb58c634410d95df2201709e5c
             this.Controls.Add(this.listeCoups);
             this.Controls.Add(this.infoboxJ2);
             this.Controls.Add(this.infoboxJ1);
@@ -402,12 +390,9 @@
             this.infoboxJ2.ResumeLayout(false);
             this.infoboxJ2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).EndInit();
-<<<<<<< HEAD
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-=======
             ((System.ComponentModel.ISupportInitialize)(this.pic_temp)).EndInit();
->>>>>>> 3ffa0dd39f67fdeb58c634410d95df2201709e5c
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,7 +420,6 @@
         private System.Windows.Forms.ProgressBar progressbarJ2;
         private System.Windows.Forms.Timer timerJ1;
         private System.Windows.Forms.Timer timerJ2;
-<<<<<<< HEAD
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem jeuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sauvegarderToolStripMenuItem;
@@ -448,9 +432,7 @@
         private System.Windows.Forms.ToolStripMenuItem butJeu;
         private System.Windows.Forms.ToolStripMenuItem reglesJeu;
         private System.Windows.Forms.ToolStripMenuItem queFaire;
-=======
         private System.Windows.Forms.PictureBox pic_temp;
->>>>>>> 3ffa0dd39f67fdeb58c634410d95df2201709e5c
     }
 }
 
