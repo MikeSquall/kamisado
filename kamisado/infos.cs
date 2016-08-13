@@ -73,5 +73,10 @@ namespace kamisado
                 + Environment.NewLine +
                 "Lors du replacement des tours, celles-ci sont replacées de gauche à droite (de la case marron à la case orange) selon leur position finale sur le plateau : la tour la plus proche et la plus à gauche de la rangée adverse est replacée en premier puis les autres suivent jusqu'à replacer toutes les tours d'une même équipe sur la rangée de départ.";
         }
+
+        public void setOngletActif(int onglet)
+        {
+            this.tabControl1.SelectTab(onglet);
+        }
     }
 }

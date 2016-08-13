@@ -22,7 +22,7 @@ namespace kamisado
             nomsJoueurs joueur1 = new nomsJoueurs();
             nomsJoueurs joueur2 = new nomsJoueurs();
             joueur1.ShowDialog();
-            this.Hide();
+            this.Close();
         }
     }
 }

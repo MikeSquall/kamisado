@@ -63,6 +63,8 @@
             this.reglesJeu = new System.Windows.Forms.ToolStripMenuItem();
             this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
             this.pic_temp = new System.Windows.Forms.PictureBox();
+            this.partieSimpleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partieComplexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -327,7 +329,8 @@
             // 
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
             this.quitterToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.quitterToolStripMenuItem.Text = "Quitter";
+            this.quitterToolStripMenuItem.Text = "Quitter partie";
+            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 
             // aideToolStripMenuItem
             // 
@@ -348,6 +351,9 @@
             // 
             // reglesJeu
             // 
+            this.reglesJeu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.partieSimpleToolStripMenuItem,
+            this.partieComplexeToolStripMenuItem});
             this.reglesJeu.Name = "reglesJeu";
             this.reglesJeu.Size = new System.Drawing.Size(152, 22);
             this.reglesJeu.Text = "Règles";
@@ -366,6 +372,20 @@
             this.pic_temp.TabIndex = 4;
             this.pic_temp.TabStop = false;
             this.pic_temp.Visible = false;
+            // 
+            // partieSimpleToolStripMenuItem
+            // 
+            this.partieSimpleToolStripMenuItem.Name = "partieSimpleToolStripMenuItem";
+            this.partieSimpleToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.partieSimpleToolStripMenuItem.Text = "Partie Simple";
+            this.partieSimpleToolStripMenuItem.Click += new System.EventHandler(this.partieSimpleToolStripMenuItem_Click);
+            // 
+            // partieComplexeToolStripMenuItem
+            // 
+            this.partieComplexeToolStripMenuItem.Name = "partieComplexeToolStripMenuItem";
+            this.partieComplexeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.partieComplexeToolStripMenuItem.Text = "Partie Complexe";
+            this.partieComplexeToolStripMenuItem.Click += new System.EventHandler(this.partieComplexeToolStripMenuItem_Click);
             // 
             // Partie
             // 
@@ -433,6 +453,8 @@
         private System.Windows.Forms.ToolStripMenuItem reglesJeu;
         private System.Windows.Forms.ToolStripMenuItem queFaire;
         private System.Windows.Forms.PictureBox pic_temp;
+        private System.Windows.Forms.ToolStripMenuItem partieSimpleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partieComplexeToolStripMenuItem;
     }
 }
 

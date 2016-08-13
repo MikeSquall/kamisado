@@ -258,7 +258,35 @@ namespace kamisado
         private void butJeu_Click(object sender, EventArgs e)
         {
             infos but = new infos();
+            but.setOngletActif(0);
             but.ShowDialog();
+        }
+
+        private void partieSimpleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            infos regSimple = new infos();
+            regSimple.setOngletActif(1);
+            regSimple.ShowDialog();
+        }
+
+        private void partieComplexeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            infos regComplexe = new infos();
+            regComplexe.setOngletActif(2);
+            regComplexe.ShowDialog();
+        }
+
+        private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String titre = "Confirmation",
+                   msg = "Êtes-vous sûr de vouloir quitter ?";
+            DialogResult reponse;
+            reponse = MessageBox.Show(msg,titre,MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if(reponse == DialogResult.Yes)
+            {
+                // penser à rajouter proposition de sauvegarde si partie non sauvegardée
+                this.Close();
+            }
         }
     }
 }
