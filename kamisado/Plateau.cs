@@ -17,9 +17,8 @@ namespace kamisado
             this.tours = t;
         }
 
-        public bool deplacementOk(Pion p, Case c)
+        public List<int> deplacementOk(Pion p, Case c)
         {
-            bool moveOk = true;
             int pos = p.getPosition().getNumCase(),
                 n = 1,
                 colonne = c.getNumCase() % 8;
@@ -69,12 +68,17 @@ namespace kamisado
                 }
             }
             
-            if (!casesCibles.Contains(c.getNumCase()))
-            { // si la case ciblée n'est pas dans la liste des cases autorisées,
-              // le mouvement n'est pas possible
-                moveOk = false;
-            }
-            return moveOk;
+            return casesCibles;
+        }
+
+        public Pion getPion(int indice)
+        {
+            return this.tours[indice];
+        }
+
+        public Case getCase(int indice)
+        {
+            return this.board[indice];
         }
     }
 }

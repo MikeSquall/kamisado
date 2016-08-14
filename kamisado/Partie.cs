@@ -20,6 +20,10 @@ namespace kamisado
         List<int> casesRed = new List<int> { 5, 8, 19, 30, 33, 44, 55, 58 };
         List<int> casesGreen = new List<int> { 6, 11, 16, 29, 34, 47, 52, 57 };
         List<int> casesBrown = new List<int> { 7, 14, 21, 28, 35, 42, 49, 56 };
+        Pion tourDeplacee;
+        Case caseDepart;
+        Plateau plateau;
+
         public Partie()
         {
             InitializeComponent();
@@ -33,6 +37,7 @@ namespace kamisado
             chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
             timerJ1.Enabled = true;
             timerJ2.Enabled = true;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -54,12 +59,15 @@ namespace kamisado
                 }
 
                 Label tmp = new Label();
+                tmp.Name = Convert.ToString(n);
                 tmp.Size = new Size(50, 50);
                 board.Controls.Add(tmp);
                 tmp.Location = new Point(colonne, ligne);
                 //tmp.BorderStyle = BorderStyle.FixedSingle;
                 //tmp.Text = Convert.ToString(n); // sert aux tests de génération du plateau
-
+                tmp.DragEnter += new DragEventHandler(survol_cases);
+                tmp.DragDrop += new DragEventHandler(depose_case);
+                
                 if (casesOrange.Contains(n))
                 {
                     tmp.BackColor = Color.Orange;
@@ -113,6 +121,7 @@ namespace kamisado
 
                 if (n < 8 || n > 55)
                 {
+                    c.setOccupe();
                     PictureBox pic = new PictureBox();
                     //pic.Parent = tmp;
                     pic.Visible = true;
@@ -123,6 +132,7 @@ namespace kamisado
                     pic.BackColor = tmp.BackColor;
                     //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
                     pic.Image = imageList1.Images[index_list];
+                    pic.Tag = Convert.ToString(index_list);
 
                     /*branchement de l'évènement clic_souris uniquement sur les pions noirs dans un premier temps*/
                     if (n > 55)
@@ -198,22 +208,22 @@ namespace kamisado
                             couleurPion = 7;
                             break;
                     }
-                    Pion p = new Pion(teamPion, couleurPion, c);
+                    Pion p = new Pion(teamPion, couleurPion, index_list, c);
                     tabPions[index_list] = p;
                     index_list++;
                 }
 
-                if (n > 7 || n < 56)
-                {
-                    tmp.AllowDrop = true;
-                    tmp.DragEnter += new DragEventHandler(survol_cases);
-                    tmp.DragDrop += new DragEventHandler(depose_case);
-                }
+                //if (n > 7 || n < 56)
+                //{
+                //    tmp.AllowDrop = true;
+                //    tmp.DragEnter += new DragEventHandler(survol_cases);
+                //    tmp.DragDrop += new DragEventHandler(depose_case);
+                //}
 
                 colonne += 52;
 
             }
-            Plateau plateau = new Plateau(tabCases, tabPions);
+            plateau = new Plateau(tabCases, tabPions);
         }
 
         private void timerJ1_Tick(object sender, EventArgs e)
@@ -233,6 +243,17 @@ namespace kamisado
         {
             pic_temp = (PictureBox)sender;
             pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
+            tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
+            caseDepart = tourDeplacee.getPosition();
+            List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
+            foreach(Control c in board.Controls)
+            {
+                if (c.Name != "" && cibles.Contains(Convert.ToInt32(c.Name)))
+                {
+                    c.AllowDrop = true;
+                }
+            }
+            plateau.getCase(caseDepart.getNumCase()).setNonOccupe();
         }
 
         /*gestion du survol*/
@@ -252,6 +273,8 @@ namespace kamisado
             board.Controls.Add(nvelle_tour);
             nvelle_tour.Visible = true;
             nvelle_tour.BringToFront();
+            plateau.getCase(Convert.ToInt32(lab.Name)).setOccupe();
+            plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
         }
 
         // menu 'aide' => 'but du jeu"
@@ -262,6 +285,7 @@ namespace kamisado
             but.ShowDialog();
         }
 
+        // menu 'aide' => "règles partie simple"
         private void partieSimpleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             infos regSimple = new infos();
@@ -269,6 +293,7 @@ namespace kamisado
             regSimple.ShowDialog();
         }
 
+        // menu 'aide' => "règles partie complexe"
         private void partieComplexeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             infos regComplexe = new infos();
@@ -276,6 +301,7 @@ namespace kamisado
             regComplexe.ShowDialog();
         }
 
+        // menu 'Jeu' => "quitter partie"
         private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String titre = "Confirmation",

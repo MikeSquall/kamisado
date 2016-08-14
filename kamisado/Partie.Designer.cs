@@ -61,10 +61,10 @@
             this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.butJeu = new System.Windows.Forms.ToolStripMenuItem();
             this.reglesJeu = new System.Windows.Forms.ToolStripMenuItem();
-            this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
-            this.pic_temp = new System.Windows.Forms.PictureBox();
             this.partieSimpleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partieComplexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
+            this.pic_temp = new System.Windows.Forms.PictureBox();
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -345,7 +345,7 @@
             // butJeu
             // 
             this.butJeu.Name = "butJeu";
-            this.butJeu.Size = new System.Drawing.Size(152, 22);
+            this.butJeu.Size = new System.Drawing.Size(130, 22);
             this.butJeu.Text = "But du jeu";
             this.butJeu.Click += new System.EventHandler(this.butJeu_Click);
             // 
@@ -355,23 +355,8 @@
             this.partieSimpleToolStripMenuItem,
             this.partieComplexeToolStripMenuItem});
             this.reglesJeu.Name = "reglesJeu";
-            this.reglesJeu.Size = new System.Drawing.Size(152, 22);
+            this.reglesJeu.Size = new System.Drawing.Size(130, 22);
             this.reglesJeu.Text = "Règles";
-            // 
-            // queFaire
-            // 
-            this.queFaire.Name = "queFaire";
-            this.queFaire.Size = new System.Drawing.Size(152, 22);
-            this.queFaire.Text = "Que faire ?";
-            // 
-            // pic_temp
-            // 
-            this.pic_temp.Location = new System.Drawing.Point(13, 619);
-            this.pic_temp.Name = "pic_temp";
-            this.pic_temp.Size = new System.Drawing.Size(100, 50);
-            this.pic_temp.TabIndex = 4;
-            this.pic_temp.TabStop = false;
-            this.pic_temp.Visible = false;
             // 
             // partieSimpleToolStripMenuItem
             // 
@@ -386,6 +371,21 @@
             this.partieComplexeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.partieComplexeToolStripMenuItem.Text = "Partie Complexe";
             this.partieComplexeToolStripMenuItem.Click += new System.EventHandler(this.partieComplexeToolStripMenuItem_Click);
+            // 
+            // queFaire
+            // 
+            this.queFaire.Name = "queFaire";
+            this.queFaire.Size = new System.Drawing.Size(130, 22);
+            this.queFaire.Text = "Que faire ?";
+            // 
+            // pic_temp
+            // 
+            this.pic_temp.Location = new System.Drawing.Point(13, 619);
+            this.pic_temp.Name = "pic_temp";
+            this.pic_temp.Size = new System.Drawing.Size(100, 50);
+            this.pic_temp.TabIndex = 4;
+            this.pic_temp.TabStop = false;
+            this.pic_temp.Visible = false;
             // 
             // Partie
             // 

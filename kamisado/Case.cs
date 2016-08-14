@@ -74,5 +74,15 @@ namespace kamisado
         {
             return this.occupee;
         }
+
+        public void setOccupe()
+        {
+            this.occupee = true;
+        }
+
+        public void setNonOccupe()
+        {
+            this.occupee = false;
+        }
     }
 }

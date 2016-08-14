@@ -10,13 +10,15 @@ namespace kamisado
     {
         private int equipe;
         private int couleurPion;
+        private int numPion;
         private Case position;
         private int pouvoir;
 
-        public Pion(int team, int color, Case pos)
+        public Pion(int team, int color, int num, Case pos)
         {
             this.equipe = team;
             this.couleurPion = color;
+            this.numPion = num;
             this.position = pos;
             this.pouvoir = 0;
         }
@@ -84,6 +86,11 @@ namespace kamisado
                     break;
             }
             return color;
+        }
+
+        public int getNumPion()
+        {
+            return this.numPion;
         }
     
         public Case getPosition()
