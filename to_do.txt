@@ -1,5 +1,25 @@
 LISTE INCOMPLETE! A COMPLETER AU FUR ET A MESURE.
 
+Déroulé d'un déplacement:
+1- le j1 joue son pion
+2- on récupère la couleur de la case via le tag de la picturebox (tag = indice de la case du tableau des pions correspondant à la picturebox)
+3- on sait donc que la tour blanche de la couleur récupérée (via procédure get_couleur_pion()) doit être jouée. On récupère aussi sa position pour faire les tests de déplacement (via procédure get_case_pion())
+4- à partir de là, on utilise la procédure déplacementpossible() pour faire allowdrop = true sur les cases où le déplacement est possible (il faut trouver le moyen de lui indiquer les cases où le déplacement est possible)
+5- les autres cases passent en allowdrop = false
+6- quand déplacement fait, appeler fin_partie() 
+
+		######################################################################################################################################
+
+Variables tampon à créer/utiliser : 
+1- passer plateau en public pour pouvoir y accéder depuis les méthodes
+2- pion: pour stocker le pion joué
+3- case : pour stocker le numéro de la case?
+4- tour_joueur: pour savoir quel joueur a la main (exp: dans fin de partie, faudra tester si la tour se trouve entre 0 et 7 si noir et entre 56 et 63 si blanc)
+5- type_partie: pour savoir si le jeu continue quand la tour d'un des deux joueurs arrive sur la ligne de départ de l'adversaire)
+6- fin_de_partie : sur laquelle faire le test du while pour le déroulé de la partie. Sa valeur ne pourra être changée que par fin_partie()
+
+		######################################################################################################################################
+
 Créer procédures:
  - fin de partie() : verifier si position pion entre 0 et 7 ou entre 54 et 63. SI Oui, MsgBox "Joueur nom_joueur a gagné!!"
  - vérif_deplacement() : rajouter un label pour stocker la couleur active (celle de la dernière case jouée). Si deplacement OK, appeler depose_tour, sinon msgbox "Vous devez jouer la tour de couleur => label.color
@@ -18,6 +38,8 @@ Pour le joueur :
 Pour le pion :
  - modification de la position
 
+		######################################################################################################################################
+
 Général :
 - ajouter menu bar en haut des fenêtres Accueil et Partie avec : 
 	- règles 
@@ -25,4 +47,9 @@ Général :
 		- type de partie (règles additionnelles)
 		- comptage des points
 	- crédits
+
+
+
+
+
 
