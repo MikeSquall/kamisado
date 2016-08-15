@@ -23,6 +23,7 @@ namespace kamisado
         Pion tourDeplacee;
         Case caseDepart;
         Plateau plateau;
+        int num_joueur = 0;
 
         public Partie()
         {
@@ -71,49 +72,49 @@ namespace kamisado
                 if (casesOrange.Contains(n))
                 {
                     tmp.BackColor = Color.Orange;
-                    tmp.Tag = "orange";
+                    tmp.Tag = 0; /*orange*/
                     num_color = 0;
                 }
                 else if (casesBlue.Contains(n))
                 {
                     tmp.BackColor = Color.CornflowerBlue;
-                    tmp.Tag = "blue";
+                    tmp.Tag = 1; /*blue*/ 
                     num_color = 1;
                 }
                 else if (casesViolet.Contains(n))
                 {
                     tmp.BackColor = Color.DarkOrchid;
-                    tmp.Tag = "violet";
+                    tmp.Tag = 2; /*violet*/;
                     num_color = 2;
                 }
                 else if (casesPink.Contains(n))
                 {
                     tmp.BackColor = Color.HotPink;
-                    tmp.Tag = "pink";
+                    tmp.Tag = 3; /*pink*/;
                     num_color = 3;
                 }
                 else if (casesYellow.Contains(n))
                 {
                     tmp.BackColor = Color.Yellow;
-                    tmp.Tag = "yellow";
+                    tmp.Tag = 4; /*yellow*/
                     num_color = 4;
                 }
                 else if (casesRed.Contains(n))
                 {
                     tmp.BackColor = Color.Crimson;
-                    tmp.Tag = "red";
+                    tmp.Tag = 5; /*red*/
                     num_color = 5;
                 }
                 else if (casesGreen.Contains(n))
                 {
                     tmp.BackColor = Color.Green;
-                    tmp.Tag = "green";
+                    tmp.Tag = 6; /*green*/
                     num_color = 6;
                 }
                 else if (casesBrown.Contains(n))
                 {
                     tmp.BackColor = Color.SaddleBrown;
-                    tmp.Tag = "brown";
+                    tmp.Tag = 7; /*brown*/
                     num_color = 7;
                 }
                 Case c = new Case(num_color, n, false);
@@ -123,7 +124,6 @@ namespace kamisado
                 {
                     c.setOccupe();
                     PictureBox pic = new PictureBox();
-                    //pic.Parent = tmp;
                     pic.Visible = true;
                     pic.Size = new Size(45, 45);
                     board.Controls.Add(pic);
@@ -213,13 +213,6 @@ namespace kamisado
                     index_list++;
                 }
 
-                //if (n > 7 || n < 56)
-                //{
-                //    tmp.AllowDrop = true;
-                //    tmp.DragEnter += new DragEventHandler(survol_cases);
-                //    tmp.DragDrop += new DragEventHandler(depose_case);
-                //}
-
                 colonne += 52;
 
             }
@@ -242,18 +235,30 @@ namespace kamisado
         private void clic_souris(object sender, MouseEventArgs e)
         {
             pic_temp = (PictureBox)sender;
-            pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
+
             tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
             caseDepart = tourDeplacee.getPosition();
             List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
-            foreach(Control c in board.Controls)
+            //var message = string.Join(Environment.NewLine, cibles);
+            //MessageBox.Show(message);
+
+            /*on désactive allow drop sur toutes les labels avant de le permettre uniquement sur les bons labels*/
+            foreach (Control lab in board.Controls)
             {
-                if (c.Name != "" && cibles.Contains(Convert.ToInt32(c.Name)))
+                lab.AllowDrop = false;
+            }
+
+            foreach (Control c in board.Controls)
+            {
+                if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
                 {
                     c.AllowDrop = true;
+                    //MessageBox.Show("Case n°:" + c.Name, "debug");
                 }
             }
             plateau.getCase(caseDepart.getNumCase()).setNonOccupe();
+
+            pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
         }
 
         /*gestion du survol*/
@@ -274,7 +279,34 @@ namespace kamisado
             nvelle_tour.Visible = true;
             nvelle_tour.BringToFront();
             plateau.getCase(Convert.ToInt32(lab.Name)).setOccupe();
+            //MessageBox.Show("Etat de la case :" + plateau.getCase(Convert.ToInt32(lab.Name)).getOccupe());
             plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
+
+            /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
+            int index = Convert.ToInt16(lab.Tag);
+
+            if (num_joueur == 1)
+            {
+                index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
+                num_joueur = 0; /*on passe la main au joueur avec les tours blanches*/
+            }
+            else
+            {
+                num_joueur = 1; /*on passe la main au joueur avec les tours blanches*/
+            }
+            
+            /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
+            foreach (Control ctrl in board.Controls)
+            {
+                if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
+                {
+                    ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                }
+                else
+                {
+                    ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                }
+            }
         }
 
         // menu 'aide' => 'but du jeu"

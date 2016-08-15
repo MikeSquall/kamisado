@@ -55,13 +55,13 @@ namespace kamisado
                     n++;
                 }
                 n = 1;
-                while ((pos + 7 * n) < 64 && this.board[pos + 7 * n].getOccupe() == false && n <= (7 - colonne))
+                while ((pos + 7 * n) < 64 && this.board[pos + 7 * n].getOccupe() == false && n <= colonne)
                 { // diagonale droite
                     casesCibles.Add(pos + 7 * n);
                     n++;
                 }
                 n = 1;
-                while ((pos + 9 * n) < 64 && this.board[pos + 9 * n].getOccupe() == false && n <= colonne)
+                while ((pos + 9 * n) < 64 && this.board[pos + 9 * n].getOccupe() == false && n <= (7 - colonne))
                 { // diagonale gauche
                     casesCibles.Add(pos + 9 * n);
                     n++;
