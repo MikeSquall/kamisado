@@ -18,7 +18,7 @@ namespace kamisado
         {
             this.nom = s;
             this.couleurPions = n;
-            this.timer = t; 
+            this.timer = t*60; 
             this.compteurPoints = 0;
         }
 
@@ -45,6 +45,11 @@ namespace kamisado
         public int getTime()
         {
             return this.timer;
+        }
+
+        public void setTime()
+        {
+            this.timer--;
         }
     }
 }

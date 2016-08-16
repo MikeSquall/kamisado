@@ -36,9 +36,9 @@ namespace kamisado
             this.picJ1.BackColor = Color.Black;
             this.picJ2.BackColor = Color.White;
             /*définition des valeurs des chronos selon le choix de l'utilisateur*/
-            progressbarJ1.Value = Accueil.J1.getTime() * 60;
+            progressbarJ1.Value = Accueil.J1.getTime();
             progressbarJ1.Maximum = progressbarJ1.Value;
-            progressbarJ2.Value = Accueil.J1.getTime() * 60;
+            progressbarJ2.Value = Accueil.J1.getTime();
             progressbarJ2.Maximum = progressbarJ2.Value;
             /*formatage de l'affichage du chrono*/
             chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
@@ -228,14 +228,19 @@ namespace kamisado
 
         private void timerJ1_Tick(object sender, EventArgs e)
         {
-            progressbarJ1.Value--;
-            chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
-        }
+            if (joueurActif.getCouleurPions() == 0)
+            {
+                Accueil.J1.setTime();
+                progressbarJ1.Value = Accueil.J1.getTime();
+                chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+            }
+            else
+            {
+                Accueil.J2.setTime();
+                progressbarJ2.Value = Accueil.J2.getTime();
+                chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+            }
 
-        private void timerJ2_Tick(object sender, EventArgs e)
-        {
-            progressbarJ2.Value--;
-            chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
         }
 
         /*au clic de la souris, on récupère la picturebox sender*/

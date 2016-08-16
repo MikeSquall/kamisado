@@ -268,7 +268,7 @@
             // timerJ2
             // 
             this.timerJ2.Interval = 1000;
-            this.timerJ2.Tick += new System.EventHandler(this.timerJ2_Tick);
+            this.timerJ2.Tick += new System.EventHandler(this.timerJ1_Tick);
             // 
             // menuStrip1
             // 

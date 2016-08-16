@@ -44,7 +44,7 @@ namespace kamisado
 
         private void nomsJoueurs_Load(object sender, EventArgs e)
         {
-            liste_duree.SelectedText = "10";
+            liste_duree.SelectedIndex = 5; /*10 min par défaut*/
         }
     }
 }
