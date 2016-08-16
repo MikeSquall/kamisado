@@ -28,8 +28,8 @@ namespace kamisado
             }
             else
             {
-                Accueil.J1 = new Joueur(nomJoueur1.Text, 1);
-                Accueil.J2 = new Joueur(nomJoueur2.Text, 2);
+                Accueil.J1 = new Joueur(nomJoueur1.Text, 0);
+                Accueil.J2 = new Joueur(nomJoueur2.Text, 1);
                 this.Hide();
             }
         }
@@ -40,6 +40,11 @@ namespace kamisado
             {
                 valideNomJoueur.PerformClick();
             }
+        }
+
+        private void nomsJoueurs_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

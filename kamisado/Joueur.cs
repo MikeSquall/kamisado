@@ -9,7 +9,7 @@ namespace kamisado
     public class Joueur
     {
         private String nom;
-        private int couleurPions; // 1 pour noir, 2 pour blanc
+        private int couleurPions; // 0 pour noir, 1 pour blanc
         private int compteurPoints;
         // ajouter timer ==> voir comment faire
 

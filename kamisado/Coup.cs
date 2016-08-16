@@ -25,7 +25,7 @@ namespace kamisado
         {
             int couleurPions = joueurActif.getCouleurPions();
             String team = " none";
-            if(couleurPions == 1)
+            if(couleurPions == 0)
             {
                 team = " (Noir)";
             }

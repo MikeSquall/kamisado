@@ -38,7 +38,7 @@ namespace kamisado
             chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
             chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
             timerJ1.Enabled = true;
-            timerJ2.Enabled = true;
+            //timerJ2.Enabled = true;
             
         }
 
@@ -179,35 +179,35 @@ namespace kamisado
                             break;
                         case 8:
                             teamPion = 0;
-                            couleurPion = 0;
+                            couleurPion = 7;
                             break;
                         case 9:
                             teamPion = 0;
-                            couleurPion = 1;
+                            couleurPion = 6;
                             break;
                         case 10:
                             teamPion = 0;
-                            couleurPion = 2;
+                            couleurPion = 5;
                             break;
                         case 11:
                             teamPion = 0;
-                            couleurPion = 3;
+                            couleurPion = 4;
                             break;
                         case 12:
                             teamPion = 0;
-                            couleurPion = 4;
+                            couleurPion = 3;
                             break;
                         case 13:
                             teamPion = 0;
-                            couleurPion = 5;
+                            couleurPion = 2;
                             break;
                         case 14:
                             teamPion = 0;
-                            couleurPion = 6;
+                            couleurPion = 1;
                             break;
                         case 15:
                             teamPion = 0;
-                            couleurPion = 7;
+                            couleurPion = 0;
                             break;
                     }
                     Pion p = new Pion(teamPion, couleurPion, index_list, c);
@@ -292,14 +292,18 @@ namespace kamisado
             /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
             int index = Convert.ToInt16(lab.Tag);
 
-            if (num_joueur == 1) // utiliser POO ;)
+            if (joueurActif.getCouleurPions() == 1)
             {
                 index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
-                num_joueur = 0; /*on passe la main au joueur avec les tours blanches*/
+                joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
+                timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
+                timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
             }
             else
             {
-                num_joueur = 1; /*on passe la main au joueur avec les tours blanches*/
+                joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
+                timerJ1.Enabled = false;
+                timerJ2.Enabled = true;
             }
             
             /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/

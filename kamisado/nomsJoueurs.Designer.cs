@@ -93,6 +93,7 @@
             this.Controls.Add(this.label1);
             this.Name = "nomsJoueurs";
             this.Text = "Noms des Joueurs ";
+            this.Load += new System.EventHandler(this.nomsJoueurs_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
