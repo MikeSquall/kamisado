@@ -9,21 +9,31 @@ namespace kamisado
     public class Coup
     {
         private Pion pionDeplace;
-        private Case depart;
+        //private Case depart;
         private Case arrivee;
         private Joueur joueurActif;
 
-        public Coup(Joueur j, Pion p, Case d, Case a)
+        public Coup(Joueur j, Pion p, Case a)
         {
             this.joueurActif = j;
             this.pionDeplace = p;
-            this.depart = d;
+            //this.depart = d;
             this.arrivee = a;
         }
 
         public String afficheCoup()
         {
-            return joueurActif.getNom() + " a joué sa tour " + pionDeplace.getCouleurPion() + " sur une case " + arrivee.getCouleur();
+            int couleurPions = joueurActif.getCouleurPions();
+            String team = " none";
+            if(couleurPions == 1)
+            {
+                team = " (Noir)";
+            }
+            else
+            {
+                team = " (Blanc)";
+            }
+            return joueurActif.getNom() + team + " -> tour " + pionDeplace.getCouleurPion() + " sur case " + arrivee.getCouleur() + Environment.NewLine ;
         }
     }
 }

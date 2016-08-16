@@ -393,6 +393,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.ClientSize = new System.Drawing.Size(1020, 681);
+            this.ControlBox = false;
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pic_temp);
             this.Controls.Add(this.listeCoups);

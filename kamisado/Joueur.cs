@@ -25,6 +25,11 @@ namespace kamisado
             return this.nom;
         }
 
+        public int getCouleurPions()
+        {
+            return this.couleurPions;
+        }
+
         public int getPoints()
         {
             return this.compteurPoints;

@@ -24,6 +24,7 @@ namespace kamisado
         Case caseDepart;
         Plateau plateau;
         int num_joueur = 0;
+        Joueur joueurActif;
 
         public Partie()
         {
@@ -140,6 +141,7 @@ namespace kamisado
                         pic.MouseDown += new MouseEventHandler(clic_souris);
                     }
 
+                    // création d'une instance de Pion
                     int teamPion = -1, couleurPion = -1;
                     switch (index_list)
                     {
@@ -217,6 +219,7 @@ namespace kamisado
 
             }
             plateau = new Plateau(tabCases, tabPions);
+            joueurActif = Accueil.J1;
         }
 
         private void timerJ1_Tick(object sender, EventArgs e)
@@ -282,10 +285,14 @@ namespace kamisado
             //MessageBox.Show("Etat de la case :" + plateau.getCase(Convert.ToInt32(lab.Name)).getOccupe());
             plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
 
+            // affichage du coup joué
+            Coup coupJoue = new Coup(joueurActif, tourDeplacee, plateau.getCase(Convert.ToInt32(lab.Name)));
+            listeCoups.Text += coupJoue.afficheCoup();
+
             /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
             int index = Convert.ToInt16(lab.Tag);
 
-            if (num_joueur == 1)
+            if (num_joueur == 1) // utiliser POO ;)
             {
                 index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
                 num_joueur = 0; /*on passe la main au joueur avec les tours blanches*/

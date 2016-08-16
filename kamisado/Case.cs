@@ -49,7 +49,7 @@ namespace kamisado
                     color = "Marron";
                     break;
             }
-
+            /*
             color += this.numero.ToString();
 
             switch (this.occupee)
@@ -61,7 +61,7 @@ namespace kamisado
                     color += " Occupée";
                     break;
             }
-
+            */
             return color;
         }
 
