@@ -35,11 +35,15 @@ namespace kamisado
             this.scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " Point";
             this.picJ1.BackColor = Color.Black;
             this.picJ2.BackColor = Color.White;
+            /*définition des valeurs des chronos selon le choix de l'utilisateur*/
+            progressbarJ1.Value = Accueil.J1.getTime() * 60;
+            progressbarJ1.Maximum = progressbarJ1.Value;
+            progressbarJ2.Value = Accueil.J1.getTime() * 60;
+            progressbarJ2.Maximum = progressbarJ2.Value;
+            /*formatage de l'affichage du chrono*/
             chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
             chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
             timerJ1.Enabled = true;
-            //timerJ2.Enabled = true;
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)

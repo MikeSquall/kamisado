@@ -33,12 +33,14 @@
             this.valideNomJoueur = new System.Windows.Forms.Button();
             this.nomJoueur2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label_duree = new System.Windows.Forms.Label();
+            this.liste_duree = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 40);
+            this.label1.Location = new System.Drawing.Point(40, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 13);
             this.label1.TabIndex = 0;
@@ -46,7 +48,7 @@
             // 
             // nomJoueur1
             // 
-            this.nomJoueur1.Location = new System.Drawing.Point(147, 37);
+            this.nomJoueur1.Location = new System.Drawing.Point(147, 27);
             this.nomJoueur1.Name = "nomJoueur1";
             this.nomJoueur1.Size = new System.Drawing.Size(187, 20);
             this.nomJoueur1.TabIndex = 1;
@@ -65,7 +67,7 @@
             // 
             // nomJoueur2
             // 
-            this.nomJoueur2.Location = new System.Drawing.Point(147, 73);
+            this.nomJoueur2.Location = new System.Drawing.Point(147, 63);
             this.nomJoueur2.Name = "nomJoueur2";
             this.nomJoueur2.Size = new System.Drawing.Size(187, 20);
             this.nomJoueur2.TabIndex = 2;
@@ -74,11 +76,35 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 76);
+            this.label2.Location = new System.Drawing.Point(40, 66);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Nom du joueur n°2 :";
+            // 
+            // label_duree
+            // 
+            this.label_duree.AutoSize = true;
+            this.label_duree.Location = new System.Drawing.Point(40, 101);
+            this.label_duree.Name = "label_duree";
+            this.label_duree.Size = new System.Drawing.Size(157, 13);
+            this.label_duree.TabIndex = 4;
+            this.label_duree.Text = "Durée de la partie (en minutes) :";
+            // 
+            // liste_duree
+            // 
+            this.liste_duree.FormattingEnabled = true;
+            this.liste_duree.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "5",
+            "7",
+            "9",
+            "10"});
+            this.liste_duree.Location = new System.Drawing.Point(281, 96);
+            this.liste_duree.Name = "liste_duree";
+            this.liste_duree.Size = new System.Drawing.Size(53, 21);
+            this.liste_duree.TabIndex = 5;
             // 
             // nomsJoueurs
             // 
@@ -86,6 +112,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(383, 166);
             this.ControlBox = false;
+            this.Controls.Add(this.liste_duree);
+            this.Controls.Add(this.label_duree);
             this.Controls.Add(this.nomJoueur2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.valideNomJoueur);
@@ -106,5 +134,7 @@
         private System.Windows.Forms.Button valideNomJoueur;
         private System.Windows.Forms.TextBox nomJoueur2;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_duree;
+        private System.Windows.Forms.ComboBox liste_duree;
     }
 }

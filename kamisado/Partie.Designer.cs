@@ -439,8 +439,6 @@
         private System.Windows.Forms.ProgressBar progressbarJ1;
         private System.Windows.Forms.Label chronoJ2;
         private System.Windows.Forms.ProgressBar progressbarJ2;
-        private System.Windows.Forms.Timer timerJ1;
-        private System.Windows.Forms.Timer timerJ2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem jeuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sauvegarderToolStripMenuItem;
@@ -456,6 +454,8 @@
         private System.Windows.Forms.PictureBox pic_temp;
         private System.Windows.Forms.ToolStripMenuItem partieSimpleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem partieComplexeToolStripMenuItem;
+        public System.Windows.Forms.Timer timerJ1;
+        public System.Windows.Forms.Timer timerJ2;
     }
 }
 

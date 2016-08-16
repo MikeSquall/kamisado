@@ -11,12 +11,14 @@ namespace kamisado
         private String nom;
         private int couleurPions; // 0 pour noir, 1 pour blanc
         private int compteurPoints;
+        private int timer;
         // ajouter timer ==> voir comment faire
 
-        public Joueur(String s, int n)
+        public Joueur(String s, int n, int t)
         {
             this.nom = s;
-            this.couleurPions = n; 
+            this.couleurPions = n;
+            this.timer = t; 
             this.compteurPoints = 0;
         }
 
@@ -38,6 +40,11 @@ namespace kamisado
         public void setPoints()
         {
             this.compteurPoints++;
+        }
+
+        public int getTime()
+        {
+            return this.timer;
         }
     }
 }
