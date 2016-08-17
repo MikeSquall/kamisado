@@ -259,30 +259,33 @@ namespace kamisado
         /*au clic de la souris, on récupère la picturebox sender*/
         private void clic_souris(object sender, MouseEventArgs e)
         {
-            pic_temp = (PictureBox)sender;
-
-            tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
-            caseDepart = tourDeplacee.getPosition();
-            List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
-            //var message = string.Join(Environment.NewLine, cibles);
-            //MessageBox.Show(message);
-
-            /*on désactive allow drop sur toutes les labels avant de le permettre uniquement sur les bons labels*/
-            foreach (Control lab in board.Controls)
+            if (sender is PictureBox) // cette condition évite un bug qui fait planter le programme si on clique sur une case au lieu d'une tour
             {
-                lab.AllowDrop = false;
-            }
+                pic_temp = (PictureBox)sender;
 
-            foreach (Control c in board.Controls)
-            {
-                if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
+                tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
+                caseDepart = tourDeplacee.getPosition();
+                List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
+                //var message = string.Join(Environment.NewLine, cibles);
+                //MessageBox.Show(message);
+
+                /*on désactive allow drop sur toutes les labels avant de le permettre uniquement sur les bons labels*/
+                foreach (Control lab in board.Controls)
                 {
-                    c.AllowDrop = true;
-                    //MessageBox.Show("Case n°:" + c.Name, "debug");
+                    lab.AllowDrop = false;
                 }
+
+                foreach (Control c in board.Controls)
+                {
+                    if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
+                    {
+                        c.AllowDrop = true;
+                        //MessageBox.Show("Case n°:" + c.Name, "debug");
+                    }
+                }
+
+                pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
             }
-            
-            pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
         }
 
         /*gestion du survol*/
