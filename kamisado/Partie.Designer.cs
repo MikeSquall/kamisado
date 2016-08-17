@@ -67,7 +67,7 @@
             this.pic_temp = new System.Windows.Forms.PictureBox();
             this.dragonNoir = new System.Windows.Forms.PictureBox();
             this.dragonBlanc = new System.Windows.Forms.PictureBox();
-            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -416,11 +416,10 @@
             this.dragonBlanc.TabStop = false;
             this.dragonBlanc.Visible = false;
             // 
-            // imageList2
+            // timer1
             // 
-            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
-            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList2.Images.SetKeyName(0, "rond.png");
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Partie
             // 
@@ -497,7 +496,7 @@
         public System.Windows.Forms.Timer timerJ2;
         private System.Windows.Forms.PictureBox dragonNoir;
         private System.Windows.Forms.PictureBox dragonBlanc;
-        private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
