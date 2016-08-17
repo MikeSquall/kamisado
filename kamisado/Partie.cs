@@ -20,6 +20,10 @@ namespace kamisado
         List<int> casesRed = new List<int> { 5, 8, 19, 30, 33, 44, 55, 58 };
         List<int> casesGreen = new List<int> { 6, 11, 16, 29, 34, 47, 52, 57 };
         List<int> casesBrown = new List<int> { 7, 14, 21, 28, 35, 42, 49, 56 };
+        /*liste des cases de la ligne de départ pour chaque joueur*/
+        List<int> casesDepartBlanches = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7 };
+        List<int> casesDepartNoires = new List<int> { 56, 57, 58, 59, 60, 61, 62, 63 };
+
         Pion tourDeplacee;
         Case caseDepart;
         Plateau plateau;
@@ -233,15 +237,21 @@ namespace kamisado
         {
             if (joueurActif.getCouleurPions() == 0)
             {
-                Accueil.J1.setTime();
-                progressbarJ1.Value = Accueil.J1.getTime();
-                chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+                if (fin_partie_temps() == false)
+                {
+                    Accueil.J1.setTime();
+                    progressbarJ1.Value = Accueil.J1.getTime();
+                    chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+                }
             }
             else
             {
-                Accueil.J2.setTime();
-                progressbarJ2.Value = Accueil.J2.getTime();
-                chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+                if (fin_partie_temps() == false)
+                {
+                    Accueil.J2.setTime();
+                    progressbarJ2.Value = Accueil.J2.getTime();
+                    chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+                }
             }
 
         }
@@ -299,67 +309,72 @@ namespace kamisado
             //MessageBox.Show("Etat de la case :" + plateau.getCase(Convert.ToInt32(lab.Name)).getOccupe());
             plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
 
+            int test = plateau.getCase(Convert.ToInt32(lab.Name)).getNumCase();
 
             // affichage du coup joué
             Coup coupJoue = new Coup(joueurActif, tourDeplacee, plateau.getCase(Convert.ToInt32(lab.Name)));
             listeCoups.Text += coupJoue.afficheCoup();
 
-            /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
-            int index = Convert.ToInt16(lab.Tag);
-            
-            if (joueurActif.getCouleurPions() == 1)
+            /*fin de partie?*/
+            if (fin_partie_classique(test) == false)
             {
-                index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
-                joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
-                timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
-                timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
-                dragonNoir.Visible = true;
-                dragonBlanc.Visible = false;
-            }
-            else
-            {
-                joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
-                timerJ1.Enabled = false;
-                timerJ2.Enabled = true;
-                dragonNoir.Visible = false;
-                dragonBlanc.Visible = true;
-            }
+                /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
+                int index = Convert.ToInt16(lab.Tag);
 
-            // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
-            if (this.pionBloque(index))
-            {
-                int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
-                int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
-                // on affiche un message et on change de joueur
                 if (joueurActif.getCouleurPions() == 1)
                 {
-                    Coup coup = new Coup(joueurActif);
-                    listeCoups.Text += coup.blocage();
-                    joueurActif = Accueil.J1;
-                    // on indique l'indice du pion qui récupère la main
-                    index = 7 + (8 - couleurCasePionBloque);
+                    index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
+                    joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
+                    timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
+                    timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
+                    dragonNoir.Visible = true;
+                    dragonBlanc.Visible = false;
                 }
                 else
                 {
-                    Coup coup = new Coup(joueurActif);
-                    listeCoups.Text += coup.blocage();
-                    joueurActif = Accueil.J2;
-                    index = couleurCasePionBloque;
+                    joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
+                    timerJ1.Enabled = false;
+                    timerJ2.Enabled = true;
+                    dragonNoir.Visible = false;
+                    dragonBlanc.Visible = true;
                 }
-            }
-            
-            /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
-            foreach (Control ctrl in board.Controls)
-            {
-                if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
+
+                // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
+                if (this.pionBloque(index))
                 {
-                    ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                    int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
+                    int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
+                    // on affiche un message et on change de joueur
+                    if (joueurActif.getCouleurPions() == 1)
+                    {
+                        Coup coup = new Coup(joueurActif);
+                        listeCoups.Text += coup.blocage();
+                        joueurActif = Accueil.J1;
+                        // on indique l'indice du pion qui récupère la main
+                        index = 7 + (8 - couleurCasePionBloque);
+                    }
+                    else
+                    {
+                        Coup coup = new Coup(joueurActif);
+                        listeCoups.Text += coup.blocage();
+                        joueurActif = Accueil.J2;
+                        index = couleurCasePionBloque;
+                    }
                 }
-                else
+
+                /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
+                foreach (Control ctrl in board.Controls)
                 {
-                    ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                    if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
+                    {
+                        ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                    }
+                    else
+                    {
+                        ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                    }
                 }
-            }
+            }           
         }
 
         // test du blocage d'un pion
@@ -415,6 +430,114 @@ namespace kamisado
                 // penser à rajouter proposition de sauvegarde si partie non sauvegardée
                 this.Close();
             }
+        }
+
+        /*gestion de la fin de partie par fin du temps*/
+        public bool fin_partie_temps()
+        {
+            /*gestion de la fin de partie par fin de chrono*/
+            bool flag = false;
+
+            if (joueurActif.getCouleurPions() == 0)
+            {
+                if (progressbarJ1.Value == 0)
+                {
+                    timerJ1.Enabled = false;
+                    timerJ2.Enabled = false;
+                    Accueil.J2.setPoints();
+                    scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
+                    MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+                    /*on débranche le clic_souris*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox)
+                        {
+                            ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        }
+                    }
+
+                    flag = true;
+                }
+            }
+            else
+            {
+                if (progressbarJ2.Value == 0)
+                {
+                    timerJ1.Enabled = false;
+                    timerJ2.Enabled = false;
+                    Accueil.J1.setPoints();
+                    scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints())+" point";
+                    MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!","Nous avons un vainqueur!");
+                    /*on débranche le clic_souris*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox)
+                        {
+                            ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        }
+                    }
+
+                    flag = true;
+                }
+            }
+
+            return flag;
+        }
+
+        /*gestion de la fin de partie classique*/
+        public bool fin_partie_classique(int num_case)
+        {
+            /*fin de partie si :
+                - l'un des joueurs a placé sa tour sur la ligne de départ de l'autre
+                - en cas de déplacement impossible pour les deux joueurs --> à gérer plus tard            
+            */
+            bool flag = false;
+
+            if (joueurActif.getCouleurPions() == 0)
+            {
+                if (casesDepartBlanches.Contains(num_case))
+                {
+                    timerJ1.Enabled = false;
+                    timerJ2.Enabled = false;
+                    //MessageBox.Show("Numéro de case A: " + num_case);
+                    Accueil.J1.setPoints();
+                    scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
+                    MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+                    flag = true;
+                    /*on débranche le clic_souris*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox)
+                        {
+                            ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (casesDepartNoires.Contains(num_case))
+                {
+                    timerJ1.Enabled = false;
+                    timerJ2.Enabled = false;
+                    MessageBox.Show("Numéro de case B: " + num_case);
+                    Accueil.J2.setPoints();
+                    scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
+                    MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+                    flag = true;
+                    /*on débranche le clic_souris*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox)
+                        {
+                            ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        }
+                    }
+                }
+            }
+
+            return flag;
+
         }
     }
 }
