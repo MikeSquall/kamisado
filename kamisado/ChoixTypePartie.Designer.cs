@@ -49,7 +49,6 @@
             this.btnJ1CPU.Name = "btnJ1CPU";
             this.btnJ1CPU.Size = new System.Drawing.Size(144, 64);
             this.btnJ1CPU.TabIndex = 1;
-            this.btnJ1CPU.Text = "J1 vs CPU";
             this.btnJ1CPU.UseVisualStyleBackColor = true;
             // 
             // ChoixTypePartie
@@ -60,6 +59,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.btnJ1CPU);
             this.Controls.Add(this.btnJ1J2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ChoixTypePartie";
             this.Text = "ChoixTypePartie";
             this.ResumeLayout(false);

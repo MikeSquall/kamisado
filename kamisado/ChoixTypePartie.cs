@@ -15,8 +15,9 @@ namespace kamisado
         public ChoixTypePartie()
         {
             InitializeComponent();
+            btnJ1CPU.Text = "J1 vs CPU "+ Environment.NewLine +" bientôt disponible";
         }
-        
+
         private void btnJ1J2_Click(object sender, EventArgs e)
         {
             nomsJoueurs joueur1 = new nomsJoueurs();
