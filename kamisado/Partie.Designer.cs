@@ -67,6 +67,7 @@
             this.pic_temp = new System.Windows.Forms.PictureBox();
             this.dragonNoir = new System.Windows.Forms.PictureBox();
             this.dragonBlanc = new System.Windows.Forms.PictureBox();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -415,6 +416,12 @@
             this.dragonBlanc.TabStop = false;
             this.dragonBlanc.Visible = false;
             // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "rond.png");
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,6 +497,7 @@
         public System.Windows.Forms.Timer timerJ2;
         private System.Windows.Forms.PictureBox dragonNoir;
         private System.Windows.Forms.PictureBox dragonBlanc;
+        private System.Windows.Forms.ImageList imageList2;
     }
 }
 
