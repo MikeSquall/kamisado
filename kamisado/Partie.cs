@@ -261,7 +261,7 @@ namespace kamisado
         private void clic_souris(object sender, MouseEventArgs e)
         {
             pic_temp = (PictureBox)sender;
-
+            timer1.Enabled = false;
             tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
             caseDepart = tourDeplacee.getPosition();
             List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
@@ -285,7 +285,9 @@ namespace kamisado
                 }
             }
 
+            timer1.Enabled = true;
             pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
+
         }
 
         /*gestion du survol*/
@@ -378,8 +380,6 @@ namespace kamisado
                         tourAjouer = (PictureBox)ctrl;
                     }
                 }
-
-                timer1.Enabled = true;
             }           
         }
 
@@ -509,12 +509,12 @@ namespace kamisado
                 {
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
-                    timer1.Enabled = false;
                     //MessageBox.Show("Numéro de case A: " + num_case);
                     Accueil.J1.setPoints();
                     scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
                     listeCoups.Text += Accueil.J1.getNom() + " a gagné!";
                     MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+                    timer1.Enabled = false;
                     flag = true;
                     /*on débranche le clic_souris*/
                     foreach (Control ctrl in board.Controls)
@@ -532,12 +532,13 @@ namespace kamisado
                 {
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
-                    timer1.Enabled = false;
+                    
                     //MessageBox.Show("Numéro de case B: " + num_case);
                     Accueil.J2.setPoints();
                     scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
                     listeCoups.Text += Accueil.J2.getNom() + " a gagné!";
                     MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+                    timer1.Enabled = false;
                     flag = true;
                     /*on débranche le clic_souris*/
                     foreach (Control ctrl in board.Controls)
