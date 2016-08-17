@@ -44,6 +44,9 @@ namespace kamisado
             chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
             chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
             timerJ1.Enabled = true;
+            /*initialisation de la couleur du dragon*/
+            dragonNoir.Visible = true;
+            dragonBlanc.Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -233,16 +236,12 @@ namespace kamisado
                 Accueil.J1.setTime();
                 progressbarJ1.Value = Accueil.J1.getTime();
                 chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
-                dragonNoir.Visible = true;
-                dragonBlanc.Visible = false;
             }
             else
             {
                 Accueil.J2.setTime();
                 progressbarJ2.Value = Accueil.J2.getTime();
                 chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
-                dragonNoir.Visible = false;
-                dragonBlanc.Visible = true;
             }
 
         }
@@ -272,8 +271,7 @@ namespace kamisado
                     //MessageBox.Show("Case n°:" + c.Name, "debug");
                 }
             }
-            plateau.getCase(caseDepart.getNumCase()).setNonOccupe();
-
+            
             pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
         }
 
@@ -294,9 +292,13 @@ namespace kamisado
             board.Controls.Add(nvelle_tour);
             nvelle_tour.Visible = true;
             nvelle_tour.BringToFront();
+            /*l'état de la case d'arrivée passe à Occupée*/
             plateau.getCase(Convert.ToInt32(lab.Name)).setOccupe();
+            /*on libère la case de départ*/
+            plateau.getCase(caseDepart.getNumCase()).setNonOccupe();
             //MessageBox.Show("Etat de la case :" + plateau.getCase(Convert.ToInt32(lab.Name)).getOccupe());
             plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
+
 
             // affichage du coup joué
             Coup coupJoue = new Coup(joueurActif, tourDeplacee, plateau.getCase(Convert.ToInt32(lab.Name)));
@@ -311,12 +313,16 @@ namespace kamisado
                 joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
                 timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
                 timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
+                dragonNoir.Visible = true;
+                dragonBlanc.Visible = false;
             }
             else
             {
                 joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
                 timerJ1.Enabled = false;
                 timerJ2.Enabled = true;
+                dragonNoir.Visible = false;
+                dragonBlanc.Visible = true;
             }
 
             // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
