@@ -65,6 +65,8 @@
             this.partieComplexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
             this.pic_temp = new System.Windows.Forms.PictureBox();
+            this.dragonNoir = new System.Windows.Forms.PictureBox();
+            this.dragonBlanc = new System.Windows.Forms.PictureBox();
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -72,6 +74,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picJ2)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_temp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dragonNoir)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dragonBlanc)).BeginInit();
             this.SuspendLayout();
             // 
             // board
@@ -87,7 +91,7 @@
             this.fond_board.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.fond_board.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fond_board.Controls.Add(this.board);
-            this.fond_board.Location = new System.Drawing.Point(105, 63);
+            this.fond_board.Location = new System.Drawing.Point(46, 63);
             this.fond_board.Name = "fond_board";
             this.fond_board.Size = new System.Drawing.Size(456, 456);
             this.fond_board.TabIndex = 0;
@@ -387,6 +391,30 @@
             this.pic_temp.TabStop = false;
             this.pic_temp.Visible = false;
             // 
+            // dragonNoir
+            // 
+            this.dragonNoir.BackColor = System.Drawing.Color.Transparent;
+            this.dragonNoir.BackgroundImage = global::kamisado.Properties.Resources.black_dragon;
+            this.dragonNoir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.dragonNoir.Location = new System.Drawing.Point(532, 63);
+            this.dragonNoir.Name = "dragonNoir";
+            this.dragonNoir.Size = new System.Drawing.Size(98, 58);
+            this.dragonNoir.TabIndex = 5;
+            this.dragonNoir.TabStop = false;
+            this.dragonNoir.Visible = false;
+            // 
+            // dragonBlanc
+            // 
+            this.dragonBlanc.BackColor = System.Drawing.Color.Transparent;
+            this.dragonBlanc.BackgroundImage = global::kamisado.Properties.Resources.white_dragon;
+            this.dragonBlanc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.dragonBlanc.Location = new System.Drawing.Point(532, 139);
+            this.dragonBlanc.Name = "dragonBlanc";
+            this.dragonBlanc.Size = new System.Drawing.Size(98, 58);
+            this.dragonBlanc.TabIndex = 5;
+            this.dragonBlanc.TabStop = false;
+            this.dragonBlanc.Visible = false;
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,6 +422,8 @@
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.ClientSize = new System.Drawing.Size(1020, 681);
             this.ControlBox = false;
+            this.Controls.Add(this.dragonBlanc);
+            this.Controls.Add(this.dragonNoir);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pic_temp);
             this.Controls.Add(this.listeCoups);
@@ -414,6 +444,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_temp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dragonNoir)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dragonBlanc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -456,6 +488,8 @@
         private System.Windows.Forms.ToolStripMenuItem partieComplexeToolStripMenuItem;
         public System.Windows.Forms.Timer timerJ1;
         public System.Windows.Forms.Timer timerJ2;
+        private System.Windows.Forms.PictureBox dragonNoir;
+        private System.Windows.Forms.PictureBox dragonBlanc;
     }
 }
 

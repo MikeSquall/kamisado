@@ -23,7 +23,7 @@ namespace kamisado
         Pion tourDeplacee;
         Case caseDepart;
         Plateau plateau;
-        int num_joueur = 0;
+        //int num_joueur = 0;
         Joueur joueurActif;
 
         public Partie()
@@ -233,12 +233,16 @@ namespace kamisado
                 Accueil.J1.setTime();
                 progressbarJ1.Value = Accueil.J1.getTime();
                 chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+                dragonNoir.Visible = true;
+                dragonBlanc.Visible = false;
             }
             else
             {
                 Accueil.J2.setTime();
                 progressbarJ2.Value = Accueil.J2.getTime();
                 chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+                dragonNoir.Visible = false;
+                dragonBlanc.Visible = true;
             }
 
         }
@@ -300,7 +304,7 @@ namespace kamisado
 
             /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
             int index = Convert.ToInt16(lab.Tag);
-
+            
             if (joueurActif.getCouleurPions() == 1)
             {
                 index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
@@ -314,6 +318,29 @@ namespace kamisado
                 timerJ1.Enabled = false;
                 timerJ2.Enabled = true;
             }
+
+            // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
+            if (this.pionBloque(index))
+            {
+                int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
+                int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
+                // on affiche un message et on change de joueur
+                if (joueurActif.getCouleurPions() == 1)
+                {
+                    Coup coup = new Coup(joueurActif);
+                    listeCoups.Text += coup.blocage();
+                    joueurActif = Accueil.J1;
+                    // on indique l'indice du pion qui récupère la main
+                    index = 7 + (8 - couleurCasePionBloque);
+                }
+                else
+                {
+                    Coup coup = new Coup(joueurActif);
+                    listeCoups.Text += coup.blocage();
+                    joueurActif = Accueil.J2;
+                    index = couleurCasePionBloque;
+                }
+            }
             
             /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
             foreach (Control ctrl in board.Controls)
@@ -326,6 +353,23 @@ namespace kamisado
                 {
                     ctrl.MouseDown += new MouseEventHandler(clic_souris);
                 }
+            }
+        }
+
+        // test du blocage d'un pion
+        private bool pionBloque(int index)
+        {
+            Pion p = plateau.getPion(index);
+            Case c = p.getPosition();
+            List<int> cibles = plateau.deplacementOk(p, c);
+
+            if(cibles.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -63,6 +63,16 @@ namespace kamisado.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap black_dragon {
+            get {
+                object obj = ResourceManager.GetObject("black-dragon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fond {
             get {
                 object obj = ResourceManager.GetObject("fond", resourceCulture);
@@ -96,6 +106,16 @@ namespace kamisado.Properties {
         internal static System.Drawing.Bitmap tour {
             get {
                 object obj = ResourceManager.GetObject("tour", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap white_dragon {
+            get {
+                object obj = ResourceManager.GetObject("white-dragon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -65,6 +65,11 @@ namespace kamisado
             return color;
         }
 
+        public int getCouleurNum()
+        {
+            return this.couleur;
+        }
+
         public int getNumCase()
         {
             return this.numero;

@@ -127,6 +127,7 @@
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(660, 392);
+            this.ControlBox = false;
             this.Controls.Add(this.toursDecoAccueil);
             this.Controls.Add(this.titreJeu);
             this.Controls.Add(this.btn_complexGame);

@@ -87,12 +87,13 @@
             this.label_duree.AutoSize = true;
             this.label_duree.Location = new System.Drawing.Point(40, 101);
             this.label_duree.Name = "label_duree";
-            this.label_duree.Size = new System.Drawing.Size(157, 13);
+            this.label_duree.Size = new System.Drawing.Size(201, 13);
             this.label_duree.TabIndex = 4;
-            this.label_duree.Text = "Durée de la partie (en minutes) :";
+            this.label_duree.Text = "Temps maximum par joueur (en minutes) :";
             // 
             // liste_duree
             // 
+            this.liste_duree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.liste_duree.FormattingEnabled = true;
             this.liste_duree.Items.AddRange(new object[] {
             "2",
