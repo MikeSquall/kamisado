@@ -27,9 +27,9 @@ namespace kamisado
         Pion tourDeplacee;
         Case caseDepart;
         Plateau plateau;
-        //int num_joueur = 0;
         Joueur joueurActif;
         PictureBox tourAjouer;
+        bool partie_terminee = false;
 
         public Partie()
         {
@@ -285,8 +285,12 @@ namespace kamisado
                 }
             }
 
-            timer1.Enabled = true;
             pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
+
+            if (partie_terminee == false)
+            {
+                timer1.Enabled = true;
+            }
 
         }
 
@@ -451,6 +455,7 @@ namespace kamisado
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
                     timer1.Enabled = false;
+                    partie_terminee = true;
                     Accueil.J2.setPoints();
                     scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
                     listeCoups.Text += Accueil.J2.getNom() + " a gagné!";
@@ -474,6 +479,7 @@ namespace kamisado
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
                     timer1.Enabled = false;
+                    partie_terminee = true;
                     Accueil.J1.setPoints();
                     scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints())+" point";
                     listeCoups.Text += Accueil.J1.getNom() + " a gagné!";
@@ -509,6 +515,7 @@ namespace kamisado
                 {
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
+                    partie_terminee = true;
                     //MessageBox.Show("Numéro de case A: " + num_case);
                     Accueil.J1.setPoints();
                     scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
@@ -532,7 +539,7 @@ namespace kamisado
                 {
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
-                    
+                    partie_terminee = true;
                     //MessageBox.Show("Numéro de case B: " + num_case);
                     Accueil.J2.setPoints();
                     scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
@@ -565,7 +572,8 @@ namespace kamisado
                         for (int i = 0; i<750; i++)
                         {
                             c.Location = new Point(c.Location.X, c.Location.Y - 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 4);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
                             c.Location = new Point(c.Location.X, c.Location.Y - 2);
                         }
                     }
