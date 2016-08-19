@@ -151,6 +151,7 @@ namespace kamisado
                     if (n > 55)
                     {
                         pic.MouseDown += new MouseEventHandler(clic_souris);
+                        pic.Cursor = Cursors.Hand;
                     }
 
                     // création d'une instance de Pion
@@ -359,6 +360,8 @@ namespace kamisado
                         Coup coup = new Coup(joueurActif);
                         listeCoups.Text += coup.blocage();
                         joueurActif = Accueil.J1;
+                        dragonNoir.Visible = true;
+                        dragonBlanc.Visible = false;
                         // on indique l'indice du pion qui récupère la main
                         index = 7 + (8 - couleurCasePionBloque);
                     }
@@ -367,6 +370,8 @@ namespace kamisado
                         Coup coup = new Coup(joueurActif);
                         listeCoups.Text += coup.blocage();
                         joueurActif = Accueil.J2;
+                        dragonNoir.Visible = false;
+                        dragonBlanc.Visible = true;
                         index = couleurCasePionBloque;
                     }
                 }
@@ -377,11 +382,13 @@ namespace kamisado
                     if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
                     {
                         ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        ctrl.Cursor = Cursors.No;
                     }
                     else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
                     {
                         ctrl.MouseDown += new MouseEventHandler(clic_souris);
                         tourAjouer = (PictureBox)ctrl;
+                        ctrl.Cursor = Cursors.Hand;
                     }
                 }
             }           
@@ -569,12 +576,16 @@ namespace kamisado
                 {
                     if (c == tourAjouer)
                     {
-                        for (int i = 0; i<750; i++)
+                        for (int i = 0; i<150; i++)
                         {
-                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y - 1);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 1);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 1);
+                            c.Location = new Point(c.Location.X, c.Location.Y - 1);
+                            c.Location = new Point(c.Location.X - 1, c.Location.Y);
+                            c.Location = new Point(c.Location.X + 1, c.Location.Y);
+                            c.Location = new Point(c.Location.X + 1, c.Location.Y);
+                            c.Location = new Point(c.Location.X - 1, c.Location.Y);
                         }
                     }
                 }
