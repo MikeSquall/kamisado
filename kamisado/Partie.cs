@@ -350,14 +350,16 @@ namespace kamisado
                 }
 
                 // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
-                if (this.pionBloque(index))
+                int compteurBlocage = 0;
+                while (this.pionBloque(index))
                 {
                     int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
                     int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
+                    Coup coup;
                     // on affiche un message et on change de joueur
                     if (joueurActif.getCouleurPions() == 1)
                     {
-                        Coup coup = new Coup(joueurActif);
+                        coup = new Coup(joueurActif);
                         listeCoups.Text += coup.blocage();
                         joueurActif = Accueil.J1;
                         dragonNoir.Visible = true;
@@ -367,12 +369,19 @@ namespace kamisado
                     }
                     else
                     {
-                        Coup coup = new Coup(joueurActif);
+                        coup = new Coup(joueurActif);
                         listeCoups.Text += coup.blocage();
                         joueurActif = Accueil.J2;
                         dragonNoir.Visible = false;
                         dragonBlanc.Visible = true;
                         index = couleurCasePionBloque;
+                    }
+                    compteurBlocage++;
+                    if (compteurBlocage > 15)
+                    {
+                        //fin_partie_classique(plateau.getPion(tourDeplacee.getNumPion()).getPosition().getNumCase());
+                        finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
+                        break;
                     }
                 }
 
@@ -516,7 +525,7 @@ namespace kamisado
             */
             bool flag = false;
 
-            if (joueurActif.getCouleurPions() == 0)
+            if (joueurActif.getCouleurPions() == 0) // joueur Noir marque
             {
                 if (casesDepartBlanches.Contains(num_case))
                 {
@@ -540,7 +549,7 @@ namespace kamisado
                     }
                 }
             }
-            else
+            else if (joueurActif.getCouleurPions() == 1) // joueur Blanc marque
             {
                 if (casesDepartNoires.Contains(num_case))
                 {
@@ -566,6 +575,28 @@ namespace kamisado
             }
 
             return flag;
+        }
+
+        // fin de partie suite à impasse totale
+        private void finPartieImpasseTotale(Pion p)
+        {
+            timerJ1.Enabled = false;
+            timerJ2.Enabled = false;
+            timer1.Enabled = false;
+            if (p.getEquipe() == 0)
+            {
+                Accueil.J2.setPoints();
+                scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
+                listeCoups.Text += Accueil.J2.getNom() + " a gagné!";
+                MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+            }
+            else
+            {
+                Accueil.J1.setPoints();
+                scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
+                listeCoups.Text += Accueil.J1.getNom() + " a gagné!";
+                MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
