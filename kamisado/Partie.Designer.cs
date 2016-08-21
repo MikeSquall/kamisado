@@ -301,6 +301,7 @@
             this.sauvegarderToolStripMenuItem.Name = "sauvegarderToolStripMenuItem";
             this.sauvegarderToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.sauvegarderToolStripMenuItem.Text = "Sauvegarder ";
+            this.sauvegarderToolStripMenuItem.Click += new System.EventHandler(this.sauvegarderToolStripMenuItem_Click);
             // 
             // nouvellePartieToolStripMenuItem
             // 
@@ -328,6 +329,7 @@
             this.chargerPartieToolStripMenuItem.Name = "chargerPartieToolStripMenuItem";
             this.chargerPartieToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.chargerPartieToolStripMenuItem.Text = "Charger partie";
+            this.chargerPartieToolStripMenuItem.Click += new System.EventHandler(this.chargerPartieToolStripMenuItem_Click);
             // 
             // quitterToolStripMenuItem
             // 

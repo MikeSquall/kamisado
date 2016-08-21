@@ -77,6 +77,7 @@
       <DependentUpon>ChoixTypePartie.cs</DependentUpon>
     </Compile>
     <Compile Include="Coup.cs" />
+    <Compile Include="FormSerialisor.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="nomsJoueurs.cs">
       <SubType>Form</SubType>
@@ -100,6 +101,7 @@
     <Compile Include="infos.Designer.cs">
       <DependentUpon>infos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sauvegarde.cs" />
     <EmbeddedResource Include="Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
     </EmbeddedResource>

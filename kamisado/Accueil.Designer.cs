@@ -73,6 +73,7 @@
             this.btn_loadGame.Size = new System.Drawing.Size(150, 50);
             this.btn_loadGame.TabIndex = 0;
             this.btn_loadGame.TabStop = false;
+            this.btn_loadGame.Click += new System.EventHandler(this.btn_loadGame_Click);
             // 
             // btn_quitGame
             // 

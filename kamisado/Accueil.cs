@@ -53,6 +53,11 @@ namespace kamisado
             game.ShowDialog();
         }
 
+        private void btn_loadGame_Click(object sender, EventArgs e)
+        {
+            
+        }
+
         private void btn_quitGame_Click(object sender, EventArgs e)
         {
             Application.Exit();

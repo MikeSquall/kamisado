@@ -622,5 +622,17 @@ namespace kamisado
                 }
             }
         }
+
+        // menu 'Jeu' => "Sauvegarder"
+        private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        // menu 'Jeu' => "Charger partie"
+        private void chargerPartieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
