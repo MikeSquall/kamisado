@@ -13,6 +13,7 @@ namespace kamisado
     public partial class Accueil : Form
     {
         internal static Joueur J1, J2;
+        internal static bool partie_complexe = false;
 
         public Accueil()
         {
