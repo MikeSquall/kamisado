@@ -38,7 +38,7 @@ namespace kamisado
             {
                 team = " (Blanc)";
             }
-            return joueurActif.getNom() + team + " -> tour " + pionDeplace.getCouleurPion() + " sur case " + arrivee.getCouleur() + Environment.NewLine ;
+            return joueurActif.getNom() + team + " a déplacé la tour " + pionDeplace.getCouleurPion() + " sur case " + arrivee.getCouleur() + Environment.NewLine ;
         }
 
         public String blocage()

@@ -547,6 +547,7 @@ namespace kamisado
                             ctrl.MouseDown -= new MouseEventHandler(clic_souris);
                         }
                     }
+                    replace_tours();
                 }
             }
             else if (joueurActif.getCouleurPions() == 1) // joueur Blanc marque
@@ -607,16 +608,16 @@ namespace kamisado
                 {
                     if (c == tourAjouer)
                     {
-                        for (int i = 0; i<150; i++)
+                        for (int i = 0; i<250; i++)
                         {
-                            c.Location = new Point(c.Location.X, c.Location.Y - 1);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 1);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 1);
-                            c.Location = new Point(c.Location.X, c.Location.Y - 1);
-                            c.Location = new Point(c.Location.X - 1, c.Location.Y);
-                            c.Location = new Point(c.Location.X + 1, c.Location.Y);
-                            c.Location = new Point(c.Location.X + 1, c.Location.Y);
-                            c.Location = new Point(c.Location.X - 1, c.Location.Y);
+                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
+                            c.Location = new Point(c.Location.X - 2, c.Location.Y);
+                            c.Location = new Point(c.Location.X + 2, c.Location.Y);
+                            c.Location = new Point(c.Location.X + 2, c.Location.Y);
+                            c.Location = new Point(c.Location.X - 2, c.Location.Y);
                         }
                     }
                 }
@@ -632,7 +633,219 @@ namespace kamisado
         // menu 'Jeu' => "Charger partie"
         private void chargerPartieToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void replace_tours()
+        {
+            int depart = 7;
+            int num_case = 56;
+            Pion[] tabPions_replace = new Pion[16];
+
+            //MessageBox.Show("Debug0 : début traitement tours blanches");
+            /*on traite d'abord les tours blanches*/
+            for (int i = 63; i > 0; i -= 8)
+            {
+                for (int j = i; j > i-8; j--)
+                {
+                    //MessageBox.Show("i = " + i +", j = "+j);
+                    if (plateau.getCase(j).getOccupe() == true)
+                    {
+                        //MessageBox.Show("Case occupée est : " + plateau.getCase(j).getNumCase());
+                        for (int k = 0; k < 16; k++)/*on teste tous les pions pour trouver le bon*/
+                        {
+                            if (plateau.getPion(k).getPosition().getNumCase() == j && plateau.getPion(k).getEquipe() == 1)
+                            {
+                                //MessageBox.Show("Case occupée est : " + plateau.getCase(j).getNumCase() + ", sa couleur est :"+plateau.getCase(j).getCouleur());
+                                //MessageBox.Show("Le pion qui s'y trouve est de couleur : " + plateau.getPion(k).getCouleurPion());
+                                /*on range la tour dans le tableau des cases à replacer*/
+                                tabPions_replace[depart] = plateau.getPion(k);
+                                depart--;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //MessageBox.Show("Debug1 : fin traitement des tours blanches");
+
+            depart = 8;
+            //MessageBox.Show("Debug2 : debut traitement tours noires");
+
+            /*on traite ensuite les tours noires*/
+            for (int i = 0; i < 64; i += 8)
+            {
+                for (int j = i; j < i + 8; j++)
+                {
+                    //MessageBox.Show("i = " + i + ", j = " + j);
+                    if (plateau.getCase(j).getOccupe() == true)
+                    {
+                        for (int k = 0; k < 16; k++)/*on teste tous les pions*/
+                        {
+                            if (plateau.getPion(k).getPosition().getNumCase() == j && plateau.getPion(k).getEquipe() == 0)
+                            {
+                                //MessageBox.Show("Case occupée est : " + plateau.getCase(j).getNumCase() + ", sa couleur est :" + plateau.getCase(j).getCouleur());
+                                //MessageBox.Show("Le pion qui s'y trouve est de couleur : " + plateau.getPion(k).getCouleurPion());
+                                /*on range la tour dans le tableau des cases à replacer*/
+                                tabPions_replace[depart] = plateau.getPion(k);
+                                depart++;
+                                num_case++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //MessageBox.Show("Debug3 : fin traitement tours noires");
+
+            /*on set toutes les cases du plateau à non_occupée*/
+            for (int i = 0; i<64; i++)
+            {
+                plateau.getCase(i).setNonOccupe();
+            }
+
+            /*une fois les tours correctement placées dans le tableau temporaire, on les replace dans le tableau principal*/
+            /*on réutilise la variable "depart" pour ne pas en créer une nouvelle*/
+            depart = 0;
+            for (int i = 0; i < 16; i++)
+            {
+                /*on place la tour qui se trouve en case i dans le tableau principal des tours qui se trouve dans la classe Plateau*/
+                plateau.setPion(tabPions_replace[i], i);
+                plateau.getPion(i).setPosition(plateau.getCase(depart)); /*on affecte les nouvelles cases aux tours*/
+                plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
+                depart++;
+                /*on test pour passer à l'autre extrémité du plateau*/
+                if (i == 7)
+                {
+                    depart = 56;
+                }                 
+            }
+
+            //MessageBox.Show("Debug4 : fin du replacement des tours dans le nouvel ordre");
+
+            /*on supprime les picturebox des tours dans le panel board*/
+            for (int i = board.Controls.Count - 1; i >= 0; i--)
+            {
+                if (board.Controls[i] is PictureBox)
+                {
+                    board.Controls[i].Dispose();
+                }
+            }
+                
+
+            //MessageBox.Show("Debug5 : fin de la suppression des picturebox");
+            int ligne = 0,
+                colonne = 0;
+
+            /*on les replace dans le nouvel ordre*/
+            for (int i = 0; i < 8; i++)
+            {
+                PictureBox pic = new PictureBox();
+                pic.Visible = true;
+                pic.Size = new Size(45, 45);
+                board.Controls.Add(pic);
+                pic.Location = new Point(colonne + 2, ligne + 2);
+                pic.BringToFront();
+                /*on adapte le fond de la picturebox*/
+                if (casesOrange.Contains(i))
+                {
+                    pic.BackColor = Color.Orange;
+                }
+                else if (casesBlue.Contains(i))
+                {
+                    pic.BackColor = Color.CornflowerBlue;
+                }
+                else if (casesViolet.Contains(i))
+                {
+                    pic.BackColor = Color.DarkOrchid;
+                }
+                else if (casesPink.Contains(i))
+                {
+                    pic.BackColor = Color.HotPink;
+                }
+                else if (casesYellow.Contains(i))
+                {
+                    pic.BackColor = Color.Yellow;
+                }
+                else if (casesRed.Contains(i))
+                {
+                    pic.BackColor = Color.Crimson;
+                }
+                else if (casesGreen.Contains(i))
+                {
+                    pic.BackColor = Color.Green;
+                }
+                else if (casesBrown.Contains(i))
+                {
+                    pic.BackColor = Color.SaddleBrown;
+                }
+                //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
+                pic.Image = imageList1.Images[plateau.getPion(i).getNumPion()];
+                colonne += 52;
+            }
+
+            //MessageBox.Show("Debug6 : fin replacement picturebox tours blanches");
+
+            ligne = 364;
+            colonne = 0;
+            depart = 8; /*afin d'éviter de créer une variable, on réutilise la variable "départ" pour prendre les bonnes images depuis l'imagelist1*/
+
+            /*on les replace dans le nouvel ordre*/
+            for (int i = 56; i < 64; i++)
+            {
+                PictureBox pic = new PictureBox();
+                pic.Visible = true;
+                pic.Size = new Size(45, 45);
+                board.Controls.Add(pic);
+                pic.Location = new Point(colonne + 2, ligne + 2);
+                pic.BringToFront();
+                /*on adapte le fond de la picturebox*/
+                if (casesOrange.Contains(i))
+                {
+                    pic.BackColor = Color.Orange;
+                }
+                else if (casesBlue.Contains(i))
+                {
+                    pic.BackColor = Color.CornflowerBlue;
+                }
+                else if (casesViolet.Contains(i))
+                {
+                    pic.BackColor = Color.DarkOrchid;
+                }
+                else if (casesPink.Contains(i))
+                {
+                    pic.BackColor = Color.HotPink;
+                }
+                else if (casesYellow.Contains(i))
+                {
+                    pic.BackColor = Color.Yellow;
+                }
+                else if (casesRed.Contains(i))
+                {
+                    pic.BackColor = Color.Crimson;
+                }
+                else if (casesGreen.Contains(i))
+                {
+                    pic.BackColor = Color.Green;
+                }
+                else if (casesBrown.Contains(i))
+                {
+                    pic.BackColor = Color.SaddleBrown;
+                }
+                pic.Image = imageList1.Images[plateau.getPion(depart).getNumPion()];
+                colonne += 52;
+                depart++;
+            }
+        }
+
+        public Plateau getPlateau()
+        {
+            return this.plateau;
+        }
+
+        public String getHistoCoups()
+        {
+            return this.listeCoups.Text;
         }
     }
 }

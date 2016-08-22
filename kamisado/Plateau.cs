@@ -76,6 +76,11 @@ namespace kamisado
             return this.tours[indice];
         }
 
+        public void setPion(Pion tour, int indice)
+        {
+            this.tours[indice] = tour;
+        }
+
         public Case getCase(int indice)
         {
             return this.board[indice];
