@@ -11,6 +11,11 @@ namespace kamisado
         private Case[] board;
         private Pion[] tours;
 
+        public Plateau()
+        {
+            // constructeur vide, sert à la classe Sauvegarde
+        }
+
         public Plateau(Case[] b, Pion[] t)
         {
             this.board = b;

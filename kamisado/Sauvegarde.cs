@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace kamisado
 {
-    class Sauvegarde
+    public class Sauvegarde
     {
         static void Main(string[] args, Partie p)
         {
@@ -24,19 +25,27 @@ namespace kamisado
 
         public static void sauver(Partie p)
         {
-            Donnees enCours = new Donnees();
-            enCours.boardgame = p.getPlateau();
-            enCours.j1 = Accueil.J1;
-            enCours.j2 = Accueil.J2;
-            enCours.histoCoups = p.getHistoCoups();
+            DialogResult reponse = new DialogResult();
+            reponse = MessageBox.Show("Voulez-vous sauvegarder la partie ?"+ Environment.NewLine +"(cela effacera toute sauvegarde plus ancienne)", "Sauvegarde", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Donnees));
+            if (reponse == DialogResult.Yes)
+            {
+                Donnees enCours = new Donnees();
+                enCours.boardgame = p.getPlateau();
+                enCours.j1 = Accueil.J1;
+                enCours.j2 = Accueil.J2;
+                enCours.histoCoups = p.getHistoCoups();
 
-            var chemin = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "kamisado_save.xml";
-            System.IO.FileStream fichier = System.IO.File.Create(chemin);
+                XmlSerializer serializer = new XmlSerializer(typeof(Donnees));
 
-            serializer.Serialize(fichier, enCours);
-            fichier.Close();
+                var chemin = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\kamisado_save.xml";
+                System.IO.FileStream fichier = System.IO.File.Create(chemin);
+                
+                serializer.Serialize(fichier, enCours);
+                fichier.Close();
+
+                MessageBox.Show("Partie sauvegardée", "Information", MessageBoxButtons.OK,MessageBoxIcon.Information);
+            } 
         }
     }
 }

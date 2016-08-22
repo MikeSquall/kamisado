@@ -233,6 +233,7 @@ namespace kamisado
             }
             plateau = new Plateau(tabCases, tabPions);
             joueurActif = Accueil.J1;
+            //MessageBox.Show("Partie complexe?" + Accueil.partie_complexe);
         }
 
         private void timerJ1_Tick(object sender, EventArgs e)
@@ -320,7 +321,7 @@ namespace kamisado
             plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
 
             int test = plateau.getCase(Convert.ToInt32(lab.Name)).getNumCase();
-
+            //MessageBox.Show("Numéro de la case : " + test);
             // affichage du coup joué
             Coup coupJoue = new Coup(joueurActif, tourDeplacee, plateau.getCase(Convert.ToInt32(lab.Name)));
             listeCoups.Text += coupJoue.afficheCoup();
@@ -534,7 +535,15 @@ namespace kamisado
                     partie_terminee = true;
                     //MessageBox.Show("Numéro de case A: " + num_case);
                     Accueil.J1.setPoints();
-                    scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
+                    if (Accueil.J1.getPoints() < 2)
+                    {
+                        scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
+                    }
+                    else
+                    {
+                        scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " points";
+                    }
+
                     listeCoups.Text += Accueil.J1.getNom() + " a gagné!";
                     MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
                     timer1.Enabled = false;
@@ -547,7 +556,6 @@ namespace kamisado
                             ctrl.MouseDown -= new MouseEventHandler(clic_souris);
                         }
                     }
-                    replace_tours();
                 }
             }
             else if (joueurActif.getCouleurPions() == 1) // joueur Blanc marque
@@ -559,7 +567,15 @@ namespace kamisado
                     partie_terminee = true;
                     //MessageBox.Show("Numéro de case B: " + num_case);
                     Accueil.J2.setPoints();
-                    scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
+                    if (Accueil.J2.getPoints() < 2)
+                    {
+                        scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
+                    }
+                    else
+                    {
+                        scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " points";
+                    }
+
                     listeCoups.Text += Accueil.J2.getNom() + " a gagné!";
                     MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
                     timer1.Enabled = false;
@@ -575,6 +591,74 @@ namespace kamisado
                 }
             }
 
+            /*si la partie est de type complexe alors on continue de jouer*/
+            if (Accueil.partie_complexe == true && flag == true)
+            {
+                bool fin_partie = false;
+
+                //MessageBox.Show("Debug 1 : on rentre dans le test");
+                if (joueurActif.getCouleurPions() == 0)
+                {
+                    //MessageBox.Show("Debug 2 : test si le jouer Noir a 3 points");
+                    if (Accueil.J1.getPoints() == 3)
+                    {
+                        fin_partie = true;
+                        MessageBox.Show(Accueil.J1.getNom() + " gagne la partie! Félicitations", "Nous avons notre champion");
+                    }
+                }
+                else if (joueurActif.getCouleurPions() == 1)
+                {
+                    //MessageBox.Show("Debug 2 : test si le jouer Blanc a 3 points");
+                    if (Accueil.J2.getPoints() == 3)
+                    {
+                        fin_partie = true;
+                        MessageBox.Show(Accueil.J2.getNom() + " gagne la partie! Félicitations", "Nous avons notre champion");
+                    }
+                }
+
+                if (fin_partie == false)
+                {
+                    //MessageBox.Show("Debug 4 : on continue de jouer");
+                    /*on replace les tours*/
+                    partie_terminee = false;
+                    replace_tours();
+                    listeCoups.Text += Environment.NewLine + "Nouvelle manche : ";
+                    if (joueurActif.getCouleurPions() == 0) /*si joueur avec tours noires a gagné*/
+                    {
+                        joueurActif = Accueil.J2;
+                        foreach (Control c in board.Controls)
+                        {
+                            if (c is PictureBox && Convert.ToInt16(c.Tag) < 8)
+                            {
+                                c.MouseDown += new MouseEventHandler(clic_souris);
+                            }
+                        }
+                        listeCoups.Text += Accueil.J2.getNom() + " prend la main" + Environment.NewLine;
+                        listeCoups.Text += Accueil.J2.getNom() + " peut jouer la tour de son choix" + Environment.NewLine;
+                        timerJ2.Enabled = true;
+                        timer1.Enabled = true;
+                        dragonBlanc.Visible = true;
+                        dragonNoir.Visible = false;
+                    }
+                    else
+                    {
+                        joueurActif = Accueil.J1;
+                        foreach (Control c in board.Controls)
+                        {
+                            if (c is PictureBox && Convert.ToInt16(c.Tag) > 8)
+                            {
+                                c.MouseDown += new MouseEventHandler(clic_souris);
+                            }
+                        }
+                        listeCoups.Text += Accueil.J1.getNom() + " prend la main" + Environment.NewLine;
+                        listeCoups.Text += Accueil.J1.getNom() + " peut jouer la tour de son choix" + Environment.NewLine;
+                        timerJ1.Enabled = true;
+                        timer1.Enabled = true;
+                        dragonNoir.Visible = true;
+                        dragonBlanc.Visible = false;
+                    }
+                }
+            }
             return flag;
         }
 
@@ -627,7 +711,7 @@ namespace kamisado
         // menu 'Jeu' => "Sauvegarder"
         private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Sauvegarde.sauver(this);
         }
 
         // menu 'Jeu' => "Charger partie"
@@ -710,10 +794,17 @@ namespace kamisado
             for (int i = 0; i < 16; i++)
             {
                 /*on place la tour qui se trouve en case i dans le tableau principal des tours qui se trouve dans la classe Plateau*/
-                plateau.setPion(tabPions_replace[i], i);
-                plateau.getPion(i).setPosition(plateau.getCase(depart)); /*on affecte les nouvelles cases aux tours*/
-                plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
-                depart++;
+                for (int j = 0; j <16; j++)
+                {
+                    if (tabPions_replace[j].getNumPion() == i)
+                    {
+                        plateau.setPion(tabPions_replace[j], i);
+                        plateau.getPion(i).setPosition(plateau.getCase(depart)); /*on affecte les nouvelles cases aux tours*/
+                        plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
+                        depart++;
+                    }
+                }
+
                 /*on test pour passer à l'autre extrémité du plateau*/
                 if (i == 7)
                 {
@@ -781,6 +872,7 @@ namespace kamisado
                 }
                 //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
                 pic.Image = imageList1.Images[plateau.getPion(i).getNumPion()];
+                pic.Tag = Convert.ToString(i);
                 colonne += 52;
             }
 
@@ -833,6 +925,7 @@ namespace kamisado
                     pic.BackColor = Color.SaddleBrown;
                 }
                 pic.Image = imageList1.Images[plateau.getPion(depart).getNumPion()];
+                pic.Tag = Convert.ToString(depart);
                 colonne += 52;
                 depart++;
             }

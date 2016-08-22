@@ -30,6 +30,10 @@ namespace kamisado
             {
                 Accueil.J1 = new Joueur(nomJoueur1.Text, 0, Convert.ToInt16(liste_duree.SelectedItem));
                 Accueil.J2 = new Joueur(nomJoueur2.Text, 1, Convert.ToInt16(liste_duree.SelectedItem));
+                if (partie_complexe.Checked == true)
+                {
+                    Accueil.partie_complexe = true;
+                }
                 this.Hide();
             }
         }
@@ -45,6 +49,7 @@ namespace kamisado
         private void nomsJoueurs_Load(object sender, EventArgs e)
         {
             liste_duree.SelectedIndex = 5; /*10 min par défaut*/
+            partie_simple.Checked = true;
         }
     }
 }

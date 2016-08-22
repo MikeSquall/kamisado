@@ -12,7 +12,11 @@ namespace kamisado
         private int couleurPions; // 0 pour noir, 1 pour blanc
         private int compteurPoints;
         private int timer;
-        // ajouter timer ==> voir comment faire
+        
+        public Joueur()
+        {
+            // constructeur vide, sert à la classe Sauvegarde
+        }
 
         public Joueur(String s, int n, int t)
         {

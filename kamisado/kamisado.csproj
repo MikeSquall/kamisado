@@ -77,7 +77,6 @@
       <DependentUpon>ChoixTypePartie.cs</DependentUpon>
     </Compile>
     <Compile Include="Coup.cs" />
-    <Compile Include="FormSerialisor.cs" />
     <Compile Include="Joueur.cs" />
     <Compile Include="nomsJoueurs.cs">
       <SubType>Form</SubType>
