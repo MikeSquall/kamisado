@@ -138,6 +138,7 @@ namespace kamisado
                     c.setOccupe();
                     PictureBox pic = new PictureBox();
                     pic.Visible = true;
+                    pic.Name = Convert.ToString(index_list);
                     pic.Size = new Size(45, 45);
                     board.Controls.Add(pic);
                     pic.Location = new Point(colonne + 2, ligne + 2);
@@ -282,7 +283,7 @@ namespace kamisado
                 if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
                 {
                     c.AllowDrop = true;
-                    //c.Text = "X";
+                    c.Text = "X";
                     //MessageBox.Show("Case n°:" + c.Name, "debug");
                 }
             }
@@ -330,11 +331,12 @@ namespace kamisado
             if (fin_partie_classique(test) == false)
             {
                 /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
-                int index = Convert.ToInt16(lab.Tag);
-
+                int index;
+                //int index = plateau.getTag(Convert.ToInt16(lab.Tag));
                 if (joueurActif.getCouleurPions() == 1)
                 {
-                    index = 7 + (8 - index); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
+                    //index = plateau.getPion(7+(8-Convert.ToInt16(lab.Tag))).getIndex(); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
+                    index = plateau.getTag(7 + (8 - Convert.ToInt16(lab.Tag)));
                     joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
                     timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
                     timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
@@ -343,6 +345,8 @@ namespace kamisado
                 }
                 else
                 {
+                    //index = plateau.getPion(Convert.ToInt16(lab.Tag)).getIndex();
+                    index = plateau.getTag(Convert.ToInt16(lab.Tag));
                     joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = true;
@@ -645,7 +649,7 @@ namespace kamisado
                         joueurActif = Accueil.J1;
                         foreach (Control c in board.Controls)
                         {
-                            if (c is PictureBox && Convert.ToInt16(c.Tag) > 8)
+                            if (c is PictureBox && Convert.ToInt16(c.Tag) > 7)
                             {
                                 c.MouseDown += new MouseEventHandler(clic_souris);
                             }
@@ -723,6 +727,7 @@ namespace kamisado
         private void replace_tours()
         {
             int depart = 7;
+            //int depart = 0;
             int num_case = 56;
             Pion[] tabPions_replace = new Pion[16];
 
@@ -744,6 +749,8 @@ namespace kamisado
                                 //MessageBox.Show("Le pion qui s'y trouve est de couleur : " + plateau.getPion(k).getCouleurPion());
                                 /*on range la tour dans le tableau des cases à replacer*/
                                 tabPions_replace[depart] = plateau.getPion(k);
+                                tabPions_replace[depart].setNumPion(depart);
+                                //tabPions_replace[depart].setPosition(plateau.getCase(depart));
                                 depart--;
                             }
                         }
@@ -772,8 +779,10 @@ namespace kamisado
                                 //MessageBox.Show("Le pion qui s'y trouve est de couleur : " + plateau.getPion(k).getCouleurPion());
                                 /*on range la tour dans le tableau des cases à replacer*/
                                 tabPions_replace[depart] = plateau.getPion(k);
+                                tabPions_replace[depart].setNumPion(depart);
+                                //tabPions_replace[depart].setPosition(plateau.getCase(num_case));
                                 depart++;
-                                num_case++;
+                                //num_case++;
                             }
                         }
                     }
@@ -791,25 +800,34 @@ namespace kamisado
             /*une fois les tours correctement placées dans le tableau temporaire, on les replace dans le tableau principal*/
             /*on réutilise la variable "depart" pour ne pas en créer une nouvelle*/
             depart = 0;
+            plateau.setPion(tabPions_replace);
             for (int i = 0; i < 16; i++)
             {
-                /*on place la tour qui se trouve en case i dans le tableau principal des tours qui se trouve dans la classe Plateau*/
-                for (int j = 0; j <16; j++)
-                {
-                    if (tabPions_replace[j].getNumPion() == i)
-                    {
-                        plateau.setPion(tabPions_replace[j], i);
-                        plateau.getPion(i).setPosition(plateau.getCase(depart)); /*on affecte les nouvelles cases aux tours*/
-                        plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
-                        depart++;
-                    }
-                }
+                //plateau.setPion(tabPions_replace[i], i);
+                //plateau.setPion[i] = tabPions_replace[i];
+                //plateau.getPion(i).setNumPion(i);
+                plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
+                tabPions_replace[i].setPosition(plateau.getCase(depart));
+                depart++;
 
-                /*on test pour passer à l'autre extrémité du plateau*/
+                
+                ///*on place la tour qui se trouve en case i dans le tableau principal des tours qui se trouve dans la classe Plateau*/
+                //for (int j = 0; j <16; j++)
+                //{
+                //    if (tabPions_replace[j].getNumPion() == i)
+                //    {
+                //        plateau.setPion(tabPions_replace[j], i);
+                //        plateau.getPion(i).setPosition(plateau.getCase(depart)); /*on affecte les nouvelles cases aux tours*/
+                //        plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
+                //        depart++;
+                //    }
+                //}
+
+                ///*on test pour passer à l'autre extrémité du plateau*/
                 if (i == 7)
                 {
                     depart = 56;
-                }                 
+                }
             }
 
             //MessageBox.Show("Debug4 : fin du replacement des tours dans le nouvel ordre");
@@ -828,11 +846,13 @@ namespace kamisado
             int ligne = 0,
                 colonne = 0;
 
+            depart = 0;
             /*on les replace dans le nouvel ordre*/
             for (int i = 0; i < 8; i++)
             {
                 PictureBox pic = new PictureBox();
                 pic.Visible = true;
+                pic.Name = Convert.ToString(plateau.getPion(depart).getIndex());
                 pic.Size = new Size(45, 45);
                 board.Controls.Add(pic);
                 pic.Location = new Point(colonne + 2, ligne + 2);
@@ -871,9 +891,13 @@ namespace kamisado
                     pic.BackColor = Color.SaddleBrown;
                 }
                 //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
-                pic.Image = imageList1.Images[plateau.getPion(i).getNumPion()];
-                pic.Tag = Convert.ToString(i);
+                pic.Image = imageList1.Images[plateau.getPion(i).getIndex()];
+                //pic.Tag = Convert.ToString(i);
+                pic.Tag = Convert.ToString(plateau.getPion(depart).getNumPion());
+                //MessageBox.Show("En case " + depart + " se trouve le pion : " + plateau.getPion(depart).getCouleurPion());
+                //MessageBox.Show("Son tag est : " + Convert.ToString(plateau.getPion(depart).getNumPion()) + " et son indice est : " + plateau.getPion(i).getIndex());
                 colonne += 52;
+                depart++;
             }
 
             //MessageBox.Show("Debug6 : fin replacement picturebox tours blanches");
@@ -887,6 +911,7 @@ namespace kamisado
             {
                 PictureBox pic = new PictureBox();
                 pic.Visible = true;
+                pic.Name = Convert.ToString(plateau.getPion(depart).getIndex());
                 pic.Size = new Size(45, 45);
                 board.Controls.Add(pic);
                 pic.Location = new Point(colonne + 2, ligne + 2);
@@ -924,10 +949,13 @@ namespace kamisado
                 {
                     pic.BackColor = Color.SaddleBrown;
                 }
-                pic.Image = imageList1.Images[plateau.getPion(depart).getNumPion()];
-                pic.Tag = Convert.ToString(depart);
+                pic.Image = imageList1.Images[plateau.getPion(depart).getIndex()];
+                pic.Tag = Convert.ToString(plateau.getPion(depart).getNumPion());
                 colonne += 52;
+                //MessageBox.Show("En case " + depart + " se trouve le pion : " + plateau.getPion(depart).getCouleurPion());
+                //MessageBox.Show("Son tag est : " + Convert.ToString(plateau.getPion(depart).getNumPion()) + " et son indice est : " + plateau.getPion(depart).getIndex());
                 depart++;
+
             }
         }
 
