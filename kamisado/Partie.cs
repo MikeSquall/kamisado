@@ -645,7 +645,7 @@ namespace kamisado
                         joueurActif = Accueil.J1;
                         foreach (Control c in board.Controls)
                         {
-                            if (c is PictureBox && Convert.ToInt16(c.Tag) > 8)
+                            if (c is PictureBox && Convert.ToInt16(c.Tag) > 7)
                             {
                                 c.MouseDown += new MouseEventHandler(clic_souris);
                             }
