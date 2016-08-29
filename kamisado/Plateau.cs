@@ -32,7 +32,7 @@ namespace kamisado
             // pour le déplacement, les cases que l'on peut cibler sont :
             // - dans le plateau
             // - non occupée et avec une ligne de vue directe  
-            if(p.getEquipe() == 0) // mouvements équipe noire -> du bas du plateau vers le haut
+            if (p.getEquipe() == 0) // mouvements équipe noire -> du bas du plateau vers le haut
             {
                 while ((pos - 8 * n) >= 0 && this.board[pos - 8 * n].getOccupe() == false)
                 { // ligne droite
@@ -72,7 +72,7 @@ namespace kamisado
                     n++;
                 }
             }
-            
+
             return casesCibles;
         }
 
@@ -81,14 +81,28 @@ namespace kamisado
             return this.tours[indice];
         }
 
-        public void setPion(Pion tour, int indice)
+        public void setPion(Pion[] tour)
         {
-            this.tours[indice] = tour;
+            this.tours = tour;
         }
 
         public Case getCase(int indice)
         {
             return this.board[indice];
+        }
+
+        public int getTag(int index)
+        {
+            int ind = -1;
+            for (int i = 0; i < 16; i++)
+            {
+                if (tours[i].getIndex() == index)
+                {
+                    ind = tours[i].getNumPion();
+                }
+            }
+
+            return ind;
         }
     }
 }
