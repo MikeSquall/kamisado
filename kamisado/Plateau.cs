@@ -10,6 +10,9 @@ namespace kamisado
     {
         private Case[] board;
         private Pion[] tours;
+        List<int> casesDepartBlanches = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7 };
+        List<int> casesDepartNoires = new List<int> { 56, 57, 58, 59, 60, 61, 62, 63 };
+
 
         public Plateau()
         {
@@ -39,6 +42,12 @@ namespace kamisado
                     casesCibles.Add(pos - 8 * n);
                     n++;
                 }
+
+                if (p.getPouvoir() == 1 && (pos - 8 * (n)) >= 0 && this.board[pos - 8 * n].getOccupe() == true && (pos - (8 * (n + 1)) >=0 && this.board[pos - (8 * (n + 1))].getOccupe() == false && !casesDepartBlanches.Contains(pos - 8 * n)))
+                {
+                    casesCibles.Add(pos - 8 * n);
+                }
+
                 n = 1;
                 while ((pos - 7 * n) >= 0 && this.board[pos - 7 * n].getOccupe() == false && n <= (7 - colonne))
                 { // diagonale droite

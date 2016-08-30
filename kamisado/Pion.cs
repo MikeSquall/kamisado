@@ -125,6 +125,16 @@ namespace kamisado
             return this.index_liste;
         }
 
+        public int getNumTag(int num)
+        {
+            int numero = -1;
+            if (this.position.getNumCase() == num)
+            {
+                numero = this.numPion;
+            }
+
+            return numero;
+        }
 
     }
 }
