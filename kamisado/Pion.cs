@@ -135,6 +135,5 @@ namespace kamisado
 
             return numero;
         }
-
     }
 }

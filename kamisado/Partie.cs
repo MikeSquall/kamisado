@@ -279,9 +279,7 @@ namespace kamisado
                 lab.AllowDrop = false;
                 lab.Text = "";
             }
-
-
-
+            
             foreach (Control c in board.Controls)
             {
                 if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
@@ -307,13 +305,6 @@ namespace kamisado
                                 }
                             }
                         }
-                        //foreach (PictureBox pic in board.Controls)
-                        //{
-                        //    if (plateau.getPion(Convert.ToInt16(pic.Tag)).getNumTag(Convert.ToInt16(c.Name)) == Convert.ToInt16(pic.Tag))
-                        //    {
-                        //        pic.AllowDrop = true;
-                        //    }
-                        //}
                     }
                 }
             }
@@ -441,7 +432,77 @@ namespace kamisado
             }
             else
             {
-                MessageBox.Show("Je ne peux pas gérer ça mon coco!");
+                //MessageBox.Show("Je ne peux pas gérer ça mon coco!");
+                PictureBox pic = (PictureBox)sender;
+                PictureBox nvelle_tour = new PictureBox();
+                nvelle_tour = tourAjouer;
+                nvelle_tour.Location = pic.Location; //elle prend la place de la tour sender
+                //nvelle_tour.Location = new Point(lab.Location.X + 2, lab.Location.Y + 2);
+                nvelle_tour.BackColor = pic.BackColor;
+                //nvelle_tour.BackColor = lab.BackColor;
+                board.Controls.Add(nvelle_tour);
+                nvelle_tour.Visible = true;
+                nvelle_tour.BringToFront();
+                
+                /*on calcule la différence entre le numéro de la case d'arrivée et celle de la case de départ pour déterminer la position de la tour qui subit le oshi*/
+                int difference = plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() - plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase();
+                //MessageBox.Show("Différence = " + difference);
+
+                switch (difference)
+                {
+                    case (-8): /*ligne droite tour noire*/
+                        pic.Location = new Point(pic.Location.X, pic.Location.Y - 52);
+                        break;
+                    case 8: /*ligne droite tour blanche*/
+                        pic.Location = new Point(pic.Location.X, pic.Location.Y + 52);
+                        break;
+                }
+                /*on adapte la couleur du fond de la picturebox déplacée à la couleur du nouveau label*/
+                int index = -1;
+                for (int i = 0; i < board.Controls.Count - 1; i++)
+                {
+                    if (board.Controls[i] is Label && Convert.ToInt16(board.Controls[i].Name) == plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() + difference)
+                    {
+                        pic.BackColor = board.Controls[i].BackColor;
+                        /* et on en profite pour repérer la prochaine toûr qui devra être jouée*/
+                        if (joueurActif.getCouleurPions() == 1)
+                        {
+                            index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
+                        }
+                        else
+                        {
+                            index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
+                        }                        
+                    }
+                }
+
+                /*libérer la case de la tour qui fait le oshi*/
+                plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()).setNonOccupe();
+                /*on met à jour la position de la tour qui fait le oshi*/
+                plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase()/*+difference*/));
+                /*on met à jour la position de la tour qui subit le oshi*/
+                plateau.getPion(Convert.ToInt16(pic.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference)); /*les deux tours bougent du même nombre de cases*/
+                /*on set la case à "occupée"*/
+                plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()+difference).setOccupe();
+                /*pas la peine de redonner la main au joueur qui a fait le oshi car il continue de jouer*/
+   
+                /*on active la prochaine tour à être jouée. Sa couleur est définie par la */
+
+                /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
+                foreach (Control ctrl in board.Controls)
+                {
+                    if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
+                    {
+                        ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        ctrl.Cursor = Cursors.No;
+                    }
+                    else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
+                    {
+                        ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                        tourAjouer = (PictureBox)ctrl;
+                        ctrl.Cursor = Cursors.Hand;
+                    }
+                }
             }
         }
 
@@ -667,6 +728,7 @@ namespace kamisado
                     /*on replace les tours*/
                     partie_terminee = false;
                     replace_tours();
+                    //check_pouvoir();
                     listeCoups.Text += Environment.NewLine + "Nouvelle manche : ";
                     if (joueurActif.getCouleurPions() == 0) /*si joueur avec tours noires a gagné*/
                     {
@@ -843,7 +905,8 @@ namespace kamisado
             {
 
                 plateau.getCase(depart).setOccupe();/*on set la case ocupée*/
-                tabPions_replace[i].setPosition(plateau.getCase(depart));
+                //tabPions_replace[i].setPosition(plateau.getCase(depart));
+                plateau.getPion(i).setPosition(plateau.getCase(depart));
                 depart++;
 
                 ///*on test pour passer à l'autre extrémité du plateau*/
@@ -991,5 +1054,14 @@ namespace kamisado
         {
             return this.listeCoups.Text;
         }
+
+        public void check_pouvoir()
+        {
+            for(int i = 0; i < 16; i++)
+            {
+                MessageBox.Show("Le pouvoir de la tour est :"+plateau.getPion(i).getPouvoir(),Convert.ToString(i));
+            }
+        }
+
     }
 }

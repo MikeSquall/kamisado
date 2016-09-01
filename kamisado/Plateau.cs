@@ -31,6 +31,7 @@ namespace kamisado
                 n = 1,
                 colonne = c.getNumCase() % 8;
             List<int> casesCibles = new List<int>();
+            bool blocage = true;
 
             // pour le déplacement, les cases que l'on peut cibler sont :
             // - dans le plateau
@@ -41,9 +42,11 @@ namespace kamisado
                 { // ligne droite
                     casesCibles.Add(pos - 8 * n);
                     n++;
+                    blocage = false;
                 }
-
-                if (p.getPouvoir() == 1 && (pos - 8 * (n)) >= 0 && this.board[pos - 8 * n].getOccupe() == true && (pos - (8 * (n + 1)) >=0 && this.board[pos - (8 * (n + 1))].getOccupe() == false && !casesDepartBlanches.Contains(pos - 8 * n)))
+                /*cas de la tour sumo. On peut rajouter la case qui bloque en vue de faire un oshi*/
+                if (blocage == true && p.getPouvoir() == 1 && (pos - 8 * n) >= 0 && this.board[pos - 8 * n].getOccupe() == true && (pos - (8 * (n + 1)) >=0 && this.board[pos - (8 * (n + 1))].getOccupe() == false && !casesDepartBlanches.Contains(pos - 8 * n)) && 
+                    this.getEquipeNumCase(getCase(pos - 8 * n).getNumCase()) != 0)
                 {
                     casesCibles.Add(pos - 8 * n);
                 }
@@ -54,6 +57,7 @@ namespace kamisado
                     casesCibles.Add(pos - 7 * n);
                     n++;
                 }
+
                 n = 1;
                 while ((pos - 9 * n) >= 0 && this.board[pos - 9 * n].getOccupe() == false && n <= colonne)
                 { // diagonale gauche
@@ -67,13 +71,22 @@ namespace kamisado
                 { // ligne droite
                     casesCibles.Add(pos + 8 * n);
                     n++;
+                    blocage = false;
                 }
+                /*cas de la tour sumo. On peut rajouter la case qui bloque en vue de faire un oshi*/
+                if (blocage == true && p.getPouvoir() == 1 && (pos + 8 * n) < 63 && this.board[pos + 8 * n].getOccupe() == true && (pos + (8 * (n + 1)) < 63 && this.board[pos + (8 * (n + 1))].getOccupe() == false && !casesDepartNoires.Contains(pos + 8 * n)) &&
+                    this.getEquipeNumCase(getCase(pos + 8 * n).getNumCase()) != 1)
+                {
+                    casesCibles.Add(pos + 8 * n);
+                }
+
                 n = 1;
                 while ((pos + 7 * n) < 64 && this.board[pos + 7 * n].getOccupe() == false && n <= colonne)
                 { // diagonale droite
                     casesCibles.Add(pos + 7 * n);
                     n++;
                 }
+                
                 n = 1;
                 while ((pos + 9 * n) < 64 && this.board[pos + 9 * n].getOccupe() == false && n <= (7 - colonne))
                 { // diagonale gauche
@@ -112,6 +125,20 @@ namespace kamisado
             }
 
             return ind;
+        }
+
+        public int getEquipeNumCase(int num_case)
+        {
+            int equipe = -1;
+            for (int i = 0; i < 16; i++)
+            {
+                if (this.tours[i].getPosition().getNumCase() == num_case)
+                {
+                    equipe = this.tours[i].getEquipe();
+                }
+            }
+
+            return equipe;
         }
     }
 }
