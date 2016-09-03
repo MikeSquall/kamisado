@@ -32,7 +32,13 @@ namespace kamisado
             {
                 Donnees enCours = new Donnees();
                 enCours.boardgame = p.getPlateau();
-                enCours.j1 = Accueil.J1;
+                enCours.j1 = new Joueur();
+                {
+                    enCours.j1.setNom(Accueil.J1.getNom());
+                    enCours.j1.setCouleurPions(0);
+                    enCours.j1.savePoints(Accueil.J1);
+                    enCours.j1.saveTimer(Accueil.J1);
+                }
                 enCours.j2 = Accueil.J2;
                 enCours.histoCoups = p.getHistoCoups();
 

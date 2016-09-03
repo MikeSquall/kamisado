@@ -31,9 +31,19 @@ namespace kamisado
             return this.nom;
         }
 
+        public void setNom(String n)
+        {
+            this.nom = n;
+        }
+
         public int getCouleurPions()
         {
             return this.couleurPions;
+        }
+
+        public void setCouleurPions(int c)
+        {
+            this.couleurPions = c;
         }
 
         public int getPoints()
@@ -46,6 +56,11 @@ namespace kamisado
             this.compteurPoints++;
         }
 
+        public void savePoints(Joueur j)
+        {
+            this.compteurPoints = j.getPoints();
+        }
+
         public int getTime()
         {
             return this.timer;
@@ -54,6 +69,11 @@ namespace kamisado
         public void setTime()
         {
             this.timer--;
+        }
+
+        public void saveTimer(Joueur j)
+        {
+            this.timer = j.getTime();
         }
     }
 }
