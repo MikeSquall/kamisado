@@ -144,7 +144,7 @@
             // progressbarJ1
             // 
             this.progressbarJ1.Location = new System.Drawing.Point(5, 28);
-            this.progressbarJ1.Maximum = 600;
+            this.progressbarJ1.Maximum = 900;
             this.progressbarJ1.Name = "progressbarJ1";
             this.progressbarJ1.Size = new System.Drawing.Size(262, 23);
             this.progressbarJ1.TabIndex = 9;
@@ -212,7 +212,7 @@
             // progressbarJ2
             // 
             this.progressbarJ2.Location = new System.Drawing.Point(5, 30);
-            this.progressbarJ2.Maximum = 600;
+            this.progressbarJ2.Maximum = 900;
             this.progressbarJ2.Name = "progressbarJ2";
             this.progressbarJ2.Size = new System.Drawing.Size(262, 23);
             this.progressbarJ2.TabIndex = 1;

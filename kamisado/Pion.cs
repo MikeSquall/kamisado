@@ -11,6 +11,7 @@ namespace kamisado
         private int equipe;
         private int couleurPion;
         private int numPion;
+        private int index_liste;
         private Case position;
         private int pouvoir;
 
@@ -19,6 +20,7 @@ namespace kamisado
             this.equipe = team;
             this.couleurPion = color;
             this.numPion = num;
+            this.index_liste = num;
             this.position = pos;
             this.pouvoir = 0;
         }
@@ -40,7 +42,7 @@ namespace kamisado
 
         public int deplacePion() // à virer ?
         {
-            int etat=0;
+            int etat = 0;
             return etat;
         }
 
@@ -92,7 +94,7 @@ namespace kamisado
         {
             return this.numPion;
         }
-    
+
         public Case getPosition()
         {
             return this.position;
@@ -113,5 +115,25 @@ namespace kamisado
             this.pouvoir = n;
         }
 
-    }   
+        public void setNumPion(int num)
+        {
+            this.numPion = num;
+        }
+
+        public int getIndex()
+        {
+            return this.index_liste;
+        }
+
+        public int getNumTag(int num)
+        {
+            int numero = -1;
+            if (this.position.getNumCase() == num)
+            {
+                numero = this.numPion;
+            }
+
+            return numero;
+        }
+    }
 }

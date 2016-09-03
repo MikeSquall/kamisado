@@ -36,8 +36,8 @@
             this.label_duree = new System.Windows.Forms.Label();
             this.liste_duree = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.partie_simple = new System.Windows.Forms.RadioButton();
             this.partie_complexe = new System.Windows.Forms.RadioButton();
+            this.partie_simple = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,10 +60,10 @@
             // 
             // valideNomJoueur
             // 
-            this.valideNomJoueur.Location = new System.Drawing.Point(120, 203);
+            this.valideNomJoueur.Location = new System.Drawing.Point(43, 203);
             this.valideNomJoueur.Name = "valideNomJoueur";
-            this.valideNomJoueur.Size = new System.Drawing.Size(165, 23);
-            this.valideNomJoueur.TabIndex = 4;
+            this.valideNomJoueur.Size = new System.Drawing.Size(291, 23);
+            this.valideNomJoueur.TabIndex = 6;
             this.valideNomJoueur.Text = "Valider";
             this.valideNomJoueur.UseVisualStyleBackColor = true;
             this.valideNomJoueur.Click += new System.EventHandler(this.valideNomJoueur_Click);
@@ -105,7 +105,9 @@
             "5",
             "7",
             "9",
-            "10"});
+            "10",
+            "12",
+            "15"});
             this.liste_duree.Location = new System.Drawing.Point(281, 96);
             this.liste_duree.Name = "liste_duree";
             this.liste_duree.Size = new System.Drawing.Size(53, 21);
@@ -122,27 +124,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Type de partie";
             // 
-            // partie_simple
-            // 
-            this.partie_simple.AutoSize = true;
-            this.partie_simple.Location = new System.Drawing.Point(18, 20);
-            this.partie_simple.Name = "partie_simple";
-            this.partie_simple.Size = new System.Drawing.Size(84, 17);
-            this.partie_simple.TabIndex = 0;
-            this.partie_simple.TabStop = true;
-            this.partie_simple.Text = "Partie simple";
-            this.partie_simple.UseVisualStyleBackColor = true;
-            // 
             // partie_complexe
             // 
             this.partie_complexe.AutoSize = true;
             this.partie_complexe.Location = new System.Drawing.Point(18, 43);
             this.partie_complexe.Name = "partie_complexe";
             this.partie_complexe.Size = new System.Drawing.Size(100, 17);
-            this.partie_complexe.TabIndex = 1;
+            this.partie_complexe.TabIndex = 0;
             this.partie_complexe.TabStop = true;
             this.partie_complexe.Text = "Partie complexe";
             this.partie_complexe.UseVisualStyleBackColor = true;
+            // 
+            // partie_simple
+            // 
+            this.partie_simple.AutoSize = true;
+            this.partie_simple.Location = new System.Drawing.Point(18, 20);
+            this.partie_simple.Name = "partie_simple";
+            this.partie_simple.Size = new System.Drawing.Size(84, 17);
+            this.partie_simple.TabIndex = 1;
+            this.partie_simple.TabStop = true;
+            this.partie_simple.Text = "Partie simple";
+            this.partie_simple.UseVisualStyleBackColor = true;
             // 
             // nomsJoueurs
             // 
