@@ -18,6 +18,7 @@ namespace kamisado
         public Accueil()
         {
             InitializeComponent();
+            this.CenterToScreen();
         }
 
         private void Accueil_Load(object sender, EventArgs e)
@@ -49,9 +50,10 @@ namespace kamisado
 
             ChoixTypePartie choix = new ChoixTypePartie();
             choix.ShowDialog();
-            this.Visible = true;
+            this.Visible = false;
             Partie game = new Partie();
             game.ShowDialog();
+            this.Visible = true;
         }
 
         private void btn_loadGame_Click(object sender, EventArgs e)

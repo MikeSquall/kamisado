@@ -15,6 +15,7 @@ namespace kamisado
         public nomsJoueurs()
         {
             InitializeComponent();
+            this.CenterToParent();
         }
 
         private void valideNomJoueur_Click(object sender, EventArgs e)

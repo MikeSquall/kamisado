@@ -58,6 +58,7 @@ namespace kamisado
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.CenterToScreen();
             int ligne = 0,
                 colonne = 0,
                 index_list = 0,
@@ -274,10 +275,10 @@ namespace kamisado
             //MessageBox.Show(message);
 
             /*on désactive allow drop sur toutes les labels avant de le permettre uniquement sur les bons labels*/
-            foreach (Control lab in board.Controls)
+            foreach (Control c in board.Controls)
             {
-                lab.AllowDrop = false;
-                lab.Text = "";
+                c.AllowDrop = false;
+                //c.Text = "";
             }
             
             foreach (Control c in board.Controls)
@@ -301,7 +302,6 @@ namespace kamisado
                                     board.Controls[i].DragEnter += new DragEventHandler(survol_cases);
                                     board.Controls[i].DragDrop += new DragEventHandler(depose_case);
                                     board.Controls[i].AllowDrop = true;
-                                    //MessageBox.Show("Debug : il y a une PictureBox pour allowdrop");
                                 }
                             }
                         }
@@ -316,6 +316,7 @@ namespace kamisado
                 timer1.Enabled = true;
             }
 
+            //MessageBox.Show("Debug : fin branchement des évènements", "debug");
         }
 
         /*gestion du survol*/
@@ -430,21 +431,19 @@ namespace kamisado
                     }
                 }
             }
-            else
+            else if (sender is PictureBox)
             {
-                //MessageBox.Show("Je ne peux pas gérer ça mon coco!");
                 PictureBox pic = (PictureBox)sender;
                 PictureBox nvelle_tour = new PictureBox();
                 nvelle_tour = tourAjouer;
                 nvelle_tour.Location = pic.Location; //elle prend la place de la tour sender
-                //nvelle_tour.Location = new Point(lab.Location.X + 2, lab.Location.Y + 2);
                 nvelle_tour.BackColor = pic.BackColor;
-                //nvelle_tour.BackColor = lab.BackColor;
                 board.Controls.Add(nvelle_tour);
                 nvelle_tour.Visible = true;
                 nvelle_tour.BringToFront();
-                
+
                 /*on calcule la différence entre le numéro de la case d'arrivée et celle de la case de départ pour déterminer la position de la tour qui subit le oshi*/
+
                 int difference = plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() - plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase();
                 //MessageBox.Show("Différence = " + difference);
 
@@ -457,6 +456,7 @@ namespace kamisado
                         pic.Location = new Point(pic.Location.X, pic.Location.Y + 52);
                         break;
                 }
+
                 /*on adapte la couleur du fond de la picturebox déplacée à la couleur du nouveau label*/
                 int index = -1;
                 for (int i = 0; i < board.Controls.Count - 1; i++)
@@ -478,15 +478,18 @@ namespace kamisado
 
                 /*libérer la case de la tour qui fait le oshi*/
                 plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()).setNonOccupe();
+                
                 /*on met à jour la position de la tour qui fait le oshi*/
-                plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase()/*+difference*/));
+                plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase()));
+                //MessageBox.Show("la position de la tour qui fait le oshi est : " + plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase());
+                
                 /*on met à jour la position de la tour qui subit le oshi*/
                 plateau.getPion(Convert.ToInt16(pic.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference)); /*les deux tours bougent du même nombre de cases*/
+                //MessageBox.Show("la position de la tour qui subit le oshi est : " + plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase());
+                
                 /*on set la case à "occupée"*/
                 plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()+difference).setOccupe();
                 /*pas la peine de redonner la main au joueur qui a fait le oshi car il continue de jouer*/
-   
-                /*on active la prochaine tour à être jouée. Sa couleur est définie par la */
 
                 /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
                 foreach (Control ctrl in board.Controls)
@@ -494,6 +497,9 @@ namespace kamisado
                     if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
                     {
                         ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        ctrl.DragEnter -= new DragEventHandler(survol_cases);
+                        ctrl.DragDrop -= new DragEventHandler(depose_case);
+                        ctrl.AllowDrop = false;
                         ctrl.Cursor = Cursors.No;
                     }
                     else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
@@ -502,7 +508,7 @@ namespace kamisado
                         tourAjouer = (PictureBox)ctrl;
                         ctrl.Cursor = Cursors.Hand;
                     }
-                }
+                }  
             }
         }
 
