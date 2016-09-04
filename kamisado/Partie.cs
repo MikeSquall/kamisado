@@ -255,32 +255,39 @@ namespace kamisado
             }
             plateau = new Plateau(tabCases, tabPions);
             joueurActif = Accueil.J1;
-            //MessageBox.Show("Partie complexe?" + Accueil.partie_complexe);
+            listeCoups.Text += Accueil.J1.getNom() + " peut jouer la tour de son choix" + Environment.NewLine;
 
-            int x = 0, y = 0;
-            for (int i = 0; i<64; i++)
-            {
-                if (i % 8 == 0 && i != 0)
-                {
-                    x += 52;
-                    y = 0;
-                }
+            /*On crée un deuxième plateau pour voir le debug: le but est de pouvoir visualiser après chaque coup la situation du plateau afin de s'assurer que tout est OK*/
+            //groupBox1.Visible = true;
+            //groupBox1.BringToFront();
+            //groupBox1.Size = new Size(420, 420);
+            //groupBox1.Location = new Point(977, 85);
+            //groupBox1.Text = "Etat du plateau en temps réel";
+            //this.Width = 1418;
+            //int x = 0, y = 0;
+            //for (int i = 0; i < 64; i++)
+            //{
+            //    if (i % 8 == 0 && i != 0)
+            //    {
+            //        x += 52;
+            //        y = 0;
+            //    }
 
-                Label tmp = new Label();
-                tmp.Name = Convert.ToString(i);
-                tmp.Size = new Size(50, 50);
-                groupBox1.Controls.Add(tmp);
-                tmp.Location = new Point(y, x);
-                tmp.BorderStyle = BorderStyle.Fixed3D;
-                tmp.Tag = Convert.ToString(i);
-                tmp.Text = Convert.ToString(i);
-                if (i < 8 || i > 55)
-                {
-                    tmp.Text = "X";
-                }
+            //    Label tmp = new Label();
+            //    tmp.Name = Convert.ToString(i);
+            //    tmp.Size = new Size(50, 50);
+            //    groupBox1.Controls.Add(tmp);
+            //    tmp.Location = new Point(y, x);
+            //    tmp.BorderStyle = BorderStyle.Fixed3D;
+            //    tmp.Tag = Convert.ToString(i);
+            //    tmp.Text = Convert.ToString(i);
+            //    if (i < 8 || i > 55)
+            //    {
+            //        tmp.Text = "X";
+            //    }
 
-                y += 52;
-            }
+            //    y += 52;
+            //}
         }
 
         /********************************************************************************************************************************************************************************************/
@@ -1027,46 +1034,47 @@ namespace kamisado
 
                 /*on met à jour la position de la tour qui subit le oshi*/
                 plateau.getPion(Convert.ToInt16(pic.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference)); /*les deux tours bougent du même nombre de cases*/
-                                                                                                                                                                                  //MessageBox.Show("la position de la tour qui subit le oshi est : " + plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase());
+                //MessageBox.Show("la position de la tour qui subit le oshi est : " + plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase());
 
                 /*on set la case à "occupée"*/
                 plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference).setOccupe();
                 /*pas la peine de redonner la main au joueur qui a fait le oshi car il continue de jouer*/
 
                 // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
-                //int compteurBlocage = 0;
-                //while (this.pionBloque(index))
-                //{
-                //    int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
-                //    int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
-                //    Coup coup;
-                //    // on affiche un message et on change de joueur
-                //    if (joueurActif.getCouleurPions() == 1)
-                //    {
-                //        coup = new Coup(joueurActif);
-                //        listeCoups.Text += coup.blocage();
-                //        joueurActif = Accueil.J1;
-                //        dragonNoir.Visible = true;
-                //        dragonBlanc.Visible = false;
-                //        // on indique l'indice du pion qui récupère la main
-                //        index = 7 + (8 - couleurCasePionBloque);
-                //    }
-                //    else
-                //    {
-                //        coup = new Coup(joueurActif);
-                //        listeCoups.Text += coup.blocage();
-                //        joueurActif = Accueil.J2;
-                //        dragonNoir.Visible = false;
-                //        dragonBlanc.Visible = true;
-                //        index = couleurCasePionBloque;
-                //    }
-                //    compteurBlocage++;
-                //    if (compteurBlocage > 15)
-                //    {
-                //        //fin_partie_classique(plateau.getPion(tourDeplacee.getNumPion()).getPosition().getNumCase());
-                //        finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
-                //        break;
-                //    }
+                int compteurBlocage = 0;
+                while (this.pionBloque(index))
+                {
+                    int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
+                    int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
+                    Coup coup;
+                    // on affiche un message et on change de joueur
+                    if (joueurActif.getCouleurPions() == 1)
+                    {
+                        coup = new Coup(joueurActif);
+                        listeCoups.Text += coup.blocage();
+                        joueurActif = Accueil.J1;
+                        dragonNoir.Visible = true;
+                        dragonBlanc.Visible = false;
+                        // on indique l'indice du pion qui récupère la main
+                        index = 7 + (8 - couleurCasePionBloque);
+                    }
+                    else
+                    {
+                        coup = new Coup(joueurActif);
+                        listeCoups.Text += coup.blocage();
+                        joueurActif = Accueil.J2;
+                        dragonNoir.Visible = false;
+                        dragonBlanc.Visible = true;
+                        index = couleurCasePionBloque;
+                    }
+                    compteurBlocage++;
+                    if (compteurBlocage > 15)
+                    {
+                        //fin_partie_classique(plateau.getPion(tourDeplacee.getNumPion()).getPosition().getNumCase());
+                        finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
+                        break;
+                    }
+                }
 
 
                 /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
@@ -1087,8 +1095,8 @@ namespace kamisado
                         ctrl.Cursor = Cursors.Hand;
                     }
                 }
+                }
             }
-        }
 
         /********************************************************************************************************************************************************************************************/
         /*****************************************************************************Gestion des timers*********************************************************************************************/
