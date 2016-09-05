@@ -1062,6 +1062,18 @@ namespace kamisado
                 plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference).setOccupe();
                 /*pas la peine de redonner la main au joueur qui a fait le oshi car il continue de jouer*/
 
+                // affichage du coup
+                Coup coupSumo = new Coup(joueurActif, plateau.getPion(Convert.ToInt16(tourAjouer.Tag)), plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition());
+                Joueur adv = new Joueur();
+                if(joueurActif == Accueil.J1)
+                {
+                    adv = Accueil.J2;
+                } else
+                {
+                    adv = Accueil.J1;
+                }
+                listeCoups.Text += coupSumo.oshi(plateau.getPion(Convert.ToInt16(pic.Tag)), adv);
+
                 // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
                 int compteurBlocage = 0;
                 while (this.pionBloque(index))

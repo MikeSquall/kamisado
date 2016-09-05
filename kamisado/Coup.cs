@@ -58,5 +58,24 @@ namespace kamisado
         {
             return joueurActif.getNom() + " perd la partie : temps dépassé !";
         }
+
+        public String oshi(Pion repousse, Joueur adversaire)
+        {
+            int couleurPions = joueurActif.getCouleurPions();
+            String team = " none";
+            if (couleurPions == 0)
+            {
+                team = " (Noir)";
+            }
+            else
+            {
+                team = " (Blanc)";
+            }
+            return
+                joueurActif.getNom() + " effectue un Oshi !"
+                + Environment.NewLine + joueurActif.getNom() + team + " avance son Sumo " + pionDeplace.getCouleurPion() + " sur case " + arrivee.getCouleur()
+                + Environment.NewLine + "La tour " + repousse.getCouleurPion() + " de " + adversaire.getNom() + " recule sur case " + repousse.getPosition().getCouleur()
+                + Environment.NewLine;
+        }
     }
 }
