@@ -280,7 +280,7 @@ namespace kamisado
             //    tmp.Location = new Point(y, x);
             //    tmp.BorderStyle = BorderStyle.Fixed3D;
             //    tmp.Tag = Convert.ToString(i);
-            //    tmp.Text = Convert.ToString(i);
+            //    //tmp.Text = Convert.ToString(i);
             //    if (i < 8 || i > 55)
             //    {
             //        tmp.Text = "X";
@@ -293,7 +293,7 @@ namespace kamisado
         /********************************************************************************************************************************************************************************************/
         /*****************************************************************************Gestion de la fin de partie par fin du temps*******************************************************************/
         /********************************************************************************************************************************************************************************************/
-        
+
         /*gestion de la fin de partie par fin du temps*/
         public bool fin_partie_temps()
         {
@@ -375,10 +375,21 @@ namespace kamisado
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
                     partie_terminee = true;
+                    //MessageBox.Show("Numéro de case A: " + num_case);
+                    if (plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPouvoir() == 1)
+                    {
+                        /*si la tour qui marque est sumo, alors le joueur marque 2 points*/
+                        Accueil.J1.setPoints();
+                        Accueil.J1.setPoints();
+                    }
+                    else
+                    {
+                        /*sinon, c'est un seul point*/
+                        Accueil.J1.setPoints();
+                    }
                     /*la tour devient sumo*/
                     plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPouvoir(1); /*1 = tour sumo*/
-                    //MessageBox.Show("Numéro de case A: " + num_case);
-                    Accueil.J1.setPoints();
+                    /*ça serait dommage d'avoir des fotes dortograf non??*/
                     if (Accueil.J1.getPoints() < 2)
                     {
                         scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
@@ -409,10 +420,21 @@ namespace kamisado
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
                     partie_terminee = true;
+                    //MessageBox.Show("Numéro de case B: " + num_case);
+                    if (plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPouvoir() == 1)
+                    {
+                        /*si la tour qui marque est sumo, alors le joueur marque 2 points*/
+                        Accueil.J2.setPoints();
+                        Accueil.J2.setPoints();
+                    }
+                    else
+                    {
+                        /*sinon, c'est un seul point*/
+                        Accueil.J2.setPoints();
+                    }
                     /*la tour devient sumo*/
                     plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPouvoir(1); /*1 = tour sumo*/
-                    //MessageBox.Show("Numéro de case B: " + num_case);
-                    Accueil.J2.setPoints();
+                    /*on évite les fautes d'ortographe, ça fait toujours plus sérieux ;) */
                     if (Accueil.J2.getPoints() < 2)
                     {
                         scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
@@ -1007,21 +1029,22 @@ namespace kamisado
                 }
 
                 /*on adapte la couleur du fond de la picturebox déplacée à la couleur du nouveau label*/
-                int index = -1;
+                //int index = -1;
+                int index = Convert.ToInt16(tourAjouer.Tag);
                 for (int i = 0; i < board.Controls.Count - 1; i++)
                 {
                     if (board.Controls[i] is Label && Convert.ToInt16(board.Controls[i].Name) == plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() + difference)
                     {
                         pic.BackColor = board.Controls[i].BackColor;
                         /* et on en profite pour repérer la prochaine toûr qui devra être jouée*/
-                        if (joueurActif.getCouleurPions() == 1)
-                        {
-                            index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
-                        }
-                        else
-                        {
-                            index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
-                        }
+                        //if (joueurActif.getCouleurPions() == 1)
+                        //{
+                        //    index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
+                        //}
+                        //else
+                        //{
+                        //    index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
+                        //}
                     }
                 }
 
@@ -1044,6 +1067,7 @@ namespace kamisado
                 int compteurBlocage = 0;
                 while (this.pionBloque(index))
                 {
+                    //MessageBox.Show("Test si on rentre dans la boucle");
                     int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
                     int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
                     Coup coup;
@@ -1074,10 +1098,20 @@ namespace kamisado
                         finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
                         break;
                     }
+                    /*on branche la prochaine tour qui devra être jouée*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
+                        {
+                            ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                            tourAjouer = (PictureBox)ctrl;
+                            ctrl.Cursor = Cursors.Hand;
+                        }
+                    }
                 }
 
 
-                /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
+                /*on débranche le clic_souris de toutes les picturebox*/
                 foreach (Control ctrl in board.Controls)
                 {
                     if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
@@ -1088,15 +1122,9 @@ namespace kamisado
                         ctrl.AllowDrop = false;
                         ctrl.Cursor = Cursors.No;
                     }
-                    else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
-                    {
-                        ctrl.MouseDown += new MouseEventHandler(clic_souris);
-                        tourAjouer = (PictureBox)ctrl;
-                        ctrl.Cursor = Cursors.Hand;
-                    }
-                }
                 }
             }
+        }
 
         /********************************************************************************************************************************************************************************************/
         /*****************************************************************************Gestion des timers*********************************************************************************************/
