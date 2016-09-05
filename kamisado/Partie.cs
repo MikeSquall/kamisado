@@ -8,6 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+/*Le code est organisé de la façon suivate:
+    - Création du plateau
+    - Gestion de la fin de partie par fin du temps
+    - Gestion de la fin de partie classique
+    - Gestion de la fin de partie par impasse totale
+    - Procédures/Fonctions pour la gestion de la partie complexe
+    - Gestion du Drag & Drop
+    - Gestion des timers
+    - Gestion des menus déroulants
+    - Gestion sauvegarde/chargement
+    - Procédures/Fonctions de debug
+*/
+
 namespace kamisado
 {
     public partial class Partie : Form
@@ -31,8 +45,6 @@ namespace kamisado
         PictureBox tourAjouer;
         bool partie_terminee = false;
 
-        int debut_partie = 0;
-
         public Partie()
         {
             InitializeComponent();
@@ -55,6 +67,12 @@ namespace kamisado
             dragonNoir.Visible = true;
             dragonBlanc.Visible = false;
         }
+
+
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Création du plateau********************************************************************************************/
+        /********************************************************************************************************************************************************************************************/
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -237,335 +255,44 @@ namespace kamisado
             }
             plateau = new Plateau(tabCases, tabPions);
             joueurActif = Accueil.J1;
-            //MessageBox.Show("Partie complexe?" + Accueil.partie_complexe);
+            listeCoups.Text += Accueil.J1.getNom() + " peut jouer la tour de son choix" + Environment.NewLine;
+
+            /*On crée un deuxième plateau pour voir le debug: le but est de pouvoir visualiser après chaque coup la situation du plateau afin de s'assurer que tout est OK*/
+            //groupBox1.Visible = true;
+            //groupBox1.BringToFront();
+            //groupBox1.Size = new Size(420, 420);
+            //groupBox1.Location = new Point(977, 85);
+            //groupBox1.Text = "Etat du plateau en temps réel";
+            //this.Width = 1418;
+            //int x = 0, y = 0;
+            //for (int i = 0; i < 64; i++)
+            //{
+            //    if (i % 8 == 0 && i != 0)
+            //    {
+            //        x += 52;
+            //        y = 0;
+            //    }
+
+            //    Label tmp = new Label();
+            //    tmp.Name = Convert.ToString(i);
+            //    tmp.Size = new Size(50, 50);
+            //    groupBox1.Controls.Add(tmp);
+            //    tmp.Location = new Point(y, x);
+            //    tmp.BorderStyle = BorderStyle.Fixed3D;
+            //    tmp.Tag = Convert.ToString(i);
+            //    //tmp.Text = Convert.ToString(i);
+            //    if (i < 8 || i > 55)
+            //    {
+            //        tmp.Text = "X";
+            //    }
+
+            //    y += 52;
+            //}
         }
 
-        private void timerJ1_Tick(object sender, EventArgs e)
-        {
-            if (joueurActif.getCouleurPions() == 0)
-            {
-                if (fin_partie_temps() == false)
-                {
-                    Accueil.J1.setTime();
-                    progressbarJ1.Value = Accueil.J1.getTime();
-                    chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
-                }
-            }
-            else
-            {
-                if (fin_partie_temps() == false)
-                {
-                    Accueil.J2.setTime();
-                    progressbarJ2.Value = Accueil.J2.getTime();
-                    chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
-                }
-            }
-
-        }
-
-        /*au clic de la souris, on récupère la picturebox sender*/
-        private void clic_souris(object sender, MouseEventArgs e)
-        {
-            pic_temp = (PictureBox)sender;
-            timer1.Enabled = false;
-            tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
-            caseDepart = tourDeplacee.getPosition();
-            List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
-            //var message = string.Join(Environment.NewLine, cibles);
-            //MessageBox.Show(message);
-
-            /*on désactive allow drop sur toutes les labels avant de le permettre uniquement sur les bons labels*/
-            foreach (Control c in board.Controls)
-            {
-                c.AllowDrop = false;
-                //c.Text = "";
-            }
-            
-            foreach (Control c in board.Controls)
-            {
-                if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
-                {
-                    if (plateau.getCase(Convert.ToInt32(c.Name)).getOccupe() == false)
-                    {
-                        c.AllowDrop = true;
-                        //c.Text = "X";
-                        //MessageBox.Show("Case n°:" + c.Name, "debug");
-                    }
-                    else
-                    {
-                        for (int i=0; i<board.Controls.Count - 1; i++)
-                        {
-                            if (board.Controls[i] is PictureBox)
-                            {
-                                if (plateau.getPion(Convert.ToInt16(board.Controls[i].Tag)).getNumTag(Convert.ToInt16(c.Name)) == Convert.ToInt16(board.Controls[i].Tag))
-                                {
-                                    board.Controls[i].DragEnter += new DragEventHandler(survol_cases);
-                                    board.Controls[i].DragDrop += new DragEventHandler(depose_case);
-                                    board.Controls[i].AllowDrop = true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
-
-            if (partie_terminee == false)
-            {
-                timer1.Enabled = true;
-            }
-
-            //MessageBox.Show("Debug : fin branchement des évènements", "debug");
-        }
-
-        /*gestion du survol*/
-        private void survol_cases(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.Copy;
-        }
-
-        /*gestion du dépôt de la picturebox*/
-        private void depose_case(object sender, DragEventArgs e)
-        {
-            if (sender is Label)
-            {
-                Label lab = (Label)sender;
-                PictureBox nvelle_tour = new PictureBox();
-                nvelle_tour = pic_temp;
-                nvelle_tour.Location = new Point(lab.Location.X + 2, lab.Location.Y + 2);
-                nvelle_tour.BackColor = lab.BackColor;
-                board.Controls.Add(nvelle_tour);
-                nvelle_tour.Visible = true;
-                nvelle_tour.BringToFront();
-                /*l'état de la case d'arrivée passe à Occupée*/
-                plateau.getCase(Convert.ToInt32(lab.Name)).setOccupe();
-                /*on libère la case de départ*/
-                plateau.getCase(caseDepart.getNumCase()).setNonOccupe();
-                //MessageBox.Show("Etat de la case :" + plateau.getCase(Convert.ToInt32(lab.Name)).getOccupe());
-                plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
-
-                int test = plateau.getCase(Convert.ToInt32(lab.Name)).getNumCase();
-                //MessageBox.Show("Numéro de la case : " + test);
-                // affichage du coup joué
-                Coup coupJoue = new Coup(joueurActif, tourDeplacee, plateau.getCase(Convert.ToInt32(lab.Name)));
-                listeCoups.Text += coupJoue.afficheCoup();
-
-                /*fin de partie?*/
-                if (fin_partie_classique(test) == false)
-                {
-                    /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
-                    int index;
-                    //int index = plateau.getTag(Convert.ToInt16(lab.Tag));
-                    if (joueurActif.getCouleurPions() == 1)
-                    {
-                        //index = plateau.getPion(7+(8-Convert.ToInt16(lab.Tag))).getIndex(); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
-                        index = plateau.getTag(7 + (8 - Convert.ToInt16(lab.Tag)));
-                        joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
-                        timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
-                        timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
-                        dragonNoir.Visible = true;
-                        dragonBlanc.Visible = false;
-                    }
-                    else
-                    {
-                        //index = plateau.getPion(Convert.ToInt16(lab.Tag)).getIndex();
-                        index = plateau.getTag(Convert.ToInt16(lab.Tag));
-                        joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
-                        timerJ1.Enabled = false;
-                        timerJ2.Enabled = true;
-                        dragonNoir.Visible = false;
-                        dragonBlanc.Visible = true;
-                    }
-
-                    // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
-                    int compteurBlocage = 0;
-                    while (this.pionBloque(index))
-                    {
-                        int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
-                        int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
-                        Coup coup;
-                        // on affiche un message et on change de joueur
-                        if (joueurActif.getCouleurPions() == 1)
-                        {
-                            coup = new Coup(joueurActif);
-                            listeCoups.Text += coup.blocage();
-                            joueurActif = Accueil.J1;
-                            dragonNoir.Visible = true;
-                            dragonBlanc.Visible = false;
-                            // on indique l'indice du pion qui récupère la main
-                            index = 7 + (8 - couleurCasePionBloque);
-                        }
-                        else
-                        {
-                            coup = new Coup(joueurActif);
-                            listeCoups.Text += coup.blocage();
-                            joueurActif = Accueil.J2;
-                            dragonNoir.Visible = false;
-                            dragonBlanc.Visible = true;
-                            index = couleurCasePionBloque;
-                        }
-                        compteurBlocage++;
-                        if (compteurBlocage > 15)
-                        {
-                            //fin_partie_classique(plateau.getPion(tourDeplacee.getNumPion()).getPosition().getNumCase());
-                            finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
-                            break;
-                        }
-                    }
-
-                    /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
-                    foreach (Control ctrl in board.Controls)
-                    {
-                        if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
-                        {
-                            ctrl.MouseDown -= new MouseEventHandler(clic_souris);
-                            ctrl.Cursor = Cursors.No;
-                        }
-                        else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
-                        {
-                            ctrl.MouseDown += new MouseEventHandler(clic_souris);
-                            tourAjouer = (PictureBox)ctrl;
-                            ctrl.Cursor = Cursors.Hand;
-                        }
-                    }
-                }
-            }
-            else if (sender is PictureBox)
-            {
-                PictureBox pic = (PictureBox)sender;
-                PictureBox nvelle_tour = new PictureBox();
-                nvelle_tour = tourAjouer;
-                nvelle_tour.Location = pic.Location; //elle prend la place de la tour sender
-                nvelle_tour.BackColor = pic.BackColor;
-                board.Controls.Add(nvelle_tour);
-                nvelle_tour.Visible = true;
-                nvelle_tour.BringToFront();
-
-                /*on calcule la différence entre le numéro de la case d'arrivée et celle de la case de départ pour déterminer la position de la tour qui subit le oshi*/
-
-                int difference = plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() - plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase();
-                //MessageBox.Show("Différence = " + difference);
-
-                switch (difference)
-                {
-                    case (-8): /*ligne droite tour noire*/
-                        pic.Location = new Point(pic.Location.X, pic.Location.Y - 52);
-                        break;
-                    case 8: /*ligne droite tour blanche*/
-                        pic.Location = new Point(pic.Location.X, pic.Location.Y + 52);
-                        break;
-                }
-
-                /*on adapte la couleur du fond de la picturebox déplacée à la couleur du nouveau label*/
-                int index = -1;
-                for (int i = 0; i < board.Controls.Count - 1; i++)
-                {
-                    if (board.Controls[i] is Label && Convert.ToInt16(board.Controls[i].Name) == plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() + difference)
-                    {
-                        pic.BackColor = board.Controls[i].BackColor;
-                        /* et on en profite pour repérer la prochaine toûr qui devra être jouée*/
-                        if (joueurActif.getCouleurPions() == 1)
-                        {
-                            index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
-                        }
-                        else
-                        {
-                            index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
-                        }                        
-                    }
-                }
-
-                /*libérer la case de la tour qui fait le oshi*/
-                plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()).setNonOccupe();
-                
-                /*on met à jour la position de la tour qui fait le oshi*/
-                plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase()));
-                //MessageBox.Show("la position de la tour qui fait le oshi est : " + plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase());
-                
-                /*on met à jour la position de la tour qui subit le oshi*/
-                plateau.getPion(Convert.ToInt16(pic.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference)); /*les deux tours bougent du même nombre de cases*/
-                //MessageBox.Show("la position de la tour qui subit le oshi est : " + plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase());
-                
-                /*on set la case à "occupée"*/
-                plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()+difference).setOccupe();
-                /*pas la peine de redonner la main au joueur qui a fait le oshi car il continue de jouer*/
-
-                /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
-                foreach (Control ctrl in board.Controls)
-                {
-                    if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
-                    {
-                        ctrl.MouseDown -= new MouseEventHandler(clic_souris);
-                        ctrl.DragEnter -= new DragEventHandler(survol_cases);
-                        ctrl.DragDrop -= new DragEventHandler(depose_case);
-                        ctrl.AllowDrop = false;
-                        ctrl.Cursor = Cursors.No;
-                    }
-                    else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
-                    {
-                        ctrl.MouseDown += new MouseEventHandler(clic_souris);
-                        tourAjouer = (PictureBox)ctrl;
-                        ctrl.Cursor = Cursors.Hand;
-                    }
-                }  
-            }
-        }
-
-        // test du blocage d'un pion
-        private bool pionBloque(int index)
-        {
-            Pion p = plateau.getPion(index);
-            Case c = p.getPosition();
-            List<int> cibles = plateau.deplacementOk(p, c);
-
-            if (cibles.Count() == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        // menu 'aide' => 'but du jeu"
-        private void butJeu_Click(object sender, EventArgs e)
-        {
-            infos but = new infos();
-            but.setOngletActif(0);
-            but.ShowDialog();
-        }
-
-        // menu 'aide' => "règles partie simple"
-        private void partieSimpleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            infos regSimple = new infos();
-            regSimple.setOngletActif(1);
-            regSimple.ShowDialog();
-        }
-
-        // menu 'aide' => "règles partie complexe"
-        private void partieComplexeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            infos regComplexe = new infos();
-            regComplexe.setOngletActif(2);
-            regComplexe.ShowDialog();
-        }
-
-        // menu 'Jeu' => "quitter partie"
-        private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            String titre = "Confirmation",
-                   msg = "Êtes-vous sûr de vouloir quitter ?";
-            DialogResult reponse;
-            reponse = MessageBox.Show(msg, titre, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (reponse == DialogResult.Yes)
-            {
-                // penser à rajouter proposition de sauvegarde si partie non sauvegardée
-                this.Close();
-            }
-        }
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion de la fin de partie par fin du temps*******************************************************************/
+        /********************************************************************************************************************************************************************************************/
 
         /*gestion de la fin de partie par fin du temps*/
         public bool fin_partie_temps()
@@ -622,10 +349,17 @@ namespace kamisado
                 }
             }
 
+            //check_si_partie_complexe();
+
             return flag;
         }
 
-        /*gestion de la fin de partie classique*/
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion de la fin de partie classique**************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+        
+            /*gestion de la fin de partie classique*/
         public bool fin_partie_classique(int num_case)
         {
             /*fin de partie si :
@@ -641,10 +375,21 @@ namespace kamisado
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
                     partie_terminee = true;
+                    //MessageBox.Show("Numéro de case A: " + num_case);
+                    if (plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPouvoir() == 1)
+                    {
+                        /*si la tour qui marque est sumo, alors le joueur marque 2 points*/
+                        Accueil.J1.setPoints();
+                        Accueil.J1.setPoints();
+                    }
+                    else
+                    {
+                        /*sinon, c'est un seul point*/
+                        Accueil.J1.setPoints();
+                    }
                     /*la tour devient sumo*/
                     plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPouvoir(1); /*1 = tour sumo*/
-                    //MessageBox.Show("Numéro de case A: " + num_case);
-                    Accueil.J1.setPoints();
+                    /*ça serait dommage d'avoir des fotes dortograf non??*/
                     if (Accueil.J1.getPoints() < 2)
                     {
                         scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
@@ -675,10 +420,21 @@ namespace kamisado
                     timerJ1.Enabled = false;
                     timerJ2.Enabled = false;
                     partie_terminee = true;
+                    //MessageBox.Show("Numéro de case B: " + num_case);
+                    if (plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPouvoir() == 1)
+                    {
+                        /*si la tour qui marque est sumo, alors le joueur marque 2 points*/
+                        Accueil.J2.setPoints();
+                        Accueil.J2.setPoints();
+                    }
+                    else
+                    {
+                        /*sinon, c'est un seul point*/
+                        Accueil.J2.setPoints();
+                    }
                     /*la tour devient sumo*/
                     plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPouvoir(1); /*1 = tour sumo*/
-                    //MessageBox.Show("Numéro de case B: " + num_case);
-                    Accueil.J2.setPoints();
+                    /*on évite les fautes d'ortographe, ça fait toujours plus sérieux ;) */
                     if (Accueil.J2.getPoints() < 2)
                     {
                         scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
@@ -703,8 +459,83 @@ namespace kamisado
                 }
             }
 
+            if (flag == true)
+            {
+                check_si_partie_complexe();
+            }
+
+            return flag;
+        }
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion de la fin de partie par impasse totale*****************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
+        // fin de partie suite à impasse totale
+        private void finPartieImpasseTotale(Pion p)
+        {
+            timerJ1.Enabled = false;
+            timerJ2.Enabled = false;
+            timer1.Enabled = false;
+            if (p.getEquipe() == 0)
+            {
+                Accueil.J2.setPoints();
+                if (Accueil.J2.getPoints() > 1)
+                {
+                    scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " points";
+                }
+                else
+                {
+                    scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
+                }
+
+                listeCoups.Text += Accueil.J2.getNom() + " a gagné!";
+                MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+            }
+            else
+            {
+                Accueil.J1.setPoints();
+                if (Accueil.J1.getPoints() > 1)
+                {
+                    scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " points";
+                }
+                else
+                {
+                    scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
+                }
+                listeCoups.Text += Accueil.J1.getNom() + " a gagné!";
+                MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
+            }
+
+            check_si_partie_complexe();
+        }
+
+        // test du blocage d'un pion
+        private bool pionBloque(int index)
+        {
+            Pion p = plateau.getPion(index);
+            Case c = p.getPosition();
+            List<int> cibles = plateau.deplacementOk(p, c);
+
+            if (cibles.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Procédures/Fonctions Partie complexe***************************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
+        /*traitements communs aux procédures/fonctions de fin de partie*/
+        public void check_si_partie_complexe()
+        {
             /*si la partie est de type complexe alors on continue de jouer*/
-            if (Accueil.partie_complexe == true && flag == true)
+            if (Accueil.partie_complexe == true)
             {
                 bool fin_partie = false;
 
@@ -772,67 +603,10 @@ namespace kamisado
                     }
                 }
             }
-            return flag;
         }
 
-        // fin de partie suite à impasse totale
-        private void finPartieImpasseTotale(Pion p)
-        {
-            timerJ1.Enabled = false;
-            timerJ2.Enabled = false;
-            timer1.Enabled = false;
-            if (p.getEquipe() == 0)
-            {
-                Accueil.J2.setPoints();
-                scoreJ2.Text = Convert.ToString(Accueil.J2.getPoints()) + " point";
-                listeCoups.Text += Accueil.J2.getNom() + " a gagné!";
-                MessageBox.Show(Accueil.J2.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
-            }
-            else
-            {
-                Accueil.J1.setPoints();
-                scoreJ1.Text = Convert.ToString(Accueil.J1.getPoints()) + " point";
-                listeCoups.Text += Accueil.J1.getNom() + " a gagné!";
-                MessageBox.Show(Accueil.J1.getNom() + " a gagné, Bravo!", "Nous avons un vainqueur!");
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            foreach (Control c in board.Controls)
-            {
-                if (c is PictureBox)
-                {
-                    if (c == tourAjouer)
-                    {
-                        for (int i = 0; i < 250; i++)
-                        {
-                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
-                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
-                            c.Location = new Point(c.Location.X - 2, c.Location.Y);
-                            c.Location = new Point(c.Location.X + 2, c.Location.Y);
-                            c.Location = new Point(c.Location.X + 2, c.Location.Y);
-                            c.Location = new Point(c.Location.X - 2, c.Location.Y);
-                        }
-                    }
-                }
-            }
-        }
-
-        // menu 'Jeu' => "Sauvegarder"
-        private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Sauvegarde.sauver(this);
-        }
-
-        // menu 'Jeu' => "Charger partie"
-        private void chargerPartieToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
+        /*procédure de replacement des tours pour la partie complexe*/
         private void replace_tours()
         {
             int depart = 7;
@@ -1050,6 +824,426 @@ namespace kamisado
             }
         }
 
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion du Drag and Drop***************************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
+        /*au clic de la souris, on récupère la picturebox sender*/
+        private void clic_souris(object sender, MouseEventArgs e)
+        {
+            pic_temp = (PictureBox)sender;
+            timer1.Enabled = false;
+            tourDeplacee = plateau.getPion(Convert.ToInt32(pic_temp.Tag));
+            caseDepart = tourDeplacee.getPosition();
+            List<int> cibles = plateau.deplacementOk(tourDeplacee, caseDepart);
+            //var message = string.Join(Environment.NewLine, cibles);
+            //MessageBox.Show(message);
+
+            /*on désactive allow drop sur toutes les labels avant de le permettre uniquement sur les bons labels*/
+            foreach (Control c in board.Controls)
+            {
+                c.AllowDrop = false;
+                //c.Text = "";
+            }
+
+            foreach (Control c in board.Controls)
+            {
+                if (c is Label && cibles.Contains(Convert.ToInt32(c.Name)))
+                {
+                    if (plateau.getCase(Convert.ToInt32(c.Name)).getOccupe() == false)
+                    {
+                        c.AllowDrop = true;
+                        //c.Text = "X";
+                        //MessageBox.Show("Case n°:" + c.Name, "debug");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < board.Controls.Count - 1; i++)
+                        {
+                            if (board.Controls[i] is PictureBox)
+                            {
+                                if (plateau.getPion(Convert.ToInt16(board.Controls[i].Tag)).getNumTag(Convert.ToInt16(c.Name)) == Convert.ToInt16(board.Controls[i].Tag))
+                                {
+                                    board.Controls[i].DragEnter += new DragEventHandler(survol_cases);
+                                    board.Controls[i].DragDrop += new DragEventHandler(depose_case);
+                                    board.Controls[i].AllowDrop = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            pic_temp.DoDragDrop("kamisado", DragDropEffects.Copy);
+
+            if (partie_terminee == false)
+            {
+                timer1.Enabled = true;
+            }
+
+            //plateau_temps_reel();
+            //MessageBox.Show("Debug : fin branchement des évènements", "debug");
+        }
+
+        /*gestion du survol*/
+        private void survol_cases(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        /*gestion du dépôt de la picturebox*/
+        private void depose_case(object sender, DragEventArgs e)
+        {
+            if (sender is Label)
+            {
+                Label lab = (Label)sender;
+                PictureBox nvelle_tour = new PictureBox();
+                nvelle_tour = pic_temp;
+                nvelle_tour.Location = new Point(lab.Location.X + 2, lab.Location.Y + 2);
+                nvelle_tour.BackColor = lab.BackColor;
+                board.Controls.Add(nvelle_tour);
+                nvelle_tour.Visible = true;
+                nvelle_tour.BringToFront();
+                /*l'état de la case d'arrivée passe à Occupée*/
+                plateau.getCase(Convert.ToInt32(lab.Name)).setOccupe();
+                /*on libère la case de départ*/
+                plateau.getCase(caseDepart.getNumCase()).setNonOccupe();
+                //MessageBox.Show("Etat de la case :" + plateau.getCase(Convert.ToInt32(lab.Name)).getOccupe());
+                plateau.getPion(tourDeplacee.getNumPion()).setPosition(plateau.getCase(Convert.ToInt32(lab.Name)));
+
+                int test = plateau.getCase(Convert.ToInt32(lab.Name)).getNumCase();
+                //MessageBox.Show("Numéro de la case : " + test);
+                // affichage du coup joué
+                Coup coupJoue = new Coup(joueurActif, tourDeplacee, plateau.getCase(Convert.ToInt32(lab.Name)));
+                listeCoups.Text += coupJoue.afficheCoup();
+
+                /*fin de partie?*/
+                if (fin_partie_classique(test) == false)
+                {
+                    /*on récupère l'index de la prochaine tour(picturebox) qui devra être jouée*/
+                    int index;
+                    //int index = plateau.getTag(Convert.ToInt16(lab.Tag));
+                    if (joueurActif.getCouleurPions() == 1)
+                    {
+                        //index = plateau.getPion(7+(8-Convert.ToInt16(lab.Tag))).getIndex(); /*si le joueur actif est celui avec les tours blanches, on rajoute la différence entre 8 et l'index à cause de la symétrie inverse*/
+                        index = plateau.getTag(7 + (8 - Convert.ToInt16(lab.Tag)));
+                        joueurActif = Accueil.J1; ; /*on passe la main au joueur avec les tours noires*/
+                        timerJ2.Enabled = false; /*on arrête le chrono du joueur avec les tours blanches*/
+                        timerJ1.Enabled = true; /*on active le chrono du joueur avec les tours noires*/
+                        dragonNoir.Visible = true;
+                        dragonBlanc.Visible = false;
+                    }
+                    else
+                    {
+                        //index = plateau.getPion(Convert.ToInt16(lab.Tag)).getIndex();
+                        index = plateau.getTag(Convert.ToInt16(lab.Tag));
+                        joueurActif = Accueil.J2; /*on passe la main au joueur avec les tours blanches*/
+                        timerJ1.Enabled = false;
+                        timerJ2.Enabled = true;
+                        dragonNoir.Visible = false;
+                        dragonBlanc.Visible = true;
+                    }
+
+                    // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
+                    int compteurBlocage = 0;
+                    while (this.pionBloque(index))
+                    {
+                        MessageBox.Show("Le pion bloqué est : " + Convert.ToString(index));
+                        int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
+                        int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
+                        Coup coup;
+                        // on affiche un message et on change de joueur
+                        if (joueurActif.getCouleurPions() == 1)
+                        {
+                            coup = new Coup(joueurActif);
+                            listeCoups.Text += coup.blocage();
+                            joueurActif = Accueil.J1;
+                            dragonNoir.Visible = true;
+                            dragonBlanc.Visible = false;
+                            // on indique l'indice du pion qui récupère la main
+                            //index = 7 + (8 - couleurCasePionBloque);
+                            index = plateau.getTag(7 + (8 - couleurCasePionBloque));
+                        }
+                        else
+                        {
+                            coup = new Coup(joueurActif);
+                            listeCoups.Text += coup.blocage();
+                            joueurActif = Accueil.J2;
+                            dragonNoir.Visible = false;
+                            dragonBlanc.Visible = true;
+                            //index = couleurCasePionBloque;
+                            index = plateau.getTag(couleurCasePionBloque);
+                        }
+                        compteurBlocage++;
+                        if (compteurBlocage > 15)
+                        {
+                            //fin_partie_classique(plateau.getPion(tourDeplacee.getNumPion()).getPosition().getNumCase());
+                            finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
+                            break;
+                        }
+                    }
+
+                    /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
+                        {
+                            ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                            ctrl.Cursor = Cursors.No;
+                        }
+                        else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
+                        {
+                            ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                            tourAjouer = (PictureBox)ctrl;
+                            ctrl.Cursor = Cursors.Hand;
+                        }
+                    }
+                }
+            }
+            else if (sender is PictureBox)
+            {
+                PictureBox pic = (PictureBox)sender;
+                PictureBox nvelle_tour = new PictureBox();
+                nvelle_tour = tourAjouer;
+                nvelle_tour.Location = pic.Location; //elle prend la place de la tour sender
+                nvelle_tour.BackColor = pic.BackColor;
+                board.Controls.Add(nvelle_tour);
+                nvelle_tour.Visible = true;
+                nvelle_tour.BringToFront();
+
+                /*on calcule la différence entre le numéro de la case d'arrivée et celle de la case de départ pour déterminer la position de la tour qui subit le oshi*/
+
+                int difference = plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() - plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase();
+                //MessageBox.Show("Différence = " + difference);
+
+                switch (difference)
+                {
+                    case (-8): /*ligne droite tour noire*/
+                        pic.Location = new Point(pic.Location.X, pic.Location.Y - 52);
+                        break;
+                    case 8: /*ligne droite tour blanche*/
+                        pic.Location = new Point(pic.Location.X, pic.Location.Y + 52);
+                        break;
+                }
+
+                /*on adapte la couleur du fond de la picturebox déplacée à la couleur du nouveau label*/
+                //int index = -1;
+                int index = Convert.ToInt16(tourAjouer.Tag);
+                for (int i = 0; i < board.Controls.Count - 1; i++)
+                {
+                    if (board.Controls[i] is Label && Convert.ToInt16(board.Controls[i].Name) == plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase() + difference)
+                    {
+                        pic.BackColor = board.Controls[i].BackColor;
+                        /* et on en profite pour repérer la prochaine toûr qui devra être jouée*/
+                        //if (joueurActif.getCouleurPions() == 1)
+                        //{
+                        //    index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
+                        //}
+                        //else
+                        //{
+                        //    index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
+                        //}
+                    }
+                }
+
+                /*libérer la case de la tour qui fait le oshi*/
+                plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase()).setNonOccupe();
+
+                /*on met à jour la position de la tour qui fait le oshi*/
+                plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase()));
+                //MessageBox.Show("la position de la tour qui fait le oshi est : " + plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase());
+
+                /*on met à jour la position de la tour qui subit le oshi*/
+                plateau.getPion(Convert.ToInt16(pic.Tag)).setPosition(plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference)); /*les deux tours bougent du même nombre de cases*/
+                //MessageBox.Show("la position de la tour qui subit le oshi est : " + plateau.getPion(Convert.ToInt16(pic.Tag)).getPosition().getNumCase());
+
+                /*on set la case à "occupée"*/
+                plateau.getCase(plateau.getPion(Convert.ToInt16(tourAjouer.Tag)).getPosition().getNumCase() + difference).setOccupe();
+                /*pas la peine de redonner la main au joueur qui a fait le oshi car il continue de jouer*/
+
+                // cas spécifique du blocage, on passe le tour du joueur dont le pion est bloqué
+                int compteurBlocage = 0;
+                while (this.pionBloque(index))
+                {
+                    //MessageBox.Show("Test si on rentre dans la boucle");
+                    int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
+                    int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
+                    Coup coup;
+                    // on affiche un message et on change de joueur
+                    if (joueurActif.getCouleurPions() == 1)
+                    {
+                        coup = new Coup(joueurActif);
+                        listeCoups.Text += coup.blocage();
+                        joueurActif = Accueil.J1;
+                        dragonNoir.Visible = true;
+                        dragonBlanc.Visible = false;
+                        // on indique l'indice du pion qui récupère la main
+                        index = 7 + (8 - couleurCasePionBloque);
+                    }
+                    else
+                    {
+                        coup = new Coup(joueurActif);
+                        listeCoups.Text += coup.blocage();
+                        joueurActif = Accueil.J2;
+                        dragonNoir.Visible = false;
+                        dragonBlanc.Visible = true;
+                        index = couleurCasePionBloque;
+                    }
+                    compteurBlocage++;
+                    if (compteurBlocage > 15)
+                    {
+                        //fin_partie_classique(plateau.getPion(tourDeplacee.getNumPion()).getPosition().getNumCase());
+                        finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
+                        break;
+                    }
+                    /*on branche la prochaine tour qui devra être jouée*/
+                    foreach (Control ctrl in board.Controls)
+                    {
+                        if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
+                        {
+                            ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                            tourAjouer = (PictureBox)ctrl;
+                            ctrl.Cursor = Cursors.Hand;
+                        }
+                    }
+                }
+
+
+                /*on débranche le clic_souris de toutes les picturebox*/
+                foreach (Control ctrl in board.Controls)
+                {
+                    if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
+                    {
+                        ctrl.MouseDown -= new MouseEventHandler(clic_souris);
+                        ctrl.DragEnter -= new DragEventHandler(survol_cases);
+                        ctrl.DragDrop -= new DragEventHandler(depose_case);
+                        ctrl.AllowDrop = false;
+                        ctrl.Cursor = Cursors.No;
+                    }
+                }
+            }
+        }
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion des timers*********************************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
+        /*timer gestion du temps des joueurs*/
+        private void timerJ1_Tick(object sender, EventArgs e)
+        {
+            if (joueurActif.getCouleurPions() == 0)
+            {
+                if (fin_partie_temps() == false)
+                {
+                    Accueil.J1.setTime();
+                    progressbarJ1.Value = Accueil.J1.getTime();
+                    chronoJ1.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ1.Value / 60), Convert.ToInt16(progressbarJ1.Value % 60));
+                }
+                else
+                {
+                    check_si_partie_complexe();
+                }
+            }
+            else
+            {
+                if (fin_partie_temps() == false)
+                {
+                    Accueil.J2.setTime();
+                    progressbarJ2.Value = Accueil.J2.getTime();
+                    chronoJ2.Text = string.Format("{0:00}:{1:00}", Convert.ToInt16(progressbarJ2.Value / 60), Convert.ToInt16(progressbarJ2.Value % 60));
+                }
+                else
+                {
+                    check_si_partie_complexe();
+                }
+            }
+
+        }
+
+        /*Timer gestion de l'animation de la tour à jouer*/
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            foreach (Control c in board.Controls)
+            {
+                if (c is PictureBox)
+                {
+                    if (c == tourAjouer)
+                    {
+                        for (int i = 0; i < 250; i++)
+                        {
+                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y + 2);
+                            c.Location = new Point(c.Location.X, c.Location.Y - 2);
+                            c.Location = new Point(c.Location.X - 2, c.Location.Y);
+                            c.Location = new Point(c.Location.X + 2, c.Location.Y);
+                            c.Location = new Point(c.Location.X + 2, c.Location.Y);
+                            c.Location = new Point(c.Location.X - 2, c.Location.Y);
+                        }
+                    }
+                }
+            }
+        }
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion des menus déroulants***********************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
+        // menu 'aide' => 'but du jeu"
+        private void butJeu_Click(object sender, EventArgs e)
+        {
+            infos but = new infos();
+            but.setOngletActif(0);
+            but.ShowDialog();
+        }
+
+        // menu 'aide' => "règles partie simple"
+        private void partieSimpleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            infos regSimple = new infos();
+            regSimple.setOngletActif(1);
+            regSimple.ShowDialog();
+        }
+
+        // menu 'aide' => "règles partie complexe"
+        private void partieComplexeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            infos regComplexe = new infos();
+            regComplexe.setOngletActif(2);
+            regComplexe.ShowDialog();
+        }
+
+        // menu 'Jeu' => "quitter partie"
+        private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String titre = "Confirmation",
+                   msg = "Êtes-vous sûr de vouloir quitter ?";
+            DialogResult reponse;
+            reponse = MessageBox.Show(msg, titre, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (reponse == DialogResult.Yes)
+            {
+                // penser à rajouter proposition de sauvegarde si partie non sauvegardée
+                this.Close();
+            }
+        }
+
+        // menu 'Jeu' => "Sauvegarder"
+        private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Sauvegarde.sauver(this);
+        }
+
+        // menu 'Jeu' => "Charger partie"
+        private void chargerPartieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Gestion Sauvegarde / Chargement********************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
         public Plateau getPlateau()
         {
             return this.plateau;
@@ -1060,13 +1254,36 @@ namespace kamisado
             return this.listeCoups.Text;
         }
 
+
+        /********************************************************************************************************************************************************************************************/
+        /*****************************************************************************Procédures Debug***********************************************************************************************/
+        /********************************************************************************************************************************************************************************************/
+
         public void check_pouvoir()
         {
-            for(int i = 0; i < 16; i++)
+            for (int i = 0; i < 16; i++)
             {
-                MessageBox.Show("Le pouvoir de la tour est :"+plateau.getPion(i).getPouvoir(),Convert.ToString(i));
+                MessageBox.Show("Le pouvoir de la tour est :" + plateau.getPion(i).getPouvoir(), Convert.ToString(i));
+            }
+        }
+
+        /*pour voir l'état du plateau en temps réél*/
+        public void plateau_temps_reel()
+        {
+            foreach (Label lab in groupBox1.Controls)
+            {
+                lab.Text = "";
+            }
+
+            for (int i = 0; i < 64; i++)
+            {
+                if (plateau.getCase(i).getOccupe() == true)
+                {
+                    groupBox1.Controls[i].Text = "X";
+                }
             }
         }
 
     }
 }
+ 

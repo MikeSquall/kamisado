@@ -68,6 +68,7 @@
             this.dragonNoir = new System.Windows.Forms.PictureBox();
             this.dragonBlanc = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -281,7 +282,7 @@
             this.aideToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1020, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1002, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -422,13 +423,24 @@
             this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(925, 619);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(77, 62);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Visible = false;
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::kamisado.Properties.Resources.fond;
-            this.ClientSize = new System.Drawing.Size(1020, 681);
+            this.ClientSize = new System.Drawing.Size(1002, 681);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dragonBlanc);
             this.Controls.Add(this.dragonNoir);
             this.Controls.Add(this.menuStrip1);
@@ -498,6 +510,7 @@
         private System.Windows.Forms.PictureBox dragonNoir;
         private System.Windows.Forms.PictureBox dragonBlanc;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
