@@ -69,6 +69,7 @@
             this.dragonBlanc = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.fond_board.SuspendLayout();
             this.infoboxJ1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picJ1)).BeginInit();
@@ -433,6 +434,27 @@
             this.groupBox1.Text = "groupBox1";
             this.groupBox1.Visible = false;
             // 
+            // imageList2
+            // 
+            this.imageList2.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList2.ImageStream")));
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList2.Images.SetKeyName(0, "sumo_blanc_orange.png");
+            this.imageList2.Images.SetKeyName(1, "sumo_blanc_bleu.png");
+            this.imageList2.Images.SetKeyName(2, "sumo_blanc_violet.png");
+            this.imageList2.Images.SetKeyName(3, "sumo_blanc_rose.png");
+            this.imageList2.Images.SetKeyName(4, "sumo_blanc_jaune.png");
+            this.imageList2.Images.SetKeyName(5, "sumo_blanc_rouge.png");
+            this.imageList2.Images.SetKeyName(6, "sumo_blanc_vert.png");
+            this.imageList2.Images.SetKeyName(7, "sumo_blanc_marron.png");
+            this.imageList2.Images.SetKeyName(8, "sumo_noir_marron_1.png");
+            this.imageList2.Images.SetKeyName(9, "sumo_noir_vert.png");
+            this.imageList2.Images.SetKeyName(10, "sumo_noir_rouge_1.png");
+            this.imageList2.Images.SetKeyName(11, "sumo_noir_jaune_1.png");
+            this.imageList2.Images.SetKeyName(12, "sumo_noir_rose_1.png");
+            this.imageList2.Images.SetKeyName(13, "sumo_noir_violet_1.png");
+            this.imageList2.Images.SetKeyName(14, "sumo_noir_bleu.png");
+            this.imageList2.Images.SetKeyName(15, "sumo_noir_orange_1.png");
+            // 
             // Partie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -511,6 +533,7 @@
         private System.Windows.Forms.PictureBox dragonBlanc;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ImageList imageList2;
     }
 }
 

@@ -757,7 +757,15 @@ namespace kamisado
                     pic.BackColor = Color.SaddleBrown;
                 }
                 //MessageBox.Show("Couleur du fond : " + tmp.BackColor, "Couleur du fond");
-                pic.Image = imageList1.Images[plateau.getPion(i).getIndex()];
+                /*on sélectionne la bonne picturebox selon le pouvoir du pion*/
+                if (plateau.getPion(i).getPouvoir() == 1)
+                {
+                    pic.Image = imageList2.Images[plateau.getPion(i).getIndex()];
+                }
+                else
+                {
+                    pic.Image = imageList1.Images[plateau.getPion(i).getIndex()];
+                }
                 //pic.Tag = Convert.ToString(i);
                 pic.Tag = Convert.ToString(plateau.getPion(depart).getNumPion());
                 //MessageBox.Show("En case " + depart + " se trouve le pion : " + plateau.getPion(depart).getCouleurPion());
@@ -815,7 +823,15 @@ namespace kamisado
                 {
                     pic.BackColor = Color.SaddleBrown;
                 }
-                pic.Image = imageList1.Images[plateau.getPion(depart).getIndex()];
+                /*on sélectionne la bonne picturebox selon le pouvoir du pion*/
+                if (plateau.getPion(depart).getPouvoir() == 1)
+                {
+                    pic.Image = imageList2.Images[plateau.getPion(depart).getIndex()];
+                }
+                else
+                {
+                    pic.Image = imageList1.Images[plateau.getPion(depart).getIndex()];
+                }
                 pic.Tag = Convert.ToString(plateau.getPion(depart).getNumPion());
                 colonne += 52;
                 //MessageBox.Show("En case " + depart + " se trouve le pion : " + plateau.getPion(depart).getCouleurPion());
