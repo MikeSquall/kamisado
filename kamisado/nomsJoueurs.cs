@@ -29,8 +29,10 @@ namespace kamisado
             }
             else
             {
-                Accueil.J1 = new Joueur(nomJoueur1.Text, 0, Convert.ToInt16(liste_duree.SelectedItem));
-                Accueil.J2 = new Joueur(nomJoueur2.Text, 1, Convert.ToInt16(liste_duree.SelectedItem));
+                Accueil.tempsChoisi = Convert.ToInt16(liste_duree.SelectedItem);
+                Accueil.J1 = new Joueur(nomJoueur1.Text, 0, Accueil.tempsChoisi);
+                Accueil.J2 = new Joueur(nomJoueur2.Text, 1, Accueil.tempsChoisi);
+                
                 if (partie_complexe.Checked == true)
                 {
                     Accueil.partie_complexe = true;

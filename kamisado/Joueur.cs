@@ -56,11 +56,6 @@ namespace kamisado
             this.compteurPoints++;
         }
 
-        public void savePoints(Joueur j)
-        {
-            this.compteurPoints = j.getPoints();
-        }
-
         public int getTime()
         {
             return this.timer;
@@ -71,9 +66,10 @@ namespace kamisado
             this.timer--;
         }
 
-        public void saveTimer(Joueur j)
+        public void resetPointsEtTimer()
         {
-            this.timer = j.getTime();
+            this.compteurPoints = 0;
+            this.timer = Accueil.tempsChoisi * 60;
         }
     }
 }

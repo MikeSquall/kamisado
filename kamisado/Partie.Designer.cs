@@ -52,18 +52,15 @@
             this.timerJ2 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.jeuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sauvegarderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvellePartieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.partieSimpleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.partieComplexeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.chargerPartieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.partieSimpleMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.partieComplexeMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.butJeu = new System.Windows.Forms.ToolStripMenuItem();
             this.reglesJeu = new System.Windows.Forms.ToolStripMenuItem();
             this.partieSimpleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.partieComplexeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.queFaire = new System.Windows.Forms.ToolStripMenuItem();
             this.pic_temp = new System.Windows.Forms.PictureBox();
             this.dragonNoir = new System.Windows.Forms.PictureBox();
             this.dragonBlanc = new System.Windows.Forms.PictureBox();
@@ -290,48 +287,34 @@
             // jeuToolStripMenuItem
             // 
             this.jeuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sauvegarderToolStripMenuItem,
             this.nouvellePartieToolStripMenuItem,
-            this.chargerPartieToolStripMenuItem,
             this.quitterToolStripMenuItem});
             this.jeuToolStripMenuItem.Name = "jeuToolStripMenuItem";
             this.jeuToolStripMenuItem.Size = new System.Drawing.Size(36, 20);
             this.jeuToolStripMenuItem.Text = "Jeu";
             // 
-            // sauvegarderToolStripMenuItem
-            // 
-            this.sauvegarderToolStripMenuItem.Name = "sauvegarderToolStripMenuItem";
-            this.sauvegarderToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.sauvegarderToolStripMenuItem.Text = "Sauvegarder ";
-            this.sauvegarderToolStripMenuItem.Click += new System.EventHandler(this.sauvegarderToolStripMenuItem_Click);
-            // 
             // nouvellePartieToolStripMenuItem
             // 
             this.nouvellePartieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.partieSimpleToolStripMenuItem1,
-            this.partieComplexeToolStripMenuItem1});
+            this.partieSimpleMenu,
+            this.partieComplexeMenu});
             this.nouvellePartieToolStripMenuItem.Name = "nouvellePartieToolStripMenuItem";
             this.nouvellePartieToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.nouvellePartieToolStripMenuItem.Text = "Nouvelle partie";
             // 
-            // partieSimpleToolStripMenuItem1
+            // partieSimpleMenu
             // 
-            this.partieSimpleToolStripMenuItem1.Name = "partieSimpleToolStripMenuItem1";
-            this.partieSimpleToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
-            this.partieSimpleToolStripMenuItem1.Text = "Partie simple";
+            this.partieSimpleMenu.Name = "partieSimpleMenu";
+            this.partieSimpleMenu.Size = new System.Drawing.Size(158, 22);
+            this.partieSimpleMenu.Text = "Partie simple";
+            this.partieSimpleMenu.Click += new System.EventHandler(this.nouvellePartie);
             // 
-            // partieComplexeToolStripMenuItem1
+            // partieComplexeMenu
             // 
-            this.partieComplexeToolStripMenuItem1.Name = "partieComplexeToolStripMenuItem1";
-            this.partieComplexeToolStripMenuItem1.Size = new System.Drawing.Size(158, 22);
-            this.partieComplexeToolStripMenuItem1.Text = "Partie complexe";
-            // 
-            // chargerPartieToolStripMenuItem
-            // 
-            this.chargerPartieToolStripMenuItem.Name = "chargerPartieToolStripMenuItem";
-            this.chargerPartieToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.chargerPartieToolStripMenuItem.Text = "Charger partie";
-            this.chargerPartieToolStripMenuItem.Click += new System.EventHandler(this.chargerPartieToolStripMenuItem_Click);
+            this.partieComplexeMenu.Name = "partieComplexeMenu";
+            this.partieComplexeMenu.Size = new System.Drawing.Size(158, 22);
+            this.partieComplexeMenu.Text = "Partie complexe";
+            this.partieComplexeMenu.Click += new System.EventHandler(this.nouvellePartie);
             // 
             // quitterToolStripMenuItem
             // 
@@ -344,8 +327,7 @@
             // 
             this.aideToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.butJeu,
-            this.reglesJeu,
-            this.queFaire});
+            this.reglesJeu});
             this.aideToolStripMenuItem.Name = "aideToolStripMenuItem";
             this.aideToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.aideToolStripMenuItem.Text = "Aide";
@@ -353,7 +335,7 @@
             // butJeu
             // 
             this.butJeu.Name = "butJeu";
-            this.butJeu.Size = new System.Drawing.Size(130, 22);
+            this.butJeu.Size = new System.Drawing.Size(128, 22);
             this.butJeu.Text = "But du jeu";
             this.butJeu.Click += new System.EventHandler(this.butJeu_Click);
             // 
@@ -363,7 +345,7 @@
             this.partieSimpleToolStripMenuItem,
             this.partieComplexeToolStripMenuItem});
             this.reglesJeu.Name = "reglesJeu";
-            this.reglesJeu.Size = new System.Drawing.Size(130, 22);
+            this.reglesJeu.Size = new System.Drawing.Size(128, 22);
             this.reglesJeu.Text = "Règles";
             // 
             // partieSimpleToolStripMenuItem
@@ -379,12 +361,6 @@
             this.partieComplexeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.partieComplexeToolStripMenuItem.Text = "Partie Complexe";
             this.partieComplexeToolStripMenuItem.Click += new System.EventHandler(this.partieComplexeToolStripMenuItem_Click);
-            // 
-            // queFaire
-            // 
-            this.queFaire.Name = "queFaire";
-            this.queFaire.Size = new System.Drawing.Size(130, 22);
-            this.queFaire.Text = "Que faire ?";
             // 
             // pic_temp
             // 
@@ -514,16 +490,13 @@
         private System.Windows.Forms.ProgressBar progressbarJ2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem jeuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sauvegarderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nouvellePartieToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem partieSimpleToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem partieComplexeToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem chargerPartieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem partieSimpleMenu;
+        private System.Windows.Forms.ToolStripMenuItem partieComplexeMenu;
         private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aideToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem butJeu;
         private System.Windows.Forms.ToolStripMenuItem reglesJeu;
-        private System.Windows.Forms.ToolStripMenuItem queFaire;
         private System.Windows.Forms.PictureBox pic_temp;
         private System.Windows.Forms.ToolStripMenuItem partieSimpleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem partieComplexeToolStripMenuItem;

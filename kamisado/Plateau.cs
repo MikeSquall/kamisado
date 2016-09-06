@@ -97,7 +97,7 @@ namespace kamisado
                     }
                 }
                 /*cas de la tour sumo. On peut rajouter la case qui bloque en vue de faire un oshi*/
-                if (blocage == true && p.getPouvoir() == 1 && (pos + 8 * n) < 63 && this.board[pos + 8 * n].getOccupe() == true && (pos + (8 * (n + 1)) < 63 && this.board[pos + (8 * (n + 1))].getOccupe() == false && !casesDepartNoires.Contains(pos + 8 * n)) &&
+                if (blocage == true && p.getPouvoir() == 1 && (pos + 8 * n) < 64 && this.board[pos + 8 * n].getOccupe() == true && (pos + (8 * (n + 1)) < 64 && this.board[pos + (8 * (n + 1))].getOccupe() == false && !casesDepartNoires.Contains(pos + 8 * n)) &&
                     this.getEquipeNumCase(getCase(pos + 8 * n).getNumCase()) != 1)
                 {
                     casesCibles.Add(pos + 8 * n);

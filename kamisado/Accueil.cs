@@ -14,6 +14,7 @@ namespace kamisado
     {
         internal static Joueur J1, J2;
         internal static bool partie_complexe = false;
+        internal static int tempsChoisi;
 
         public Accueil()
         {
@@ -25,29 +26,13 @@ namespace kamisado
         {
             btn_newGame.BackgroundImageLayout = ImageLayout.Center;
             btn_newGame.BackgroundImage = boutonsList.Images[0];
-            btn_loadGame.BackgroundImageLayout = ImageLayout.Center;
-            btn_loadGame.BackgroundImage = boutonsList.Images[1];
+            
             btn_quitGame.BackgroundImageLayout = ImageLayout.Center;
             btn_quitGame.BackgroundImage = boutonsList.Images[2];
-            
-            btn_simpleGame.Visible = false;
-            btn_simpleGame.BackgroundImageLayout = ImageLayout.Center;
-            btn_simpleGame.BackgroundImage = boutonsList.Images[3];
-
-            btn_complexGame.Visible = false;
-            btn_complexGame.BackgroundImageLayout = ImageLayout.Center;
-            btn_complexGame.BackgroundImage = boutonsList.Images[4];
         }
 
         private void btn_newGame_Click(object sender, EventArgs e)
         {
-            //btn_newGame.Visible = false;
-            //btn_loadGame.Visible = false;
-            //btn_quitGame.Visible = false;
-            //btn_simpleGame.Visible = true;
-            //btn_complexGame.Visible = true;
-            //this.Visible = false;
-
             ChoixTypePartie choix = new ChoixTypePartie();
             choix.ShowDialog();
             this.Visible = false;
@@ -55,12 +40,7 @@ namespace kamisado
             game.ShowDialog();
             this.Visible = true;
         }
-
-        private void btn_loadGame_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+        
         private void btn_quitGame_Click(object sender, EventArgs e)
         {
             Application.Exit();

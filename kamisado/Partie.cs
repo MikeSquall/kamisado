@@ -542,7 +542,7 @@ namespace kamisado
                 if(Accueil.J1.getPoints() >= 3 || Accueil.J2.getPoints() >= 3)
                 {
                 	fin_partie = true;
-                	MessageBox.Show(joueurActif.getNom() + "gagne la partie! Félicitations", "Nous avons notre champion");
+                	MessageBox.Show(joueurActif.getNom() + " gagne la partie! Félicitations", "Nous avons notre champion");
                 }
 
                 if (fin_partie == false)
@@ -1201,7 +1201,7 @@ namespace kamisado
         }
 
         /********************************************************************************************************************************************************************************************/
-        /*****************************************************************************Gestion des menus déroulants***********************************************************************************/
+        /***************************************************************************** Gestion des menus ********************************************************************************************/
         /********************************************************************************************************************************************************************************************/
 
         // menu 'aide' => 'but du jeu"
@@ -1237,21 +1237,33 @@ namespace kamisado
             reponse = MessageBox.Show(msg, titre, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (reponse == DialogResult.Yes)
             {
-                // penser à rajouter proposition de sauvegarde si partie non sauvegardée
                 this.Close();
             }
         }
 
-        // menu 'Jeu' => "Sauvegarder"
-        private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
+        // menu 'Jeu' => 'Nouvelle Partie" => "Partie simple"
+        private void nouvellePartie(object sender, EventArgs e)
         {
-            Sauvegarde.sauver(this);
-        }
-
-        // menu 'Jeu' => "Charger partie"
-        private void chargerPartieToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+            String titre = "Confirmation",
+                   msg = "Êtes-vous sûr de vouloir lancer une nouvelle partie ?" 
+                   + Environment.NewLine + "Cela quittera la partie en cours";
+            DialogResult reponse;
+            reponse = MessageBox.Show(msg, titre, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (reponse == DialogResult.Yes)
+            {
+                this.Dispose();
+                Accueil.J1.resetPointsEtTimer();
+                Accueil.J2.resetPointsEtTimer();
+                if(((ToolStripMenuItem)sender).Name == "partieSimpleMenu")
+                {
+                    Accueil.partie_complexe = false;
+                } else
+                {
+                    Accueil.partie_complexe = true;
+                }
+                Partie game = new Partie();
+                game.ShowDialog();
+            }
         }
 
         /********************************************************************************************************************************************************************************************/
@@ -1297,7 +1309,6 @@ namespace kamisado
                 }
             }
         }
-
     }
 }
  
