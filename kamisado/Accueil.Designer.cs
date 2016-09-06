@@ -103,6 +103,7 @@
             this.Controls.Add(this.btn_quitGame);
             this.Controls.Add(this.btn_newGame);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Accueil";
             this.Text = "Accueil";
             this.Load += new System.EventHandler(this.Accueil_Load);

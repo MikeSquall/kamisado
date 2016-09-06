@@ -448,6 +448,7 @@
             this.Controls.Add(this.infoboxJ1);
             this.Controls.Add(this.fond_board);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Partie";
             this.Text = "Kamisado";
             this.Load += new System.EventHandler(this.Form1_Load);
