@@ -1038,14 +1038,14 @@ namespace kamisado
                     {
                         pic.BackColor = board.Controls[i].BackColor;
                         /* et on en profite pour repérer la prochaine toûr qui devra être jouée*/
-                        //if (joueurActif.getCouleurPions() == 1)
-                        //{
-                        //    index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
-                        //}
-                        //else
-                        //{
-                        //    index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
-                        //}
+                        if (joueurActif.getCouleurPions() == 1)
+                        {
+                            index = plateau.getTag(Convert.ToInt16(board.Controls[i].Tag));
+                        }
+                        else
+                        {
+                            index = plateau.getTag(7 + (8 - Convert.ToInt16(board.Controls[i].Tag)));
+                        }
                     }
                 }
 
@@ -1080,7 +1080,6 @@ namespace kamisado
                 int compteurBlocage = 0;
                 while (this.pionBloque(index))
                 {
-                    //MessageBox.Show("Test si on rentre dans la boucle");
                     int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
                     int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
                     Coup coup;
@@ -1111,20 +1110,9 @@ namespace kamisado
                         finPartieImpasseTotale(plateau.getPion(tourDeplacee.getNumPion()));
                         break;
                     }
-                    /*on branche la prochaine tour qui devra être jouée*/
-                    foreach (Control ctrl in board.Controls)
-                    {
-                        if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
-                        {
-                            ctrl.MouseDown += new MouseEventHandler(clic_souris);
-                            tourAjouer = (PictureBox)ctrl;
-                            ctrl.Cursor = Cursors.Hand;
-                        }
-                    }
                 }
 
-
-                /*on débranche le clic_souris de toutes les picturebox*/
+                /*on débranche le clic_souris de toutes les picturebox et on branche la picturebox qui devra être jouée au prochain tour*/
                 foreach (Control ctrl in board.Controls)
                 {
                     if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) != index)
@@ -1134,6 +1122,12 @@ namespace kamisado
                         ctrl.DragDrop -= new DragEventHandler(depose_case);
                         ctrl.AllowDrop = false;
                         ctrl.Cursor = Cursors.No;
+                    }
+                    else if (ctrl is PictureBox && Convert.ToInt16(ctrl.Tag) == index)
+                    {
+                        ctrl.MouseDown += new MouseEventHandler(clic_souris);
+                        tourAjouer = (PictureBox)ctrl;
+                        ctrl.Cursor = Cursors.Hand;
                     }
                 }
             }
