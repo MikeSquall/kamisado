@@ -73,6 +73,16 @@ namespace kamisado.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap btn_rules {
+            get {
+                object obj = ResourceManager.GetObject("btn-rules", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fond {
             get {
                 object obj = ResourceManager.GetObject("fond", resourceCulture);

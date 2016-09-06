@@ -26,7 +26,10 @@ namespace kamisado
         {
             btn_newGame.BackgroundImageLayout = ImageLayout.Center;
             btn_newGame.BackgroundImage = boutonsList.Images[0];
-            
+
+            btn_rules.BackgroundImageLayout = ImageLayout.Center;
+            btn_rules.BackgroundImage = boutonsList.Images[1];
+
             btn_quitGame.BackgroundImageLayout = ImageLayout.Center;
             btn_quitGame.BackgroundImage = boutonsList.Images[2];
         }
@@ -40,7 +43,14 @@ namespace kamisado
             game.ShowDialog();
             this.Visible = true;
         }
-        
+
+        private void btn_rules_Click(object sender, EventArgs e)
+        {
+            infos rules = new infos();
+            rules.ShowDialog();
+            this.CenterToParent();
+        }
+
         private void btn_quitGame_Click(object sender, EventArgs e)
         {
             Application.Exit();

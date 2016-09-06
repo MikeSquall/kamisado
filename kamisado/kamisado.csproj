@@ -157,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="kamisado_icone.ico" />
+    <None Include="Resources\btn-rules.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
