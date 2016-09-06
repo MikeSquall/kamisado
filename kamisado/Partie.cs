@@ -539,24 +539,10 @@ namespace kamisado
             {
                 bool fin_partie = false;
 
-                //MessageBox.Show("Debug 1 : on rentre dans le test");
-                if (joueurActif.getCouleurPions() == 0)
+                if(Accueil.J1.getPoints() >= 3 || Accueil.J2.getPoints() >= 3)
                 {
-                    //MessageBox.Show("Debug 2 : test si le jouer Noir a 3 points");
-                    if (Accueil.J1.getPoints() == 3)
-                    {
-                        fin_partie = true;
-                        MessageBox.Show(Accueil.J1.getNom() + " gagne la partie! Félicitations", "Nous avons notre champion");
-                    }
-                }
-                else if (joueurActif.getCouleurPions() == 1)
-                {
-                    //MessageBox.Show("Debug 2 : test si le jouer Blanc a 3 points");
-                    if (Accueil.J2.getPoints() == 3)
-                    {
-                        fin_partie = true;
-                        MessageBox.Show(Accueil.J2.getNom() + " gagne la partie! Félicitations", "Nous avons notre champion");
-                    }
+                	fin_partie = true;
+                	MessageBox.Show(joueurActif.getNom() + "gagne la partie! Félicitations", "Nous avons notre champion");
                 }
 
                 if (fin_partie == false)
