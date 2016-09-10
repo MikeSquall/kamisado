@@ -148,19 +148,19 @@ namespace kamisado
             return this.board[indice];
         }
 
-        public int getTag(int index)
-        {
-            int ind = -1;
-            for (int i = 0; i < 16; i++)
-            {
-                if (tours[i].getIndex() == index)
-                {
-                    ind = tours[i].getNumPion();
-                }
-            }
+        //public int getTag(int index)
+        //{
+        //    int ind = -1;
+        //    for (int i = 0; i < 16; i++)
+        //    {
+        //        if (tours[i].getIndex() == index)
+        //        {
+        //            ind = tours[i].getNumPion();
+        //        }
+        //    }
 
-            return ind;
-        }
+        //    return ind;
+        //}
 
         public int getEquipeNumCase(int num_case)
         {

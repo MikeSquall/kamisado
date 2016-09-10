@@ -255,6 +255,7 @@
             // 
             // listeCoups
             // 
+            this.listeCoups.Enabled = false;
             this.listeCoups.Location = new System.Drawing.Point(652, 219);
             this.listeCoups.Multiline = true;
             this.listeCoups.Name = "listeCoups";
