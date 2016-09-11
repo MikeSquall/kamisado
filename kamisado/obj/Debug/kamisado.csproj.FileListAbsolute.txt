@@ -58,3 +58,7 @@ C:\Users\LyesKes\Desktop\Kamis\kamisado\obj\Debug\kamisado.Partie.resources
 C:\Users\LyesKes\Desktop\Kamis\kamisado\obj\Debug\kamisado.Properties.Resources.resources
 C:\Users\LyesKes\Desktop\Kamis\kamisado\obj\Debug\kamisado.infos.resources
 C:\Users\LyesKes\Desktop\Kamis\kamisado\obj\Debug\kamisado.csproj.GenerateResource.Cache
+D:\kamisado\bin\Debug\kamisado.exe.manifest
+D:\kamisado\bin\Debug\kamisado.application
+D:\kamisado\obj\Debug\kamisado.exe.manifest
+D:\kamisado\obj\Debug\kamisado.application
