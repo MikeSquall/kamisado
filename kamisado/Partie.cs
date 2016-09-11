@@ -18,7 +18,6 @@ using System.Windows.Forms;
     - Gestion du Drag & Drop
     - Gestion des timers
     - Gestion des menus déroulants
-    - Gestion sauvegarde/chargement
     - Procédures/Fonctions de debug
 */
 
@@ -258,6 +257,7 @@ namespace kamisado
             listeCoups.Text += Accueil.J1.getNom() + " peut jouer la tour de son choix" + Environment.NewLine;
 
             /*On crée un deuxième plateau pour voir le debug: le but est de pouvoir visualiser après chaque coup la situation du plateau afin de s'assurer que tout est OK*/
+            /*penser à décommenter la ligne 887 plateau_temps_reel()*/
             //groupBox1.Visible = true;
             //groupBox1.BringToFront();
             //groupBox1.Size = new Size(420, 420);
@@ -295,7 +295,7 @@ namespace kamisado
         /********************************************************************************************************************************************************************************************/
 
         /*gestion de la fin de partie par fin du temps*/
-        public bool fin_partie_temps()
+        private bool fin_partie_temps()
         {
             /*gestion de la fin de partie par fin de chrono*/
             bool flag = false;
@@ -360,7 +360,7 @@ namespace kamisado
         /********************************************************************************************************************************************************************************************/
         
             /*gestion de la fin de partie classique*/
-        public bool fin_partie_classique(int num_case)
+        private bool fin_partie_classique(int num_case)
         {
             /*fin de partie si :
                 - l'un des joueurs a placé sa tour sur la ligne de départ de l'autre
@@ -532,7 +532,7 @@ namespace kamisado
         /********************************************************************************************************************************************************************************************/
 
         /*traitements communs aux procédures/fonctions de fin de partie*/
-        public void check_si_partie_complexe()
+        private void check_si_partie_complexe()
         {
             /*si la partie est de type complexe alors on continue de jouer*/
             if (Accueil.partie_complexe == true)
@@ -951,7 +951,7 @@ namespace kamisado
                     int compteurBlocage = 0;
                     while (this.pionBloque(index))
                     {
-                        MessageBox.Show("Le pion bloqué est : " + Convert.ToString(index));
+                        //MessageBox.Show("Le pion bloqué est : " + Convert.ToString(index));
                         int casePionBloque = plateau.getPion(index).getPosition().getNumCase();
                         int couleurCasePionBloque = plateau.getCase(casePionBloque).getCouleurNum();
                         Coup coup;
@@ -1261,25 +1261,10 @@ namespace kamisado
         }
 
         /********************************************************************************************************************************************************************************************/
-        /*****************************************************************************Gestion Sauvegarde / Chargement********************************************************************************/
-        /********************************************************************************************************************************************************************************************/
-
-        public Plateau getPlateau()
-        {
-            return this.plateau;
-        }
-
-        public String getHistoCoups()
-        {
-            return this.listeCoups.Text;
-        }
-
-
-        /********************************************************************************************************************************************************************************************/
         /*****************************************************************************Procédures Debug***********************************************************************************************/
         /********************************************************************************************************************************************************************************************/
 
-        public void check_pouvoir()
+        private void check_pouvoir()
         {
             for (int i = 0; i < 16; i++)
             {
@@ -1288,7 +1273,7 @@ namespace kamisado
         }
 
         /*pour voir l'état du plateau en temps réél*/
-        public void plateau_temps_reel()
+        private void plateau_temps_reel()
         {
             foreach (Label lab in groupBox1.Controls)
             {
